@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
@@ -7,10 +8,21 @@
   box-sizing: border-box;
 }
 
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
 .navBar {
   background-color:#0c486c;
   padding:1px;
   text-align:center;
+  height:50px;
+  position: relative;
+  
+  display: table-cell;
+  vertical-align: middle;
+  width:1%;
 }
 
 .menu {
@@ -19,17 +31,20 @@
   height: 100%;
   text-align:center;
 }
+
 .menuitem {
   background-color:#e5e5e5;
   padding:9px;
   margin-top:7px;
   height:100%;
 }
+
 .main {
   float:left;
   width:50%;
   padding:0 20px;
 }
+
 .right {
   background-color:#e5e5e5;
   float:left;
@@ -39,8 +54,30 @@
   text-align:center;
   height:100%;
 }
-img {
-    vertical-align: text-top;
+.logo {
+    position:absolute;
+    top:0;
+    bottom:0;
+	left: 8px;
+    margin:auto;
+}
+
+.cfg {
+    position:absolute;
+    top:0;
+    bottom:0;
+	right: 8px;
+    margin:auto;
+}
+
+div {
+    
+}
+
+.center {
+	height: 50px;
+    margin:auto;
+    text-align: center;
 }
 
 @media only screen and (max-width:620px) {
@@ -54,8 +91,9 @@ img {
 <body style="font-family:Verdana;color:#aaaaaa;">
 
 <div class="navBar">
-    <div style="width=20%;float:left;padding:4px"><img src="logo.png" alt="Mountain View" width="41" height="30"></div>
-    <div><h3>Hello World</h3></div>
+    <img class="logo" src="logo.png" alt="logo" width="41" height="30">
+	<img class="cfg" src="cfg.png" alt="configuration" width="30" height="30">
+	<input style="margin-left:auto;margin-right" type="text" ng-model="name" placeholder="Nombre apellido...">
 </div>
 
 <div style="overflow:auto">
