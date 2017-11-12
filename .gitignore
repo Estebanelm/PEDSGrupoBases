@@ -1,1 +1,6 @@
 desktop.ini
+DigiTutorService/packages/
+DigiTutorService/DigiTutorService/obj/Debug/
+DigiTutorService/DigiTutorService/bin/roslyn/VBCSCompiler.exe.config
+DigiTutorService/DigiTutorService/bin/roslyn/
+DigiTutorService/.vs/
