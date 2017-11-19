@@ -21,7 +21,28 @@
                 <input type="text" id="inputCarne" class="form-control" placeholder="Carné/Identificador" required autofocus>
                 <input type="password" id="inputContraseña" class="form-control" placeholder="Contraseña" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" style=" background:#79be9a">Iniciar Sesión</button>
-                <button class="btn btn-lg btn-primary btn-block" type="" style=" background:#79be9a">Crear Perfil</button>
+                <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#mdlElegirUsuario" type="button" style=" background:#79be9a">Crear Perfil</button>
+                <!-- Modal -->
+                <div class="modal fade" id="mdlElegirUsuario" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Tipo de Usuario</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Qué tipo de usuario le gustaría crear?</p>
+                                <button type="button" class="btn btn-default" style=" background:#79be9a; color:white" data-dismiss="modal">Estudiante</button>
+                                <button type="button" class="btn btn-default" style=" background:#79be9a; color:white" data-dismiss="modal">Administrador</button>
+                                
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </form>
     </div> <!-- /container -->
@@ -29,7 +50,7 @@
     <footer class="container-fluid bg-4 text-center" >
         <div>
             <p style="color:white; display:inline-block">   &#65518; Aprenda de los que saben</p>
-            <p style="color:white; display:inline-block">   &#65518; Informese sobre tutorías</p>
+            <p style="color:white; display:inline-block">   &#65518; Infórmese sobre tutorías</p>
         </div>
         <div>
             <p style="color:white; display:inline-block">   &#65518; Demuestre sus conocimientos</p>
@@ -43,9 +64,9 @@
 </footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="app/app.module.js"></script>
     <script src="app/main.js"></script>
 
