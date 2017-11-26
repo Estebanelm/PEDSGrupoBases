@@ -1,0 +1,47 @@
+
+var app = angular.module("crearPerfilEstudianteApp", []); 
+
+app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter) {
+	$scope.myTec=[];
+	$scope.prueba=77;
+	
+	//función para seleccionar una tecnologia de la lista de disponibles, se quita de la lista y se agrega en la sección de mis tecnologias 
+	$scope.addMyTec=function(index){
+		if($scope.myTec.length<10){
+
+			$scope.myTec.push($scope.tecnologiasDisponibles[index]);
+			$scope.tecnologiasDisponibles.splice(index,1);
+			$scope.prueba=index;
+			
+		}
+		else{
+			swal({
+			  position: 'center',
+			  type: 'error',
+			  title: 'Sólo se pueden elegir 10 tecnologías',
+			  showConfirmButton: false,
+			  timer: 1500
+				})
+		}
+	 };
+
+	 $scope.erraseMyTec=function(index){
+		
+			
+			$scope.tecnologiasDisponibles.push($scope.myTec[index]);
+			$scope.tecnologiasDisponibles = $filter('orderBy')($scope.tecnologiasDisponibles, 'Name');
+			$scope.myTec.splice(index,1);
+			
+		
+		
+	 };
+
+   $http({
+        method : "GET",
+        url : "https://www.w3schools.com/angular/customers_sql.aspx"
+    }).then(function (response) {$scope.tecnologiasDisponibles = response.data.records;}
+    , function(response) {
+        //Second function handles error
+        $scope.tecnologiasDisponibles = "Error";
+    });
+});
