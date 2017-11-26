@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DigiTutorService.DataAccessLayer
 {
-    public class FachadaAdminDAL
+    public class EstudianteSigueEstudianteDAO
     {
       
       
