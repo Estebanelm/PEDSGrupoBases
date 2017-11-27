@@ -78,6 +78,7 @@
       <HintPath>..\packages\System.Reflection.TypeExtensions.4.3.0\lib\net46\System.Reflection.TypeExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
@@ -153,26 +154,10 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="DataAccessLayer\Admin\CategoriaDAO.cs" />
-    <Compile Include="DataAccessLayer\Admin\TecnologiaDAO.cs" />
-    <Compile Include="DataAccessLayer\Admin\UniversidadDAO.cs" />
     <Compile Include="DataAccessLayer\ConexionDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaAdminDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaPublicacionesDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaUsuariosDAL.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\ComentariosDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\ContenidoDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\DocumentoDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\EvaluacionDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\PublicacionDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\RegistroTutoriaDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\TecnologiaPublicacionDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\TutoriaDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\ApoyoDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\EstudianteDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\EstudianteSigueEstudianteDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\EstudianteTecnologiaDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\UsuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,6 +181,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
