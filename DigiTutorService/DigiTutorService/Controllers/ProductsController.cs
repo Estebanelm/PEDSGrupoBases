@@ -1,4 +1,6 @@
-﻿using DigiTutorService.Models;
+﻿using DigiTutorService.DataAccessLayer;
+using DigiTutorService.DataAccessLayer.Repository;
+using DigiTutorService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +51,9 @@ namespace DigiTutorService.Controllers
                 products.Add(model);
             }
 
+            CategoriaDAO nuevaCategoria = new CategoriaDAO() { nombre = "CategoriaChanchis" };
+            RepositoryDAL.Create(nuevaCategoria);
+            /*
             // Generate credentials that we want to use
             var creds = new TwitterCredentials("G7aCvHb5Hufk3YcjjHKawNub0", "oKiHAA76OmcNeaGKtR22pp5TrObWUXNLI49qj7RUdgT2Cv3rET", "931973066627993600-Ke3cXcyJuq5FoWh7R8djNbdfesXtxYB", "VO0fswBj43tDZ2AFwooRB6hEC3SSSaHj1bARmukPWpfZF"); ;
 
@@ -57,7 +62,7 @@ namespace DigiTutorService.Controllers
             {
                 return Tweet.PublishTweet("Primer tweet de DigiTutorBases");
             });
-
+            */
             return Ok();
         }
     }

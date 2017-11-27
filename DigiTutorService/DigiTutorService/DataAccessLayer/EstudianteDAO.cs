@@ -62,5 +62,11 @@ namespace DigiTutorService.DataAccessLayer
         public virtual ICollection<TutoriaDAO> Tutorias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TecnologiaDAO> Tecnologias { get; set; }
+
+        public bool agregarEstudiante (EstudianteDAO estudiante)
+        {
+
+            return true;
+        }
     }
 }
