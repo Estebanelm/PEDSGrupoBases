@@ -1,0 +1,1219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataAccessLayer.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DigiTutorDB.dbo.Apoyo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Apoyo">
+          <Key>
+            <PropertyRef Name="id_estudianteApoyado" />
+            <PropertyRef Name="id_estudianteDaApoyo" />
+            <PropertyRef Name="id_tecnologia" />
+            <PropertyRef Name="fecha" />
+          </Key>
+          <Property Name="id_estudianteApoyado" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_estudianteDaApoyo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_tecnologia" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DigiTutorDB.dbo.Comentario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="id_estudiante" />
+            <PropertyRef Name="id_publicacion" />
+            <PropertyRef Name="contenido" />
+            <PropertyRef Name="fecha_creacion" />
+            <PropertyRef Name="activo" />
+          </Key>
+          <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_publicacion" Type="int" Nullable="false" />
+          <Property Name="contenido" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="fecha_creacion" Type="date" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Contenido">
+          <Key>
+            <PropertyRef Name="id_publicacion" />
+          </Key>
+          <Property Name="id_publicacion" Type="int" Nullable="false" />
+          <Property Name="enlace_video" Type="varchar" MaxLength="300" />
+          <Property Name="enlace_extra" Type="varchar" MaxLength="300" />
+          <Property Name="id_documento" Type="int" />
+        </EntityType>
+        <EntityType Name="Documento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="tamano" Type="int" Nullable="false" />
+          <Property Name="contenido" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_pais" Type="int" Nullable="false" />
+          <Property Name="id_universidad" Type="int" Nullable="false" />
+          <Property Name="telefono_celular" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="telefono_fijo" Type="varchar" MaxLength="10" />
+          <Property Name="correo_secundario" Type="varchar" MaxLength="30" />
+          <Property Name="foto" Type="varchar" MaxLength="200" />
+          <Property Name="descripcion" Type="varchar" MaxLength="300" />
+          <Property Name="reputacion" Type="int" Nullable="false" />
+          <Property Name="participacion" Type="int" Nullable="false" />
+          <Property Name="apoyos_disponibles" Type="int" Nullable="false" />
+          <Property Name="numero_seguidores" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DigiTutorDB.dbo.Estudiante_sigue_Estudiante' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Estudiante_sigue_Estudiante">
+          <Key>
+            <PropertyRef Name="id_estudianteSeguido" />
+            <PropertyRef Name="id_estudianteSeguidor" />
+          </Key>
+          <Property Name="id_estudianteSeguido" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_estudianteSeguidor" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Evaluacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_publicacion" Type="int" Nullable="false" />
+          <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="positiva" Type="bit" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Publicacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="300" />
+          <Property Name="evaluaciones_negativas" Type="int" Nullable="false" />
+          <Property Name="evaluaciones_positivas" Type="int" Nullable="false" />
+          <Property Name="fecha_publicacion" Type="date" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DigiTutorDB.dbo.RegistroTutoria' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RegistroTutoria">
+          <Key>
+            <PropertyRef Name="id_estudiante" />
+            <PropertyRef Name="id_tutoria" />
+          </Key>
+          <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_tutoria" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tecnologia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_categoria" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tecnologia_x_Estudiante">
+          <Key>
+            <PropertyRef Name="id_tecnologia" />
+            <PropertyRef Name="id_estudiante" />
+          </Key>
+          <Property Name="id_tecnologia" Type="int" Nullable="false" />
+          <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tutoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_publicacion" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_tutoria" Type="date" Nullable="false" />
+          <Property Name="lugar" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="costo" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Universidad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="contrasena" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="fecha_creacion" Type="date" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="correo_principal" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+          <Property Name="is_admin" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Apoyado">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Apoyo" Type="Self.Apoyo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Apoyo">
+              <PropertyRef Name="id_estudianteApoyado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Apoyo_Tecnologia">
+          <End Role="Tecnologia" Type="Self.Tecnologia" Multiplicity="1" />
+          <End Role="Apoyo" Type="Self.Apoyo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tecnologia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Apoyo">
+              <PropertyRef Name="id_tecnologia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Publicacion">
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenido_Documento">
+          <End Role="Documento" Type="Self.Documento" Multiplicity="0..1" />
+          <End Role="Contenido" Type="Self.Contenido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contenido">
+              <PropertyRef Name="id_documento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenido_Publicacion">
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
+          <End Role="Contenido" Type="Self.Contenido" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contenido">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DaApoyo">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Apoyo" Type="Self.Apoyo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Apoyo">
+              <PropertyRef Name="id_estudianteDaApoyo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="id_pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Universidad">
+          <End Role="Universidad" Type="Self.Universidad" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Universidad">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="id_universidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evaluacion_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Evaluacion" Type="Self.Evaluacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Evaluacion">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evaluacion_Publicacion">
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
+          <End Role="Evaluacion" Type="Self.Evaluacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Evaluacion">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publicacion_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Publicacion">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistroTutoria_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="RegistroTutoria" Type="Self.RegistroTutoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="RegistroTutoria">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistroTutoria_Tutoria">
+          <End Role="Tutoria" Type="Self.Tutoria" Multiplicity="1" />
+          <End Role="RegistroTutoria" Type="Self.RegistroTutoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tutoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RegistroTutoria">
+              <PropertyRef Name="id_tutoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seguido">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Estudiante_sigue_Estudiante" Type="Self.Estudiante_sigue_Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Estudiante_sigue_Estudiante">
+              <PropertyRef Name="id_estudianteSeguido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seguidor">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Estudiante_sigue_Estudiante" Type="Self.Estudiante_sigue_Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Estudiante_sigue_Estudiante">
+              <PropertyRef Name="id_estudianteSeguidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tecnologia_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Tecnologia" Type="Self.Tecnologia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tecnologia">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tecnologia_x_Estudiante_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Tecnologia_x_Estudiante" Type="Self.Tecnologia_x_Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tecnologia_x_Estudiante">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tecnologia_x_Estudiante_Tecnologia">
+          <End Role="Tecnologia" Type="Self.Tecnologia" Multiplicity="1" />
+          <End Role="Tecnologia_x_Estudiante" Type="Self.Tecnologia_x_Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tecnologia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tecnologia_x_Estudiante">
+              <PropertyRef Name="id_tecnologia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tutoria_Publicacion">
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
+          <End Role="Tutoria" Type="Self.Tutoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tutoria">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataAccessLayerStoreContainer">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Documento" EntityType="Self.Documento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evaluacion" EntityType="Self.Evaluacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Publicacion" EntityType="Self.Publicacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tecnologia" EntityType="Self.Tecnologia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tutoria" EntityType="Self.Tutoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Universidad" EntityType="Self.Universidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Apoyo" EntityType="Self.Apoyo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Apoyo].[id_estudianteApoyado] AS [id_estudianteApoyado], 
+    [Apoyo].[id_estudianteDaApoyo] AS [id_estudianteDaApoyo], 
+    [Apoyo].[id_tecnologia] AS [id_tecnologia], 
+    [Apoyo].[fecha] AS [fecha]
+    FROM [dbo].[Apoyo] AS [Apoyo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Comentario" EntityType="Self.Comentario" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Comentario].[id_estudiante] AS [id_estudiante], 
+    [Comentario].[id_publicacion] AS [id_publicacion], 
+    [Comentario].[contenido] AS [contenido], 
+    [Comentario].[fecha_creacion] AS [fecha_creacion], 
+    [Comentario].[activo] AS [activo]
+    FROM [dbo].[Comentario] AS [Comentario]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Contenido" EntityType="Self.Contenido" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Contenido].[id_publicacion] AS [id_publicacion], 
+    [Contenido].[enlace_video] AS [enlace_video], 
+    [Contenido].[enlace_extra] AS [enlace_extra], 
+    [Contenido].[id_documento] AS [id_documento]
+    FROM [dbo].[Contenido] AS [Contenido]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Estudiante_sigue_Estudiante" EntityType="Self.Estudiante_sigue_Estudiante" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Estudiante_sigue_Estudiante].[id_estudianteSeguido] AS [id_estudianteSeguido], 
+    [Estudiante_sigue_Estudiante].[id_estudianteSeguidor] AS [id_estudianteSeguidor]
+    FROM [dbo].[Estudiante_sigue_Estudiante] AS [Estudiante_sigue_Estudiante]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RegistroTutoria" EntityType="Self.RegistroTutoria" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RegistroTutoria].[id_estudiante] AS [id_estudiante], 
+    [RegistroTutoria].[id_tutoria] AS [id_tutoria]
+    FROM [dbo].[RegistroTutoria] AS [RegistroTutoria]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tecnologia_x_Estudiante" EntityType="Self.Tecnologia_x_Estudiante" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tecnologia_x_Estudiante].[id_tecnologia] AS [id_tecnologia], 
+    [Tecnologia_x_Estudiante].[id_estudiante] AS [id_estudiante]
+    FROM [dbo].[Tecnologia_x_Estudiante] AS [Tecnologia_x_Estudiante]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Apoyado" Association="Self.FK_Apoyado">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Apoyo" EntitySet="Apoyo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Apoyo_Tecnologia" Association="Self.FK_Apoyo_Tecnologia">
+            <End Role="Tecnologia" EntitySet="Tecnologia" />
+            <End Role="Apoyo" EntitySet="Apoyo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Estudiante" Association="Self.FK_Comentario_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Publicacion" Association="Self.FK_Comentario_Publicacion">
+            <End Role="Publicacion" EntitySet="Publicacion" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenido_Documento" Association="Self.FK_Contenido_Documento">
+            <End Role="Documento" EntitySet="Documento" />
+            <End Role="Contenido" EntitySet="Contenido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenido_Publicacion" Association="Self.FK_Contenido_Publicacion">
+            <End Role="Publicacion" EntitySet="Publicacion" />
+            <End Role="Contenido" EntitySet="Contenido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DaApoyo" Association="Self.FK_DaApoyo">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Apoyo" EntitySet="Apoyo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Pais" Association="Self.FK_Estudiante_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Universidad" Association="Self.FK_Estudiante_Universidad">
+            <End Role="Universidad" EntitySet="Universidad" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Usuario" Association="Self.FK_Estudiante_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evaluacion_Estudiante" Association="Self.FK_Evaluacion_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Evaluacion" EntitySet="Evaluacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evaluacion_Publicacion" Association="Self.FK_Evaluacion_Publicacion">
+            <End Role="Publicacion" EntitySet="Publicacion" />
+            <End Role="Evaluacion" EntitySet="Evaluacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publicacion_Estudiante" Association="Self.FK_Publicacion_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Publicacion" EntitySet="Publicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistroTutoria_Estudiante" Association="Self.FK_RegistroTutoria_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="RegistroTutoria" EntitySet="RegistroTutoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistroTutoria_Tutoria" Association="Self.FK_RegistroTutoria_Tutoria">
+            <End Role="Tutoria" EntitySet="Tutoria" />
+            <End Role="RegistroTutoria" EntitySet="RegistroTutoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguido" Association="Self.FK_Seguido">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Estudiante_sigue_Estudiante" EntitySet="Estudiante_sigue_Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguidor" Association="Self.FK_Seguidor">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Estudiante_sigue_Estudiante" EntitySet="Estudiante_sigue_Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_Categoria" Association="Self.FK_Tecnologia_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Tecnologia" EntitySet="Tecnologia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_x_Estudiante_Estudiante" Association="Self.FK_Tecnologia_x_Estudiante_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_x_Estudiante_Tecnologia" Association="Self.FK_Tecnologia_x_Estudiante_Tecnologia">
+            <End Role="Tecnologia" EntitySet="Tecnologia" />
+            <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tutoria_Publicacion" Association="Self.FK_Tutoria_Publicacion">
+            <End Role="Publicacion" EntitySet="Publicacion" />
+            <End Role="Tutoria" EntitySet="Tutoria" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataAccessLayer" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tecnologias" Relationship="Self.FK_Tecnologia_Categoria" FromRole="Categoria" ToRole="Tecnologia" />
+        </EntityType>
+        <EntityType Name="Documento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tamano" Type="Int32" Nullable="false" />
+          <Property Name="contenido" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Contenidoes" Relationship="Self.FK_Contenido_Documento" FromRole="Documento" ToRole="Contenido" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_pais" Type="Int32" Nullable="false" />
+          <Property Name="id_universidad" Type="Int32" Nullable="false" />
+          <Property Name="telefono_celular" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono_fijo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="correo_secundario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="reputacion" Type="Int32" Nullable="false" />
+          <Property Name="participacion" Type="Int32" Nullable="false" />
+          <Property Name="apoyos_disponibles" Type="Int32" Nullable="false" />
+          <Property Name="numero_seguidores" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Apoyoes" Relationship="Self.FK_Apoyado" FromRole="Estudiante" ToRole="Apoyo" />
+          <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentario_Estudiante" FromRole="Estudiante" ToRole="Comentario" />
+          <NavigationProperty Name="Apoyoes1" Relationship="Self.FK_DaApoyo" FromRole="Estudiante" ToRole="Apoyo" />
+          <NavigationProperty Name="Pai" Relationship="Self.FK_Estudiante_Pais" FromRole="Estudiante" ToRole="Pais" />
+          <NavigationProperty Name="Universidad" Relationship="Self.FK_Estudiante_Universidad" FromRole="Estudiante" ToRole="Universidad" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Estudiante_Usuario" FromRole="Estudiante" ToRole="Usuario" />
+          <NavigationProperty Name="Evaluacions" Relationship="Self.FK_Evaluacion_Estudiante" FromRole="Estudiante" ToRole="Evaluacion" />
+          <NavigationProperty Name="Publicacions" Relationship="Self.FK_Publicacion_Estudiante" FromRole="Estudiante" ToRole="Publicacion" />
+          <NavigationProperty Name="Estudiante1" Relationship="Self.Estudiante_sigue_Estudiante" FromRole="Estudiante" ToRole="Estudiante1" />
+          <NavigationProperty Name="Estudiantes" Relationship="Self.Estudiante_sigue_Estudiante" FromRole="Estudiante1" ToRole="Estudiante" />
+          <NavigationProperty Name="Tutorias" Relationship="Self.RegistroTutoria" FromRole="Estudiante" ToRole="Tutoria" />
+          <NavigationProperty Name="Tecnologias" Relationship="Self.Tecnologia_x_Estudiante" FromRole="Estudiante" ToRole="Tecnologia" />
+        </EntityType>
+        <EntityType Name="Evaluacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
+          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="positiva" Type="Boolean" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Evaluacion_Estudiante" FromRole="Evaluacion" ToRole="Estudiante" />
+          <NavigationProperty Name="Publicacion" Relationship="Self.FK_Evaluacion_Publicacion" FromRole="Evaluacion" ToRole="Publicacion" />
+        </EntityType>
+        <EntityType Name="Pai">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Estudiante_Pais" FromRole="Pais" ToRole="Estudiante" />
+        </EntityType>
+        <EntityType Name="Publicacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="evaluaciones_negativas" Type="Int32" Nullable="false" />
+          <Property Name="evaluaciones_positivas" Type="Int32" Nullable="false" />
+          <Property Name="fecha_publicacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Publicacion_Estudiante" FromRole="Publicacion" ToRole="Estudiante" />
+          <NavigationProperty Name="Evaluacions" Relationship="Self.FK_Evaluacion_Publicacion" FromRole="Publicacion" ToRole="Evaluacion" />
+          <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentario_Publicacion" FromRole="Publicacion" ToRole="Comentario" />
+          <NavigationProperty Name="Contenido" Relationship="Self.FK_Contenido_Publicacion" FromRole="Publicacion" ToRole="Contenido" />
+          <NavigationProperty Name="Tutorias" Relationship="Self.FK_Tutoria_Publicacion" FromRole="Publicacion" ToRole="Tutoria" />
+        </EntityType>
+        <EntityType Name="Tecnologia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_categoria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK_Tecnologia_Categoria" FromRole="Tecnologia" ToRole="Categoria" />
+          <NavigationProperty Name="Apoyoes" Relationship="Self.FK_Apoyo_Tecnologia" FromRole="Tecnologia" ToRole="Apoyo" />
+          <NavigationProperty Name="Estudiantes" Relationship="Self.Tecnologia_x_Estudiante" FromRole="Tecnologia" ToRole="Estudiante" />
+        </EntityType>
+        <EntityType Name="Tutoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_tutoria" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="lugar" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="costo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Publicacion" Relationship="Self.FK_Tutoria_Publicacion" FromRole="Tutoria" ToRole="Publicacion" />
+          <NavigationProperty Name="Estudiantes" Relationship="Self.RegistroTutoria" FromRole="Tutoria" ToRole="Estudiante" />
+        </EntityType>
+        <EntityType Name="Universidad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Estudiante_Universidad" FromRole="Universidad" ToRole="Estudiante" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasena" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo_principal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="is_admin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Estudiante_Usuario" FromRole="Usuario" ToRole="Estudiante" />
+        </EntityType>
+        <EntityType Name="Apoyo">
+          <Key>
+            <PropertyRef Name="id_estudianteApoyado" />
+            <PropertyRef Name="id_estudianteDaApoyo" />
+            <PropertyRef Name="id_tecnologia" />
+            <PropertyRef Name="fecha" />
+          </Key>
+          <Property Name="id_estudianteApoyado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_estudianteDaApoyo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_tecnologia" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Apoyado" FromRole="Apoyo" ToRole="Estudiante" />
+          <NavigationProperty Name="Estudiante1" Relationship="Self.FK_DaApoyo" FromRole="Apoyo" ToRole="Estudiante" />
+          <NavigationProperty Name="Tecnologia" Relationship="Self.FK_Apoyo_Tecnologia" FromRole="Apoyo" ToRole="Tecnologia" />
+        </EntityType>
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="id_estudiante" />
+            <PropertyRef Name="id_publicacion" />
+            <PropertyRef Name="contenido" />
+            <PropertyRef Name="fecha_creacion" />
+            <PropertyRef Name="activo" />
+          </Key>
+          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
+          <Property Name="contenido" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Comentario_Estudiante" FromRole="Comentario" ToRole="Estudiante" />
+          <NavigationProperty Name="Publicacion" Relationship="Self.FK_Comentario_Publicacion" FromRole="Comentario" ToRole="Publicacion" />
+        </EntityType>
+        <EntityType Name="Contenido">
+          <Key>
+            <PropertyRef Name="id_publicacion" />
+          </Key>
+          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
+          <Property Name="enlace_video" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="enlace_extra" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="id_documento" Type="Int32" />
+          <NavigationProperty Name="Documento" Relationship="Self.FK_Contenido_Documento" FromRole="Contenido" ToRole="Documento" />
+          <NavigationProperty Name="Publicacion" Relationship="Self.FK_Contenido_Publicacion" FromRole="Contenido" ToRole="Publicacion" />
+        </EntityType>
+        <Association Name="FK_Tecnologia_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Tecnologia" Type="Self.Tecnologia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tecnologia">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenido_Documento">
+          <End Role="Documento" Type="Self.Documento" Multiplicity="0..1" />
+          <End Role="Contenido" Type="Self.Contenido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contenido">
+              <PropertyRef Name="id_documento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Apoyado">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Apoyo" Type="Self.Apoyo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Apoyo">
+              <PropertyRef Name="id_estudianteApoyado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DaApoyo">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Apoyo" Type="Self.Apoyo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Apoyo">
+              <PropertyRef Name="id_estudianteDaApoyo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Pais">
+          <End Role="Pais" Type="Self.Pai" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="id_pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Universidad">
+          <End Role="Universidad" Type="Self.Universidad" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Universidad">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="id_universidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evaluacion_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Evaluacion" Type="Self.Evaluacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Evaluacion">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publicacion_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Publicacion">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Evaluacion_Publicacion">
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
+          <End Role="Evaluacion" Type="Self.Evaluacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Evaluacion">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Publicacion">
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenido_Publicacion">
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
+          <End Role="Contenido" Type="Self.Contenido" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contenido">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tutoria_Publicacion">
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
+          <End Role="Tutoria" Type="Self.Tutoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tutoria">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Apoyo_Tecnologia">
+          <End Role="Tecnologia" Type="Self.Tecnologia" Multiplicity="1" />
+          <End Role="Apoyo" Type="Self.Apoyo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tecnologia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Apoyo">
+              <PropertyRef Name="id_tecnologia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Estudiante_sigue_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <End Role="Estudiante1" Type="Self.Estudiante" Multiplicity="*" />
+        </Association>
+        <Association Name="RegistroTutoria">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <End Role="Tutoria" Type="Self.Tutoria" Multiplicity="*" />
+        </Association>
+        <Association Name="Tecnologia_x_Estudiante">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <End Role="Tecnologia" Type="Self.Tecnologia" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DigiTutorDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+          <EntitySet Name="Documentoes" EntityType="Self.Documento" />
+          <EntitySet Name="Estudiantes" EntityType="Self.Estudiante" />
+          <EntitySet Name="Evaluacions" EntityType="Self.Evaluacion" />
+          <EntitySet Name="Pais" EntityType="Self.Pai" />
+          <EntitySet Name="Publicacions" EntityType="Self.Publicacion" />
+          <EntitySet Name="Tecnologias" EntityType="Self.Tecnologia" />
+          <EntitySet Name="Tutorias" EntityType="Self.Tutoria" />
+          <EntitySet Name="Universidads" EntityType="Self.Universidad" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="Apoyoes" EntityType="Self.Apoyo" />
+          <EntitySet Name="Comentarios" EntityType="Self.Comentario" />
+          <EntitySet Name="Contenidoes" EntityType="Self.Contenido" />
+          <AssociationSet Name="FK_Tecnologia_Categoria" Association="Self.FK_Tecnologia_Categoria">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Tecnologia" EntitySet="Tecnologias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenido_Documento" Association="Self.FK_Contenido_Documento">
+            <End Role="Documento" EntitySet="Documentoes" />
+            <End Role="Contenido" EntitySet="Contenidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Apoyado" Association="Self.FK_Apoyado">
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+            <End Role="Apoyo" EntitySet="Apoyoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Estudiante" Association="Self.FK_Comentario_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+            <End Role="Comentario" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DaApoyo" Association="Self.FK_DaApoyo">
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+            <End Role="Apoyo" EntitySet="Apoyoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Pais" Association="Self.FK_Estudiante_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Universidad" Association="Self.FK_Estudiante_Universidad">
+            <End Role="Universidad" EntitySet="Universidads" />
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Usuario" Association="Self.FK_Estudiante_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evaluacion_Estudiante" Association="Self.FK_Evaluacion_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+            <End Role="Evaluacion" EntitySet="Evaluacions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publicacion_Estudiante" Association="Self.FK_Publicacion_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+            <End Role="Publicacion" EntitySet="Publicacions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evaluacion_Publicacion" Association="Self.FK_Evaluacion_Publicacion">
+            <End Role="Publicacion" EntitySet="Publicacions" />
+            <End Role="Evaluacion" EntitySet="Evaluacions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Publicacion" Association="Self.FK_Comentario_Publicacion">
+            <End Role="Publicacion" EntitySet="Publicacions" />
+            <End Role="Comentario" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenido_Publicacion" Association="Self.FK_Contenido_Publicacion">
+            <End Role="Publicacion" EntitySet="Publicacions" />
+            <End Role="Contenido" EntitySet="Contenidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tutoria_Publicacion" Association="Self.FK_Tutoria_Publicacion">
+            <End Role="Publicacion" EntitySet="Publicacions" />
+            <End Role="Tutoria" EntitySet="Tutorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Apoyo_Tecnologia" Association="Self.FK_Apoyo_Tecnologia">
+            <End Role="Tecnologia" EntitySet="Tecnologias" />
+            <End Role="Apoyo" EntitySet="Apoyoes" />
+          </AssociationSet>
+          <AssociationSet Name="Estudiante_sigue_Estudiante" Association="Self.Estudiante_sigue_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+            <End Role="Estudiante1" EntitySet="Estudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="RegistroTutoria" Association="Self.RegistroTutoria">
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+            <End Role="Tutoria" EntitySet="Tutorias" />
+          </AssociationSet>
+          <AssociationSet Name="Tecnologia_x_Estudiante" Association="Self.Tecnologia_x_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiantes" />
+            <End Role="Tecnologia" EntitySet="Tecnologias" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataAccessLayerStoreContainer" CdmEntityContainer="DigiTutorDBEntities">
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="DataAccessLayer.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documentoes">
+            <EntityTypeMapping TypeName="DataAccessLayer.Documento">
+              <MappingFragment StoreEntitySet="Documento">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="tamano" ColumnName="tamano" />
+                <ScalarProperty Name="contenido" ColumnName="contenido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estudiantes">
+            <EntityTypeMapping TypeName="DataAccessLayer.Estudiante">
+              <MappingFragment StoreEntitySet="Estudiante">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+                <ScalarProperty Name="id_universidad" ColumnName="id_universidad" />
+                <ScalarProperty Name="telefono_celular" ColumnName="telefono_celular" />
+                <ScalarProperty Name="telefono_fijo" ColumnName="telefono_fijo" />
+                <ScalarProperty Name="correo_secundario" ColumnName="correo_secundario" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="reputacion" ColumnName="reputacion" />
+                <ScalarProperty Name="participacion" ColumnName="participacion" />
+                <ScalarProperty Name="apoyos_disponibles" ColumnName="apoyos_disponibles" />
+                <ScalarProperty Name="numero_seguidores" ColumnName="numero_seguidores" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evaluacions">
+            <EntityTypeMapping TypeName="DataAccessLayer.Evaluacion">
+              <MappingFragment StoreEntitySet="Evaluacion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="positiva" ColumnName="positiva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="DataAccessLayer.Pai">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publicacions">
+            <EntityTypeMapping TypeName="DataAccessLayer.Publicacion">
+              <MappingFragment StoreEntitySet="Publicacion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="evaluaciones_negativas" ColumnName="evaluaciones_negativas" />
+                <ScalarProperty Name="evaluaciones_positivas" ColumnName="evaluaciones_positivas" />
+                <ScalarProperty Name="fecha_publicacion" ColumnName="fecha_publicacion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tecnologias">
+            <EntityTypeMapping TypeName="DataAccessLayer.Tecnologia">
+              <MappingFragment StoreEntitySet="Tecnologia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tutorias">
+            <EntityTypeMapping TypeName="DataAccessLayer.Tutoria">
+              <MappingFragment StoreEntitySet="Tutoria">
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha_tutoria" ColumnName="fecha_tutoria" />
+                <ScalarProperty Name="lugar" ColumnName="lugar" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Universidads">
+            <EntityTypeMapping TypeName="DataAccessLayer.Universidad">
+              <MappingFragment StoreEntitySet="Universidad">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DataAccessLayer.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="correo_principal" ColumnName="correo_principal" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="is_admin" ColumnName="is_admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Apoyoes">
+            <EntityTypeMapping TypeName="DataAccessLayer.Apoyo">
+              <MappingFragment StoreEntitySet="Apoyo">
+                <ScalarProperty Name="id_estudianteApoyado" ColumnName="id_estudianteApoyado" />
+                <ScalarProperty Name="id_estudianteDaApoyo" ColumnName="id_estudianteDaApoyo" />
+                <ScalarProperty Name="id_tecnologia" ColumnName="id_tecnologia" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comentarios">
+            <EntityTypeMapping TypeName="DataAccessLayer.Comentario">
+              <MappingFragment StoreEntitySet="Comentario">
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+                <ScalarProperty Name="contenido" ColumnName="contenido" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contenidoes">
+            <EntityTypeMapping TypeName="DataAccessLayer.Contenido">
+              <MappingFragment StoreEntitySet="Contenido">
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+                <ScalarProperty Name="enlace_video" ColumnName="enlace_video" />
+                <ScalarProperty Name="enlace_extra" ColumnName="enlace_extra" />
+                <ScalarProperty Name="id_documento" ColumnName="id_documento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Estudiante_sigue_Estudiante" TypeName="DataAccessLayer.Estudiante_sigue_Estudiante" StoreEntitySet="Estudiante_sigue_Estudiante">
+            <EndProperty Name="Estudiante">
+              <ScalarProperty Name="id_usuario" ColumnName="id_estudianteSeguido" />
+            </EndProperty>
+            <EndProperty Name="Estudiante1">
+              <ScalarProperty Name="id_usuario" ColumnName="id_estudianteSeguidor" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RegistroTutoria" TypeName="DataAccessLayer.RegistroTutoria" StoreEntitySet="RegistroTutoria">
+            <EndProperty Name="Estudiante">
+              <ScalarProperty Name="id_usuario" ColumnName="id_estudiante" />
+            </EndProperty>
+            <EndProperty Name="Tutoria">
+              <ScalarProperty Name="id" ColumnName="id_tutoria" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Tecnologia_x_Estudiante" TypeName="DataAccessLayer.Tecnologia_x_Estudiante" StoreEntitySet="Tecnologia_x_Estudiante">
+            <EndProperty Name="Estudiante">
+              <ScalarProperty Name="id_usuario" ColumnName="id_estudiante" />
+            </EndProperty>
+            <EndProperty Name="Tecnologia">
+              <ScalarProperty Name="id" ColumnName="id_tecnologia" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
