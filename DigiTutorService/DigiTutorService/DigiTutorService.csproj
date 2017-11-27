@@ -154,26 +154,10 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="DataAccessLayer\Admin\CategoriaDAO.cs" />
-    <Compile Include="DataAccessLayer\Admin\TecnologiaDAO.cs" />
-    <Compile Include="DataAccessLayer\Admin\UniversidadDAO.cs" />
     <Compile Include="DataAccessLayer\ConexionDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaAdminDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaPublicacionesDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaUsuariosDAL.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\ComentariosDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\ContenidoDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\DocumentoDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\EvaluacionDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\PublicacionDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\RegistroTutoriaDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\TecnologiaPublicacionDAO.cs" />
-    <Compile Include="DataAccessLayer\Publicaciones\TutoriaDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\ApoyoDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\EstudianteDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\EstudianteSigueEstudianteDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\EstudianteTecnologiaDAO.cs" />
-    <Compile Include="DataAccessLayer\Usuarios\UsuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
