@@ -1,0 +1,269 @@
+<html  ng-app="crearPerfilEstudianteApp" lang="en">
+
+<head>
+  <title>Crear Perfil DigiTutor</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="styles.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.all.min.js"></script>
+  <script src="crearPerfilEstudianteApp.js"></script>
+</head>
+
+<body style="background-color:lavender;">
+  <div class="header clearfix" style="background-color:#0c486c; height: 173px">
+
+     <h1 id="logo">
+            <div class="col-lg-4 hidden-xs" > <img src="logo2.png" width="115" height="85">
+            <font  color="#ffffff">DigiTutor</font> </div>
+            
+            
+            <div class="col-lg-6 col-xs-9" >  <font color="#ffffff">Creación de perfil</font> </div>
+
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
+              <li class="dropdown col-lg-12 col-xs-2">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="color: white;"></span> </a>
+            <ul class="dropdown-menu">
+              <li><a href="http://www.google.ch" target="_blank">Ayuda</a></li>
+              <li><a href="http://www.google.ch" target="_blank">Idioma</a></li>
+              
+            </ul>
+             
+              
+        </h1>
+        <div class="col-sm-12 " style="background-color:#388787; padding-left:60px; ">
+          <h3>
+            <font color="#ffffff ">Por favor llene los espacios con la información solicitada</font>
+          </h3>
+          <h4>
+            <font color="#ffffff ">(los campos marcados con "* " son opcionales)</font>
+          </h4>
+        </div>  
+
+    
+
+  </div>
+  
+  <!-- /header -->
+
+
+  <div class="container-fluid " >
+    <div class="row ">
+
+      <div class="col-sm-7 " style="background-color:lavender; ">
+        <div class="col-sm-12 ">
+          <div class="col-sm-3 ">
+            <div class="col-sm-12 " style="background-color:lavender; height: 20px; "></div>
+            <img class="img-responsive img-thumbnail " src="perfil.png " width="200 " height="200 ">
+            <label class="col-md-12 control-label " for="nombre ">* Añadir imagen de perfil</label>
+          </div>
+
+          <form class="form-horizontal ">
+            <fieldset>
+              <div class="form-group ">
+                <div class="col-sm-12 " style="background-color:lavender; height: 20px; "></div>
+                <label class="col-md-4 control-label " for="nombre ">Nombre:</label>
+                <div class="col-md-7 ">
+                  <input id="nombre " name="nombre " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                </div>
+              </div>
+
+              <div class="form-group ">
+                <label class="col-md-4 control-label " for="apellido ">Apellido:</label>
+                <div class="col-md-7 ">
+                  <input id="apellido " name="apellido " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                </div>
+              </div>
+
+              <div class="form-group ">
+                <label class="col-md-4 control-label " for="carnet ">Carné:</label>
+                <div class="col-md-7 ">
+                  <input id="carnet " name="carnet " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                </div>
+              </div>
+
+              <div class="form-group ">
+                <label class="col-md-4 control-label " for="universidad ">Universidad:</label>
+                <div class="col-md-7 ">
+                  <select id="universidad " name="universidad " class="form-control ">
+                    <option value="India ">Tecnológico de CR</option>
+
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group ">
+                <label class="col-md-4 control-label " for="pais ">País:</label>
+                <div class="col-md-7 ">
+                  <select id="country " name="country " class="form-control ">
+                    <option value="India ">Costa Rica</option>
+
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+
+          
+          <div class="col-xs-12 " >
+            <!--Windows-->
+            <div class="panel panel-primary " ng-controller="tecnologiasDisponiblesCtrl" >
+              <div class="panel-heading " style=" background:#79be9a ">
+                <h3 class="panel-title "><i class="fa fa-windows fa-2x "></i> Tecnologías de conocimiento</h3>
+              </div>
+              <div class="panel-body ">
+              <p> Agregue las tecnologias que siente que domina. Otros estudiantes podran darle apoyos sobre estas tecnologías para afirmar su conocimiento de ellas. (puede agregar hasta 10) </p>
+                <div class="pull-left col-xs-12 col-lg-4 " style="height: 330px; background:lavender; ">
+                   <div class="panel-heading " style="background-color:lavender ">
+                     <h3 class="panel-title">Categorias</h3>
+                   </div>
+                   <div class="btn-group-vertical col-xs-12 "   style=" overflow-y: auto; height: 280px; " role="group " aria-label="Default button group ">
+
+                      <button type="button " ng-repeat="c in aCategorias" ng-click="ClkCategory(c)" class="btn btn-success btn-filter " style=" background:#79be9a; white-space: normal; "  data-target="Matemática ">{{c}}</button>
+                      
+                      
+                    </div>
+                 
+                </div>
+                <div class="panel panel-default col-md-8 col-xs-12 "  >
+                  <div class="panel-heading ">
+                     <h3 class="panel-title "></i> Tecnologías disponibles</h3>  
+                  </div>
+                  <table class="table table-fixed ">
+                    <thead class="col-sm-12 ">
+                      <div class="form-group ">
+                        <input type="text " class="form-control " name="buscador " ng-model="buscador" placeholder="Busque una tecnología ">
+                      </div>
+                    </thead>
+                    <tbody>
+                      <tr class="col-xs-12 " ng-repeat="x in tecnologiasDisponibles| filter:buscador | filter:{Categoria:sSelCategoria}  ">
+                        <td class="col-xs-2 "><button type="button " class="btn btn-success" ng-click="AddMyTec(x.Nombre)" style=" background:#79be9a " >+</button></td>
+                        <td class="col-xs-9 ">{{x.Nombre}}</td> 
+                        
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+              
+                </div>
+                
+                <div class="panel panel-primary ">
+                  <div class="panel-heading " style=" background:#79be9a ">
+                    <h3 class="panel-title ">Mis tecnologías</h3> 
+                  </div>
+                  <div class="panel-body ">
+                    <div class="col-lg-6" ng-repeat="t in myTec">
+                      <button type="button " class="btn btn-success" style=" background:#79be9a " ng-click="ErraseMyTec($index)" > x </button>
+                      <span>{{ t.Nombre}}</span> 
+                      <div class="col-lg-12" style="height: 7px"> </div>
+                    </div>
+                    
+                  </div>
+                 
+               </div>  
+               
+               </div> 
+               
+            </div>
+
+
+          </div>
+    
+ 
+
+            </div>
+          </div>
+
+
+
+          <div class="col-sm-5 col-xs-12 " style="background-color:lavender; ">
+            <form class="form-horizontal ">
+              <fieldset>
+                <!-- Form Name -->
+                <!-- <legend>Form Name</legend>-->
+                <!-- Text input-->
+                <div class="form-group ">
+                  <div class="col-sm-12 " style="background-color:lavender; height: 20px; "></div>
+                  <label class="col-md-4 control-label " for="descripción ">Descripción:</label>
+                  <div class="col-md-7 ">
+                    <textarea id="Descripción " name="Descripción " type="text " placeholder="escriba aquí " maxlength="300 " rows="5 " class="form-control input-md " required=" "></textarea>
+                  </div>
+
+                </div>
+
+                <div class="form-group ">
+                  <label class="col-md-4 control-label " for="correo ">Correo Electrónico:</label>
+                  <div class="col-md-7 ">
+                    <input id="correo " name="correo " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                  </div>
+                </div>
+
+                <div class="form-group ">
+                  <label class="col-md-4 control-label " for="correo2 ">* Correo Electrónico 2:</label>
+                  <div class="col-md-7 ">
+                    <input id="correo2 " name="correo2 " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md "/>
+                  </div>
+                </div>
+
+                <div class="form-group ">
+                  <label class="col-md-4 control-label " for="celular ">Teléfono móvil:</label>
+                  <div class="col-md-7 ">
+                    <input id="celular " name="celular " type="text " placeholder="escriba su número " maxlength="10" class="form-control input-md " required=" " />
+                  </div>
+                </div>
+
+                <div class="form-group ">
+                  <label class="col-md-4 control-label " for="telefono ">* Teléfono fijo:</label>
+                  <div class="col-md-7 ">
+                    <input id="telefono " name="telefono " type="text " placeholder="escriba su número " maxlength="10" class="form-control input-md " />
+                  </div>
+                </div>
+
+
+                <!-- Password input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="contraseña">Contraseña:</label>
+                  <div class="col-md-7">
+                    <input id="contraseña" name="contraseña" type="password" placeholder="" maxlength="8" class="form-control input-md" required="" />
+                    <span class="help-block">max 8 y min 4 caracteres alfanumericos (al menos una letra y un número)</span>
+                  </div>
+                </div>
+                <!-- Password input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="contraseña2">Confirmar contraseña:</label>
+                  <div class="col-md-7">
+                    <input id="contraseña2" name="contraseña2" type="password" placeholder="Reescriba su contraseña"  maxlength="8" class="form-control input-md" required="" />
+                  </div>
+                </div>
+
+                <!-- Select Multiple -->
+                <div class="col-md-4"> </div>
+                <a class="col-md-8" href="http://www.timeinc.net/subs/privacy/termsofservice/pptos.html">Lea los términos y condiciones aquí</a>
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="check">Acepto términos y condiciones</label>
+                  <div class="col-md-7">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                    <input type="checkbox" />
+                  </span>
+                      
+                  </div>
+                </div>
+                <!-- Button -->
+                <div class="form-group ">
+                  <label class="col-md-4 control-label " for="submit "></label>
+                  <div class="col-md-4 ">
+                    <button id="submit " name="submit " class="btn btn-success " style=" background:#79be9a ">Crear perfil</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>
