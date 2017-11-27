@@ -7,23 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DigiTutorService
+namespace DigiTutorService.DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Categoria
+    public partial class PaisDAO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Categoria()
+        public PaisDAO()
         {
-            this.Tecnologias = new HashSet<Tecnologia>();
+            this.Estudiantes = new HashSet<EstudianteDAO>();
         }
     
         public int id { get; set; }
         public string nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tecnologia> Tecnologias { get; set; }
+        public virtual ICollection<EstudianteDAO> Estudiantes { get; set; }
     }
 }

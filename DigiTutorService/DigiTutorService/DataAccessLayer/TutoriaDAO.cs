@@ -7,17 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DigiTutorService
+namespace DigiTutorService.DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Tutoria
+    public partial class TutoriaDAO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tutoria()
+        public TutoriaDAO()
         {
-            this.Estudiantes = new HashSet<Estudiante>();
+            this.Estudiantes = new HashSet<EstudianteDAO>();
         }
     
         public int id_publicacion { get; set; }
@@ -26,8 +26,8 @@ namespace DigiTutorService
         public string lugar { get; set; }
         public string costo { get; set; }
     
-        public virtual Publicacion Publicacion { get; set; }
+        public virtual PublicacionDAO Publicacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Estudiante> Estudiantes { get; set; }
+        public virtual ICollection<EstudianteDAO> Estudiantes { get; set; }
     }
 }

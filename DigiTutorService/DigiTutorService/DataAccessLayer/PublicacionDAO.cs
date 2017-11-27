@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DigiTutorService
+namespace DigiTutorService.DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Publicacion
+    public partial class PublicacionDAO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Publicacion()
+        public PublicacionDAO()
         {
-            this.Evaluacions = new HashSet<Evaluacion>();
-            this.Comentarios = new HashSet<Comentario>();
-            this.Tutorias = new HashSet<Tutoria>();
+            this.Evaluacions = new HashSet<EvaluacionDAO>();
+            this.Comentarios = new HashSet<ComentarioDAO>();
+            this.Tutorias = new HashSet<TutoriaDAO>();
         }
     
         public int id { get; set; }
@@ -31,13 +31,13 @@ namespace DigiTutorService
         public System.DateTime fecha_publicacion { get; set; }
         public bool activo { get; set; }
     
-        public virtual Estudiante Estudiante { get; set; }
+        public virtual EstudianteDAO Estudiante { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Evaluacion> Evaluacions { get; set; }
+        public virtual ICollection<EvaluacionDAO> Evaluacions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comentario> Comentarios { get; set; }
-        public virtual Contenido Contenido { get; set; }
+        public virtual ICollection<ComentarioDAO> Comentarios { get; set; }
+        public virtual ContenidoDAO Contenido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tutoria> Tutorias { get; set; }
+        public virtual ICollection<TutoriaDAO> Tutorias { get; set; }
     }
 }

@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DigiTutorService
+namespace DigiTutorService.DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Contenido
+    public partial class ContenidoDAO
     {
         public int id_publicacion { get; set; }
         public string enlace_video { get; set; }
         public string enlace_extra { get; set; }
         public Nullable<int> id_documento { get; set; }
     
-        public virtual Documento Documento { get; set; }
-        public virtual Publicacion Publicacion { get; set; }
+        public virtual DocumentoDAO Documento { get; set; }
+        public virtual PublicacionDAO Publicacion { get; set; }
     }
 }

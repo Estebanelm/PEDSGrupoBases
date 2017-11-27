@@ -7,20 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DigiTutorService
+namespace DigiTutorService.DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Comentario
+    public partial class ApoyoDAO
     {
-        public string id_estudiante { get; set; }
-        public int id_publicacion { get; set; }
-        public string contenido { get; set; }
-        public System.DateTime fecha_creacion { get; set; }
-        public bool activo { get; set; }
+        public string id_estudianteApoyado { get; set; }
+        public string id_estudianteDaApoyo { get; set; }
+        public int id_tecnologia { get; set; }
+        public System.DateTime fecha { get; set; }
     
-        public virtual Estudiante Estudiante { get; set; }
-        public virtual Publicacion Publicacion { get; set; }
+        public virtual EstudianteDAO Estudiante { get; set; }
+        public virtual EstudianteDAO Estudiante1 { get; set; }
+        public virtual TecnologiaDAO Tecnologia { get; set; }
     }
 }

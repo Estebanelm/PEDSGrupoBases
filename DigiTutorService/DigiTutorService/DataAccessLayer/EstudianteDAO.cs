@@ -7,25 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DigiTutorService
+namespace DigiTutorService.DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Estudiante
+    public partial class EstudianteDAO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Estudiante()
+        public EstudianteDAO()
         {
-            this.Apoyoes = new HashSet<Apoyo>();
-            this.Comentarios = new HashSet<Comentario>();
-            this.Apoyoes1 = new HashSet<Apoyo>();
-            this.Evaluacions = new HashSet<Evaluacion>();
-            this.Publicacions = new HashSet<Publicacion>();
-            this.Estudiante1 = new HashSet<Estudiante>();
-            this.Estudiantes = new HashSet<Estudiante>();
-            this.Tutorias = new HashSet<Tutoria>();
-            this.Tecnologias = new HashSet<Tecnologia>();
+            this.Apoyoes = new HashSet<ApoyoDAO>();
+            this.Comentarios = new HashSet<ComentarioDAO>();
+            this.Apoyoes1 = new HashSet<ApoyoDAO>();
+            this.Evaluacions = new HashSet<EvaluacionDAO>();
+            this.Publicacions = new HashSet<PublicacionDAO>();
+            this.Estudiante1 = new HashSet<EstudianteDAO>();
+            this.Estudiantes = new HashSet<EstudianteDAO>();
+            this.Tutorias = new HashSet<TutoriaDAO>();
+            this.Tecnologias = new HashSet<TecnologiaDAO>();
         }
     
         public string id_usuario { get; set; }
@@ -42,25 +42,25 @@ namespace DigiTutorService
         public int numero_seguidores { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Apoyo> Apoyoes { get; set; }
+        public virtual ICollection<ApoyoDAO> Apoyoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comentario> Comentarios { get; set; }
+        public virtual ICollection<ComentarioDAO> Comentarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Apoyo> Apoyoes1 { get; set; }
-        public virtual Pai Pai { get; set; }
-        public virtual Universidad Universidad { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<ApoyoDAO> Apoyoes1 { get; set; }
+        public virtual PaisDAO Pai { get; set; }
+        public virtual UniversidadDAO Universidad { get; set; }
+        public virtual UsuarioDAO Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Evaluacion> Evaluacions { get; set; }
+        public virtual ICollection<EvaluacionDAO> Evaluacions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Publicacion> Publicacions { get; set; }
+        public virtual ICollection<PublicacionDAO> Publicacions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Estudiante> Estudiante1 { get; set; }
+        public virtual ICollection<EstudianteDAO> Estudiante1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Estudiante> Estudiantes { get; set; }
+        public virtual ICollection<EstudianteDAO> Estudiantes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tutoria> Tutorias { get; set; }
+        public virtual ICollection<TutoriaDAO> Tutorias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tecnologia> Tecnologias { get; set; }
+        public virtual ICollection<TecnologiaDAO> Tecnologias { get; set; }
     }
 }

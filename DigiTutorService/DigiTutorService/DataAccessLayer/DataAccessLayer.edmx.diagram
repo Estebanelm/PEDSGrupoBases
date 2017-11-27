@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a014c6a480d440d4827280ff58803960" Name="Diagram1">
-        <EntityTypeShape EntityType="DataAccessLayer.Categoria" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Documento" Width="1.5" PointX="8.25" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Estudiante" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Evaluacion" Width="1.5" PointX="7.5" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Pai" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Publicacion" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Tecnologia" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Tutoria" Width="1.5" PointX="7.5" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Universidad" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Usuario" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Apoyo" Width="1.5" PointX="7.5" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Comentario" Width="1.5" PointX="10.5" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Contenido" Width="1.5" PointX="10.5" PointY="12.25" IsExpanded="true" />
+      <Diagram DiagramId="87b77a8aa3ed4974a9bbc8d887fc7a72" Name="Diagram1">
+        <EntityTypeShape EntityType="DataAccessLayer.CategoriaDAO" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.DocumentoDAO" Width="1.5" PointX="8.25" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.EstudianteDAO" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.EvaluacionDAO" Width="1.5" PointX="7.5" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.PaisDAO" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.PublicacionDAO" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.TecnologiaDAO" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.TutoriaDAO" Width="1.5" PointX="7.5" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.UniversidadDAO" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.UsuarioDAO" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.ApoyoDAO" Width="1.5" PointX="7.5" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.ComentarioDAO" Width="1.5" PointX="10.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.ContenidoDAO" Width="1.5" PointX="10.5" PointY="12.25" IsExpanded="true" />
         <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_Categoria" ManuallyRouted="false" />
         <AssociationConnector Association="DataAccessLayer.FK_Contenido_Documento" ManuallyRouted="false" />
         <AssociationConnector Association="DataAccessLayer.FK_Apoyado" ManuallyRouted="false" />

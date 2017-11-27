@@ -7,25 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DigiTutorService
+namespace DigiTutorService.DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Documento
+    public partial class CategoriaDAO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Documento()
+        public CategoriaDAO()
         {
-            this.Contenidoes = new HashSet<Contenido>();
+            this.Tecnologias = new HashSet<TecnologiaDAO>();
         }
     
         public int id { get; set; }
-        public string tipo { get; set; }
-        public int tamano { get; set; }
-        public string contenido { get; set; }
+        public string nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contenido> Contenidoes { get; set; }
+        public virtual ICollection<TecnologiaDAO> Tecnologias { get; set; }
     }
 }
