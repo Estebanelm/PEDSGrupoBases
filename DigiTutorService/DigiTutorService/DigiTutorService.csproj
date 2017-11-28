@@ -237,11 +237,17 @@
     </Compile>
     <Compile Include="Models\Administrador.cs" />
     <Compile Include="Models\Apoyo.cs" />
-    <Compile Include="Models\CategoriaTecnologia.cs" />
+    <Compile Include="Models\Comentario.cs" />
     <Compile Include="Models\Estudiante.cs" />
     <Compile Include="Models\Evaluacion.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Pais.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\PublicacionContenido.cs" />
+    <Compile Include="Models\Seguimiento.cs" />
     <Compile Include="Models\Tecnologia.cs" />
+    <Compile Include="Models\Tutoria.cs" />
+    <Compile Include="Models\Universidad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
