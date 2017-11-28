@@ -79,13 +79,11 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="apoyos_disponibles" Type="int" Nullable="false" />
           <Property Name="numero_seguidores" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DigiTutorDB.dbo.Estudiante_sigue_Estudiante' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Estudiante_sigue_Estudiante">
           <Key>
-            <PropertyRef Name="id_estudianteSeguido" />
-            <PropertyRef Name="id_estudianteSeguidor" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_estudianteSeguido" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="id_estudianteSeguidor" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
@@ -118,13 +116,11 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Estudiante_sigue_Estudiante' does 
           <Property Name="fecha_publicacion" Type="date" Nullable="false" />
           <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DigiTutorDB.dbo.RegistroTutoria' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RegistroTutoria">
           <Key>
-            <PropertyRef Name="id_estudiante" />
-            <PropertyRef Name="id_tutoria" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="id_tutoria" Type="int" Nullable="false" />
         </EntityType>
@@ -136,13 +132,11 @@ warning 6002: The table/view 'DigiTutorDB.dbo.RegistroTutoria' does not have a p
           <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="id_categoria" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tecnologia_x_Estudiante">
           <Key>
-            <PropertyRef Name="id_tecnologia" />
-            <PropertyRef Name="id_estudiante" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_tecnologia" Type="int" Nullable="false" />
           <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
@@ -432,10 +426,13 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Documento" EntityType="Self.Documento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudiante_sigue_Estudiante" EntityType="Self.Estudiante_sigue_Estudiante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Evaluacion" EntityType="Self.Evaluacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Publicacion" EntityType="Self.Publicacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistroTutoria" EntityType="Self.RegistroTutoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tecnologia" EntityType="Self.Tecnologia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tecnologia_x_Estudiante" EntityType="Self.Tecnologia_x_Estudiante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tutoria" EntityType="Self.Tutoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Universidad" EntityType="Self.Universidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -463,24 +460,6 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
     [Contenido].[enlace_extra] AS [enlace_extra], 
     [Contenido].[id_documento] AS [id_documento]
     FROM [dbo].[Contenido] AS [Contenido]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Estudiante_sigue_Estudiante" EntityType="Self.Estudiante_sigue_Estudiante" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Estudiante_sigue_Estudiante].[id_estudianteSeguido] AS [id_estudianteSeguido], 
-    [Estudiante_sigue_Estudiante].[id_estudianteSeguidor] AS [id_estudianteSeguidor]
-    FROM [dbo].[Estudiante_sigue_Estudiante] AS [Estudiante_sigue_Estudiante]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="RegistroTutoria" EntityType="Self.RegistroTutoria" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [RegistroTutoria].[id_estudiante] AS [id_estudiante], 
-    [RegistroTutoria].[id_tutoria] AS [id_tutoria]
-    FROM [dbo].[RegistroTutoria] AS [RegistroTutoria]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Tecnologia_x_Estudiante" EntityType="Self.Tecnologia_x_Estudiante" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Tecnologia_x_Estudiante].[id_tecnologia] AS [id_tecnologia], 
-    [Tecnologia_x_Estudiante].[id_estudiante] AS [id_estudiante]
-    FROM [dbo].[Tecnologia_x_Estudiante] AS [Tecnologia_x_Estudiante]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Apoyado" Association="Self.FK_Apoyado">
             <End Role="Estudiante" EntitySet="Estudiante" />
@@ -614,10 +593,20 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Estudiante_Usuario" FromRole="Estudiante" ToRole="Usuario" />
           <NavigationProperty Name="Evaluacions" Relationship="Self.FK_Evaluacion_Estudiante" FromRole="Estudiante" ToRole="Evaluacion" />
           <NavigationProperty Name="Publicacions" Relationship="Self.FK_Publicacion_Estudiante" FromRole="Estudiante" ToRole="Publicacion" />
-          <NavigationProperty Name="Estudiante1" Relationship="Self.Estudiante_sigue_Estudiante" FromRole="Estudiante" ToRole="Estudiante1" />
-          <NavigationProperty Name="Estudiantes" Relationship="Self.Estudiante_sigue_Estudiante" FromRole="Estudiante1" ToRole="Estudiante" />
-          <NavigationProperty Name="Tutorias" Relationship="Self.RegistroTutoria" FromRole="Estudiante" ToRole="Tutoria" />
-          <NavigationProperty Name="Tecnologias" Relationship="Self.Tecnologia_x_Estudiante" FromRole="Estudiante" ToRole="Tecnologia" />
+          <NavigationProperty Name="RegistroTutorias" Relationship="Self.FK_RegistroTutoria_Estudiante" FromRole="Estudiante" ToRole="RegistroTutoria" />
+          <NavigationProperty Name="Estudiante_sigue_Estudiante" Relationship="Self.FK_Seguido" FromRole="Estudiante" ToRole="Estudiante_sigue_Estudiante" />
+          <NavigationProperty Name="Estudiante_sigue_Estudiante1" Relationship="Self.FK_Seguidor" FromRole="Estudiante" ToRole="Estudiante_sigue_Estudiante" />
+          <NavigationProperty Name="Tecnologia_x_Estudiante" Relationship="Self.FK_Tecnologia_x_Estudiante_Estudiante" FromRole="Estudiante" ToRole="Tecnologia_x_Estudiante" />
+        </EntityType>
+        <EntityType Name="Estudiante_sigue_EstudianteDAO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_estudianteSeguido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_estudianteSeguidor" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Seguido" FromRole="Estudiante_sigue_Estudiante" ToRole="Estudiante" />
+          <NavigationProperty Name="Estudiante1" Relationship="Self.FK_Seguidor" FromRole="Estudiante_sigue_Estudiante" ToRole="Estudiante" />
         </EntityType>
         <EntityType Name="EvaluacionDAO">
           <Key>
@@ -630,7 +619,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           <NavigationProperty Name="Estudiante" Relationship="Self.FK_Evaluacion_Estudiante" FromRole="Evaluacion" ToRole="Estudiante" />
           <NavigationProperty Name="Publicacion" Relationship="Self.FK_Evaluacion_Publicacion" FromRole="Evaluacion" ToRole="Publicacion" />
         </EntityType>
-        <EntityType Name="PaisDAO">
+        <EntityType Name="PaiDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -656,6 +645,16 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Contenido_Publicacion" FromRole="Publicacion" ToRole="Contenido" />
           <NavigationProperty Name="Tutorias" Relationship="Self.FK_Tutoria_Publicacion" FromRole="Publicacion" ToRole="Tutoria" />
         </EntityType>
+        <EntityType Name="RegistroTutoriaDAO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_tutoria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_RegistroTutoria_Estudiante" FromRole="RegistroTutoria" ToRole="Estudiante" />
+          <NavigationProperty Name="Tutoria" Relationship="Self.FK_RegistroTutoria_Tutoria" FromRole="RegistroTutoria" ToRole="Tutoria" />
+        </EntityType>
         <EntityType Name="TecnologiaDAO">
           <Key>
             <PropertyRef Name="id" />
@@ -665,7 +664,17 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           <Property Name="id_categoria" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Categoria" Relationship="Self.FK_Tecnologia_Categoria" FromRole="Tecnologia" ToRole="Categoria" />
           <NavigationProperty Name="Apoyoes" Relationship="Self.FK_Apoyo_Tecnologia" FromRole="Tecnologia" ToRole="Apoyo" />
-          <NavigationProperty Name="Estudiantes" Relationship="Self.Tecnologia_x_Estudiante" FromRole="Tecnologia" ToRole="Estudiante" />
+          <NavigationProperty Name="Tecnologia_x_Estudiante" Relationship="Self.FK_Tecnologia_x_Estudiante_Tecnologia" FromRole="Tecnologia" ToRole="Tecnologia_x_Estudiante" />
+        </EntityType>
+        <EntityType Name="Tecnologia_x_EstudianteDAO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_tecnologia" Type="Int32" Nullable="false" />
+          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Tecnologia_x_Estudiante_Estudiante" FromRole="Tecnologia_x_Estudiante" ToRole="Estudiante" />
+          <NavigationProperty Name="Tecnologia" Relationship="Self.FK_Tecnologia_x_Estudiante_Tecnologia" FromRole="Tecnologia_x_Estudiante" ToRole="Tecnologia" />
         </EntityType>
         <EntityType Name="TutoriaDAO">
           <Key>
@@ -677,7 +686,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           <Property Name="lugar" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="costo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Publicacion" Relationship="Self.FK_Tutoria_Publicacion" FromRole="Tutoria" ToRole="Publicacion" />
-          <NavigationProperty Name="Estudiantes" Relationship="Self.RegistroTutoria" FromRole="Tutoria" ToRole="Estudiante" />
+          <NavigationProperty Name="RegistroTutorias" Relationship="Self.FK_RegistroTutoria_Tutoria" FromRole="Tutoria" ToRole="RegistroTutoria" />
         </EntityType>
         <EntityType Name="UniversidadDAO">
           <Key>
@@ -701,7 +710,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           <Property Name="is_admin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Estudiante" Relationship="Self.FK_Estudiante_Usuario" FromRole="Usuario" ToRole="Estudiante" />
         </EntityType>
-        <EntityType Name="ApoyoDAO">
+        <EntityType Name="DAO">
           <Key>
             <PropertyRef Name="id_estudianteApoyado" />
             <PropertyRef Name="id_estudianteDaApoyo" />
@@ -769,7 +778,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
         </Association>
         <Association Name="FK_Apoyado">
           <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Apoyo" Type="DataAccessLayer.ApoyoDAO" Multiplicity="*" />
+          <End Role="Apoyo" Type="DataAccessLayer.DAO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -793,7 +802,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
         </Association>
         <Association Name="FK_DaApoyo">
           <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Apoyo" Type="DataAccessLayer.ApoyoDAO" Multiplicity="*" />
+          <End Role="Apoyo" Type="DataAccessLayer.DAO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -804,7 +813,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Estudiante_Pais">
-          <End Role="Pais" Type="DataAccessLayer.PaisDAO" Multiplicity="1" />
+          <End Role="Pais" Type="DataAccessLayer.PaiDAO" Multiplicity="1" />
           <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pais">
@@ -863,6 +872,54 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RegistroTutoria_Estudiante">
+          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
+          <End Role="RegistroTutoria" Type="DataAccessLayer.RegistroTutoriaDAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="RegistroTutoria">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seguido">
+          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
+          <End Role="Estudiante_sigue_Estudiante" Type="DataAccessLayer.Estudiante_sigue_EstudianteDAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Estudiante_sigue_Estudiante">
+              <PropertyRef Name="id_estudianteSeguido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seguidor">
+          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
+          <End Role="Estudiante_sigue_Estudiante" Type="DataAccessLayer.Estudiante_sigue_EstudianteDAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Estudiante_sigue_Estudiante">
+              <PropertyRef Name="id_estudianteSeguidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tecnologia_x_Estudiante_Estudiante">
+          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
+          <End Role="Tecnologia_x_Estudiante" Type="DataAccessLayer.Tecnologia_x_EstudianteDAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tecnologia_x_Estudiante">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Evaluacion_Publicacion">
           <End Role="Publicacion" Type="DataAccessLayer.PublicacionDAO" Multiplicity="1" />
           <End Role="Evaluacion" Type="DataAccessLayer.EvaluacionDAO" Multiplicity="*" />
@@ -911,9 +968,21 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RegistroTutoria_Tutoria">
+          <End Role="Tutoria" Type="DataAccessLayer.TutoriaDAO" Multiplicity="1" />
+          <End Role="RegistroTutoria" Type="DataAccessLayer.RegistroTutoriaDAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tutoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RegistroTutoria">
+              <PropertyRef Name="id_tutoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Apoyo_Tecnologia">
           <End Role="Tecnologia" Type="DataAccessLayer.TecnologiaDAO" Multiplicity="1" />
-          <End Role="Apoyo" Type="DataAccessLayer.ApoyoDAO" Multiplicity="*" />
+          <End Role="Apoyo" Type="DataAccessLayer.DAO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tecnologia">
               <PropertyRef Name="id" />
@@ -923,30 +992,33 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Estudiante_sigue_Estudiante">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="*" />
-          <End Role="Estudiante1" Type="DataAccessLayer.EstudianteDAO" Multiplicity="*" />
-        </Association>
-        <Association Name="RegistroTutoria">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="*" />
-          <End Role="Tutoria" Type="DataAccessLayer.TutoriaDAO" Multiplicity="*" />
-        </Association>
-        <Association Name="Tecnologia_x_Estudiante">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="*" />
-          <End Role="Tecnologia" Type="DataAccessLayer.TecnologiaDAO" Multiplicity="*" />
+        <Association Name="FK_Tecnologia_x_Estudiante_Tecnologia">
+          <End Role="Tecnologia" Type="DataAccessLayer.TecnologiaDAO" Multiplicity="1" />
+          <End Role="Tecnologia_x_Estudiante" Type="DataAccessLayer.Tecnologia_x_EstudianteDAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tecnologia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tecnologia_x_Estudiante">
+              <PropertyRef Name="id_tecnologia" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DigiTutorDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CategoriaDAOs" EntityType="DataAccessLayer.CategoriaDAO" />
           <EntitySet Name="DocumentoDAOs" EntityType="DataAccessLayer.DocumentoDAO" />
           <EntitySet Name="EstudianteDAOs" EntityType="DataAccessLayer.EstudianteDAO" />
+          <EntitySet Name="Estudiante_sigue_EstudianteDAO" EntityType="DataAccessLayer.Estudiante_sigue_EstudianteDAO" />
           <EntitySet Name="EvaluacionDAOs" EntityType="DataAccessLayer.EvaluacionDAO" />
-          <EntitySet Name="PaisDAOs" EntityType="DataAccessLayer.PaisDAO" />
+          <EntitySet Name="PaiDAOs" EntityType="DataAccessLayer.PaiDAO" />
           <EntitySet Name="PublicacionDAOs" EntityType="DataAccessLayer.PublicacionDAO" />
+          <EntitySet Name="RegistroTutoriaDAOs" EntityType="DataAccessLayer.RegistroTutoriaDAO" />
           <EntitySet Name="TecnologiaDAOs" EntityType="DataAccessLayer.TecnologiaDAO" />
+          <EntitySet Name="Tecnologia_x_EstudianteDAO" EntityType="DataAccessLayer.Tecnologia_x_EstudianteDAO" />
           <EntitySet Name="TutoriaDAOs" EntityType="DataAccessLayer.TutoriaDAO" />
           <EntitySet Name="UniversidadDAOs" EntityType="DataAccessLayer.UniversidadDAO" />
           <EntitySet Name="UsuarioDAOs" EntityType="DataAccessLayer.UsuarioDAO" />
-          <EntitySet Name="ApoyoDAOs" EntityType="DataAccessLayer.ApoyoDAO" />
+          <EntitySet Name="DAOs" EntityType="DataAccessLayer.DAO" />
           <EntitySet Name="ComentarioDAOs" EntityType="DataAccessLayer.ComentarioDAO" />
           <EntitySet Name="ContenidoDAOs" EntityType="DataAccessLayer.ContenidoDAO" />
           <AssociationSet Name="FK_Tecnologia_Categoria" Association="Self.FK_Tecnologia_Categoria">
@@ -959,7 +1031,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           </AssociationSet>
           <AssociationSet Name="FK_Apoyado" Association="Self.FK_Apoyado">
             <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
+            <End Role="Apoyo" EntitySet="DAOs" />
           </AssociationSet>
           <AssociationSet Name="FK_Comentario_Estudiante" Association="Self.FK_Comentario_Estudiante">
             <End Role="Estudiante" EntitySet="EstudianteDAOs" />
@@ -967,10 +1039,10 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
           </AssociationSet>
           <AssociationSet Name="FK_DaApoyo" Association="Self.FK_DaApoyo">
             <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
+            <End Role="Apoyo" EntitySet="DAOs" />
           </AssociationSet>
           <AssociationSet Name="FK_Estudiante_Pais" Association="Self.FK_Estudiante_Pais">
-            <End Role="Pais" EntitySet="PaisDAOs" />
+            <End Role="Pais" EntitySet="PaiDAOs" />
             <End Role="Estudiante" EntitySet="EstudianteDAOs" />
           </AssociationSet>
           <AssociationSet Name="FK_Estudiante_Universidad" Association="Self.FK_Estudiante_Universidad">
@@ -989,6 +1061,22 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
             <End Role="Estudiante" EntitySet="EstudianteDAOs" />
             <End Role="Publicacion" EntitySet="PublicacionDAOs" />
           </AssociationSet>
+          <AssociationSet Name="FK_RegistroTutoria_Estudiante" Association="Self.FK_RegistroTutoria_Estudiante">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="RegistroTutoria" EntitySet="RegistroTutoriaDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguido" Association="Self.FK_Seguido">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Estudiante_sigue_Estudiante" EntitySet="Estudiante_sigue_EstudianteDAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguidor" Association="Self.FK_Seguidor">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Estudiante_sigue_Estudiante" EntitySet="Estudiante_sigue_EstudianteDAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_x_Estudiante_Estudiante" Association="Self.FK_Tecnologia_x_Estudiante_Estudiante">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_EstudianteDAO" />
+          </AssociationSet>
           <AssociationSet Name="FK_Evaluacion_Publicacion" Association="Self.FK_Evaluacion_Publicacion">
             <End Role="Publicacion" EntitySet="PublicacionDAOs" />
             <End Role="Evaluacion" EntitySet="EvaluacionDAOs" />
@@ -1005,21 +1093,17 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
             <End Role="Publicacion" EntitySet="PublicacionDAOs" />
             <End Role="Tutoria" EntitySet="TutoriaDAOs" />
           </AssociationSet>
+          <AssociationSet Name="FK_RegistroTutoria_Tutoria" Association="Self.FK_RegistroTutoria_Tutoria">
+            <End Role="Tutoria" EntitySet="TutoriaDAOs" />
+            <End Role="RegistroTutoria" EntitySet="RegistroTutoriaDAOs" />
+          </AssociationSet>
           <AssociationSet Name="FK_Apoyo_Tecnologia" Association="Self.FK_Apoyo_Tecnologia">
             <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
-            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
+            <End Role="Apoyo" EntitySet="DAOs" />
           </AssociationSet>
-          <AssociationSet Name="Estudiante_sigue_Estudiante" Association="Self.Estudiante_sigue_Estudiante">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Estudiante1" EntitySet="EstudianteDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="RegistroTutoria" Association="Self.RegistroTutoria">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Tutoria" EntitySet="TutoriaDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="Tecnologia_x_Estudiante" Association="Self.Tecnologia_x_Estudiante">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+          <AssociationSet Name="FK_Tecnologia_x_Estudiante_Tecnologia" Association="Self.FK_Tecnologia_x_Estudiante_Tecnologia">
             <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
+            <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_EstudianteDAO" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1064,6 +1148,15 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Estudiante_sigue_EstudianteDAO">
+            <EntityTypeMapping TypeName="DataAccessLayer.Estudiante_sigue_EstudianteDAO">
+              <MappingFragment StoreEntitySet="Estudiante_sigue_Estudiante">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_estudianteSeguido" ColumnName="id_estudianteSeguido" />
+                <ScalarProperty Name="id_estudianteSeguidor" ColumnName="id_estudianteSeguidor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="EvaluacionDAOs">
             <EntityTypeMapping TypeName="DataAccessLayer.EvaluacionDAO">
               <MappingFragment StoreEntitySet="Evaluacion">
@@ -1074,8 +1167,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PaisDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.PaisDAO">
+          <EntitySetMapping Name="PaiDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.PaiDAO">
               <MappingFragment StoreEntitySet="Pais">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -1096,12 +1189,30 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RegistroTutoriaDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.RegistroTutoriaDAO">
+              <MappingFragment StoreEntitySet="RegistroTutoria">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="id_tutoria" ColumnName="id_tutoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TecnologiaDAOs">
             <EntityTypeMapping TypeName="DataAccessLayer.TecnologiaDAO">
               <MappingFragment StoreEntitySet="Tecnologia">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tecnologia_x_EstudianteDAO">
+            <EntityTypeMapping TypeName="DataAccessLayer.Tecnologia_x_EstudianteDAO">
+              <MappingFragment StoreEntitySet="Tecnologia_x_Estudiante">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_tecnologia" ColumnName="id_tecnologia" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1138,8 +1249,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ApoyoDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.ApoyoDAO">
+          <EntitySetMapping Name="DAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.DAO">
               <MappingFragment StoreEntitySet="Apoyo">
                 <ScalarProperty Name="id_estudianteApoyado" ColumnName="id_estudianteApoyado" />
                 <ScalarProperty Name="id_estudianteDaApoyo" ColumnName="id_estudianteDaApoyo" />
@@ -1169,30 +1280,6 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Tecnologia_x_Estudiante' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Estudiante_sigue_Estudiante" TypeName="DataAccessLayer.Estudiante_sigue_Estudiante" StoreEntitySet="Estudiante_sigue_Estudiante">
-            <EndProperty Name="Estudiante">
-              <ScalarProperty Name="id_usuario" ColumnName="id_estudianteSeguido" />
-            </EndProperty>
-            <EndProperty Name="Estudiante1">
-              <ScalarProperty Name="id_usuario" ColumnName="id_estudianteSeguidor" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="RegistroTutoria" TypeName="DataAccessLayer.RegistroTutoria" StoreEntitySet="RegistroTutoria">
-            <EndProperty Name="Estudiante">
-              <ScalarProperty Name="id_usuario" ColumnName="id_estudiante" />
-            </EndProperty>
-            <EndProperty Name="Tutoria">
-              <ScalarProperty Name="id" ColumnName="id_tutoria" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Tecnologia_x_Estudiante" TypeName="DataAccessLayer.Tecnologia_x_Estudiante" StoreEntitySet="Tecnologia_x_Estudiante">
-            <EndProperty Name="Estudiante">
-              <ScalarProperty Name="id_usuario" ColumnName="id_estudiante" />
-            </EndProperty>
-            <EndProperty Name="Tecnologia">
-              <ScalarProperty Name="id" ColumnName="id_tecnologia" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

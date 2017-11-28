@@ -12,18 +12,13 @@ namespace DigiTutorService.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class PaisDAO
+    public partial class Estudiante_sigue_EstudianteDAO
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PaisDAO()
-        {
-            this.Estudiantes = new HashSet<EstudianteDAO>();
-        }
-    
         public int id { get; set; }
-        public string nombre { get; set; }
+        public string id_estudianteSeguido { get; set; }
+        public string id_estudianteSeguidor { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EstudianteDAO> Estudiantes { get; set; }
+        public virtual EstudianteDAO Estudiante { get; set; }
+        public virtual EstudianteDAO Estudiante1 { get; set; }
     }
 }

@@ -17,8 +17,8 @@ namespace DigiTutorService.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TecnologiaDAO()
         {
-            this.Apoyoes = new HashSet<ApoyoDAO>();
-            this.Estudiantes = new HashSet<EstudianteDAO>();
+            this.Apoyoes = new HashSet<DAO>();
+            this.Tecnologia_x_Estudiante = new HashSet<Tecnologia_x_EstudianteDAO>();
         }
     
         public int id { get; set; }
@@ -27,8 +27,8 @@ namespace DigiTutorService.DataAccessLayer
     
         public virtual CategoriaDAO Categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ApoyoDAO> Apoyoes { get; set; }
+        public virtual ICollection<DAO> Apoyoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EstudianteDAO> Estudiantes { get; set; }
+        public virtual ICollection<Tecnologia_x_EstudianteDAO> Tecnologia_x_Estudiante { get; set; }
     }
 }

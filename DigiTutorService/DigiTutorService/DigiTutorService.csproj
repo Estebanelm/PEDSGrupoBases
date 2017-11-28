@@ -155,7 +155,7 @@
     <Content Include="DataAccessLayer\DataAccessLayer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataAccessLayer.edmx</DependentUpon>
-      <LastGenOutput>DataAccessLayer1.cs</LastGenOutput>
+      <LastGenOutput>DataAccessLayer.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
@@ -164,17 +164,17 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="DataAccessLayer\ApoyoDAO.cs">
+    <Compile Include="DataAccessLayer\Apoyo.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\CategoriaDAO.cs">
+    <Compile Include="DataAccessLayer\Categoria.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\ComentarioDAO.cs">
+    <Compile Include="DataAccessLayer\Comentario.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\ConexionDAL.cs" />
-    <Compile Include="DataAccessLayer\ContenidoDAO.cs">
+    <Compile Include="DataAccessLayer\Contenido.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\DataAccessLayer.Context.cs">
@@ -182,45 +182,54 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataAccessLayer.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccessLayer\DataAccessLayer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataAccessLayer.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAccessLayer\DataAccessLayer.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>DataAccessLayer.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="DataAccessLayer\DataAccessLayer1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="DataAccessLayer\Documento.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\DocumentoDAO.cs">
+    <Compile Include="DataAccessLayer\Estudiante.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\EstudianteDAO.cs">
+    <Compile Include="DataAccessLayer\Estudiante_sigue_Estudiante.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\EvaluacionDAO.cs">
+    <Compile Include="DataAccessLayer\Evaluacion.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\FachadaAdminDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaPublicacionesDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaUsuariosDAL.cs" />
-    <Compile Include="DataAccessLayer\PaisDAO.cs">
+    <Compile Include="DataAccessLayer\Pai.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\PublicacionDAO.cs">
+    <Compile Include="DataAccessLayer\Publicacion.cs">
+      <DependentUpon>DataAccessLayer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\RegistroTutoria.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Repository\RepositoryDAL.cs" />
-    <Compile Include="DataAccessLayer\TecnologiaDAO.cs">
+    <Compile Include="DataAccessLayer\Tecnologia.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\TutoriaDAO.cs">
+    <Compile Include="DataAccessLayer\Tecnologia_x_Estudiante.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\UniversidadDAO.cs">
+    <Compile Include="DataAccessLayer\Tutoria.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\UsuarioDAO.cs">
+    <Compile Include="DataAccessLayer\Universidad.cs">
+      <DependentUpon>DataAccessLayer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\Usuario.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

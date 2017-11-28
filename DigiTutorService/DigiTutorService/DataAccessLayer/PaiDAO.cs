@@ -12,22 +12,18 @@ namespace DigiTutorService.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class TutoriaDAO
+    public partial class PaiDAO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TutoriaDAO()
+        public PaiDAO()
         {
-            this.RegistroTutorias = new HashSet<RegistroTutoriaDAO>();
+            this.Estudiantes = new HashSet<EstudianteDAO>();
         }
     
-        public int id_publicacion { get; set; }
         public int id { get; set; }
-        public System.DateTime fecha_tutoria { get; set; }
-        public string lugar { get; set; }
-        public string costo { get; set; }
+        public string nombre { get; set; }
     
-        public virtual PublicacionDAO Publicacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RegistroTutoriaDAO> RegistroTutorias { get; set; }
+        public virtual ICollection<EstudianteDAO> Estudiantes { get; set; }
     }
 }

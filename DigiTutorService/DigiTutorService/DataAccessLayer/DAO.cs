@@ -12,7 +12,7 @@ namespace DigiTutorService.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class ApoyoDAO
+    public partial class DAO
     {
         public string id_estudianteApoyado { get; set; }
         public string id_estudianteDaApoyo { get; set; }
