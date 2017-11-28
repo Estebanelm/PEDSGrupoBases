@@ -7,9 +7,8 @@ namespace DigiTutorService.Models
 {
     public class Apoyo
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Category { get; set; }
-        public decimal Price { get; set; }
+        public string id_estudianteApoyado { get; set; }
+        public string id_estudianteQueApoya { get; set; }
+        public string Tecnologia { get; set; }
     }
 }
