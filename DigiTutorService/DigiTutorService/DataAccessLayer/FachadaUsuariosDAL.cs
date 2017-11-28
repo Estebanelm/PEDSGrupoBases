@@ -8,8 +8,10 @@ namespace DigiTutorService.DataAccessLayer
 {
     public class FachadaUsuariosDAL
     {
-        public Estudiante ReadEstudiantes(int id)
+        //Obtiene los datos del estudiante que está logueado
+        public Estudiante ReadMisDatos(int id)
         {
+
             return null;
         }
         
