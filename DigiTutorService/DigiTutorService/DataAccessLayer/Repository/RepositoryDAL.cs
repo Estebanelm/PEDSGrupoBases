@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -44,9 +45,24 @@ namespace DigiTutorService.DataAccessLayer.Repository
         {
             return 0;
         }
-        public static int Update(Object TObject)
+        public static int Update<T>(T modifiedObject) where T : class
         {
-            return 0;
+            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
+            {
+                try
+                {
+                    var entry = dbContext.Entry(modifiedObject);
+                    dbContext.Set<T>().Attach(modifiedObject);
+                    entry.State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                    return 1;
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+
+            }
         }
 
     }

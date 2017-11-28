@@ -164,17 +164,17 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="DataAccessLayer\Apoyo.cs">
+    <Compile Include="DataAccessLayer\CategoriaDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Categoria.cs">
-      <DependentUpon>DataAccessLayer.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataAccessLayer\Comentario.cs">
+    <Compile Include="DataAccessLayer\ComentarioDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\ConexionDAL.cs" />
-    <Compile Include="DataAccessLayer\Contenido.cs">
+    <Compile Include="DataAccessLayer\ContenidoDAO.cs">
+      <DependentUpon>DataAccessLayer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\DAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\DataAccessLayer.Context.cs">
@@ -192,44 +192,44 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataAccessLayer.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Documento.cs">
+    <Compile Include="DataAccessLayer\DocumentoDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Estudiante.cs">
+    <Compile Include="DataAccessLayer\EstudianteDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Estudiante_sigue_Estudiante.cs">
+    <Compile Include="DataAccessLayer\Estudiante_sigue_EstudianteDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Evaluacion.cs">
+    <Compile Include="DataAccessLayer\EvaluacionDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\FachadaAdminDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaPublicacionesDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaUsuariosDAL.cs" />
-    <Compile Include="DataAccessLayer\Pai.cs">
+    <Compile Include="DataAccessLayer\PaiDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Publicacion.cs">
+    <Compile Include="DataAccessLayer\PublicacionDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\RegistroTutoria.cs">
+    <Compile Include="DataAccessLayer\RegistroTutoriaDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Repository\RepositoryDAL.cs" />
-    <Compile Include="DataAccessLayer\Tecnologia.cs">
+    <Compile Include="DataAccessLayer\TecnologiaDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Tecnologia_x_Estudiante.cs">
+    <Compile Include="DataAccessLayer\Tecnologia_x_EstudianteDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Tutoria.cs">
+    <Compile Include="DataAccessLayer\TutoriaDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Universidad.cs">
+    <Compile Include="DataAccessLayer\UniversidadDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\Usuario.cs">
+    <Compile Include="DataAccessLayer\UsuarioDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

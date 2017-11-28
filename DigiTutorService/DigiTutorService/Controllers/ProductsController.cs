@@ -52,9 +52,15 @@ namespace DigiTutorService.Controllers
                 products.Add(model);
             }
 
+            /* Usando el repositorio para modificar una categoria
+            CategoriaDAO nuevaCategoria = new CategoriaDAO() { nombre = "CategoriaChanchitos", id = 1 };
+            RepositoryDAL.Update(nuevaCategoria);
+            */
+
+            /* Usando el repositorio para leer una categoria
             List<CategoriaDAO> list = RepositoryDAL.Read<CategoriaDAO>(x => x.id == 1);
             CategoriaDAO nuevaCategoria = list.FirstOrDefault();
-
+            */
             /* Usando el repositorio para agregar categoria a la tabla de categorias
             CategoriaDAO nuevaCategoria = new CategoriaDAO() { nombre = "CategoriaChanchis" };
             RepositoryDAL.Create(nuevaCategoria);
@@ -69,7 +75,7 @@ namespace DigiTutorService.Controllers
                 return Tweet.PublishTweet("Primer tweet de DigiTutorBases");
             });
             */
-            return Ok(nuevaCategoria);
+            return Ok();
         }
     }
 }
