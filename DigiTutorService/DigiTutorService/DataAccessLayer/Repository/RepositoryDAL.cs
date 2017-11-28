@@ -8,9 +8,20 @@ namespace DigiTutorService.DataAccessLayer.Repository
 {
     public static class RepositoryDAL
     {
-        public static Object Read(Expression<Func<Object, bool>> predicate)
+        public static List<T> Read<T>(Expression<Func<T, bool>> predicate) where T:class
         {
-            return null;
+            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
+            {
+                try
+                {
+                    return dbContext.Set<T>().Where(predicate).ToList();
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+
+            }
         }
         public static int Create<T>(T newObject) where T : class
         {
