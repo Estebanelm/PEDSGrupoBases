@@ -7,9 +7,7 @@ namespace DigiTutorService.Models
 {
     public class Evaluacion
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Category { get; set; }
-        public decimal Price { get; set; }
+        public string Id_estudiante { get; set; }
+        public string Tipo_evaluacion { get; set; }
     }
 }
