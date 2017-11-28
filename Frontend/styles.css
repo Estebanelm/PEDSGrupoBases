@@ -12,11 +12,12 @@ body {
     font-style: normal;
     font-weight: bolder;
 
-    src: local("Inconsolata"), url("http://themes.googleusercontent.com/static/fonts/inconsolata/v3/BjAYBlHtW3CJxDcjzrnZCIbN6UDyHWBl620a-IRfuBk.woff") format("woff");
+    src: local("Inconsolata"), url("https://fonts.google.com/specimen/Inconsolata") ;
 }
 
 div {
-       
+    font-family: Inconsolata;
+    font-size:large;   
        
 }
 
