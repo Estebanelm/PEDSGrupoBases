@@ -1,15 +1,10 @@
-﻿using DigiTutorService.DataAccessLayer;
-using DigiTutorService.DataAccessLayer.Repository;
-using DigiTutorService.Models;
+﻿using DigiTutorService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Tweetinvi;
-using Tweetinvi.Models;
-using System.Web.Script.Serialization;
 
 namespace DigiTutorService.Controllers
 {
@@ -21,11 +16,13 @@ namespace DigiTutorService.Controllers
             new Product { Id = 2, Name = "Yo-yo", Category = "Toys", Price = 3.75M },
             new Product { Id = 3, Name = "Hammer", Category = "Hardware", Price = 16.99M }
         }.ToList();
+
         [HttpGet]
         public IEnumerable<Product> GetAllProducts()
         {
             return products;
         }
+        
         [HttpGet]
         public IHttpActionResult GetProduct(int id)
         {
@@ -51,30 +48,6 @@ namespace DigiTutorService.Controllers
                 products.Remove(productoAModificar);
                 products.Add(model);
             }
-
-            /* Usando el repositorio para modificar una categoria
-            CategoriaDAO nuevaCategoria = new CategoriaDAO() { nombre = "CategoriaChanchitos", id = 1 };
-            RepositoryDAL.Update(nuevaCategoria);
-            */
-
-            /* Usando el repositorio para leer una categoria
-            List<CategoriaDAO> list = RepositoryDAL.Read<CategoriaDAO>(x => x.id == 1);
-            CategoriaDAO nuevaCategoria = list.FirstOrDefault();
-            */
-            /* Usando el repositorio para agregar categoria a la tabla de categorias
-            CategoriaDAO nuevaCategoria = new CategoriaDAO() { nombre = "CategoriaChanchis" };
-            RepositoryDAL.Create(nuevaCategoria);
-            /*
-            /*
-            // Generate credentials that we want to use
-            var creds = new TwitterCredentials("G7aCvHb5Hufk3YcjjHKawNub0", "oKiHAA76OmcNeaGKtR22pp5TrObWUXNLI49qj7RUdgT2Cv3rET", "931973066627993600-Ke3cXcyJuq5FoWh7R8djNbdfesXtxYB", "VO0fswBj43tDZ2AFwooRB6hEC3SSSaHj1bARmukPWpfZF"); ;
-
-            // Use the ExecuteOperationWithCredentials method to invoke an operation with a specific set of credentials
-            var tweet = Auth.ExecuteOperationWithCredentials(creds, () =>
-            {
-                return Tweet.PublishTweet("Primer tweet de DigiTutorBases");
-            });
-            */
             return Ok();
         }
     }
