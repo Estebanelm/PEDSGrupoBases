@@ -16,6 +16,11 @@ h1 {
     padding-bottom: 9px;
     margin-bottom: 20px;
     border-bottom: 1px solid #eee;
+    font-size:x-large;
+}
+
+p1 {
+    font-weight:lighter;
 }
 
 /*
@@ -64,7 +69,4 @@ h1 {
     padding-bottom: 1.5rem;
 }
 
-/* Tabs 
-.nav .nav-tabs {
 
-}*/
