@@ -24,5 +24,34 @@ namespace DigiTutorService.DataAccessLayer
         {
             return null;
         }
+        public bool CreatePublicacion(Contenido contenido)
+        {
+            return false;
+        }
+		public bool CreateTutoria(Tutoria tutoria)
+		{
+			return false;
+		}
+        public bool AddDocumento<T>(T documento) where T : class
+        {
+            return false;
+        }
+
+        public bool AddComentario(Comentario comentario)
+        {
+            return false;
+        }
+        public bool AddOrModifyEvaluacion(Evaluacion evaluacion)
+        {
+            return false;
+        }
+        public bool DeletePublicacion(int pubId)
+        {
+            return false;
+        }
+        public bool DeleteComentario(int IdComentario)
+        {
+            return false;
+        }
     }
 }

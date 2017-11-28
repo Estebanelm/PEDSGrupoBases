@@ -10,7 +10,7 @@ namespace DigiTutorService.Controllers
 {
     public class LoginController : ApiController
     {
-      
+        List<Login> loginTable = new List<Login>();
         
      
         [HttpPost]

@@ -10,7 +10,7 @@ namespace DigiTutorService.Controllers {
     public class AdminsController : ApiController {
 
         [HttpGet]
-        public Administrador GetAdministrador (int id) {
+        public Administrador GetAdministrador (string id) {
             //return List<Tecnologias>
             return null;
         }
@@ -23,14 +23,14 @@ namespace DigiTutorService.Controllers {
         }
 
         [HttpPut]
-        public IHttpActionResult ModificarAdministrador (int id, [FromBody] Administrador admin) {
+        public IHttpActionResult ModificarAdministrador (string id, [FromBody] Administrador admin) {
             //modificar admin
 
             return Ok ();
         }
 
         [HttpDelete]
-        public IHttpActionResult BorrarAdministrador (int id) {
+        public IHttpActionResult BorrarAdministrador (string id) {
             //borrar admin
 
             return Ok ();

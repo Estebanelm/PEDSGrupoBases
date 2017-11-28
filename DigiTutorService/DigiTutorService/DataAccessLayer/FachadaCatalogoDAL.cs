@@ -20,6 +20,21 @@ namespace DigiTutorService.DataAccessLayer
         {
             return null;
         }
-
+        public bool AddTecnologia(Tecnologia tecnologia)
+        {
+            return false;
+        }
+        public bool AddUniversidad(Universidad universidad)
+        {
+            return false;
+        }
+		public bool DeleteUniversidad(int UniversidadId)
+		{
+			return false;
+		}
+		public bool DeleteTecnologia(int TecnologiaId)
+		{
+			return false;
+		}
     }
 }

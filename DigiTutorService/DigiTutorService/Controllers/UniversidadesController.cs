@@ -28,14 +28,6 @@ namespace DigiTutorService.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public IHttpActionResult ModificarUniversidad(int id, [FromBody] Universidad univ)
-        {
-            //modificar Universidad
-            
-            return Ok();
-        }
-
         [HttpDelete]
         public IHttpActionResult BorrarUniversidad(int id)
         {

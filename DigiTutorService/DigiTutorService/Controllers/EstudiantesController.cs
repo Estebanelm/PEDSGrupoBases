@@ -10,7 +10,7 @@ namespace DigiTutorService.Controllers {
     public class EstudiantesController : ApiController {
 
         [HttpGet]
-        public Estudiante GetEstudiante (int userid, int id) {
+        public Estudiante GetEstudiante (string userid, int id) {
             //retorna un entidad estudiante
             return null;
         }
@@ -47,14 +47,14 @@ namespace DigiTutorService.Controllers {
         }
 
         [HttpPut]
-        public IHttpActionResult ModificarEstudiante (int id, [FromBody] Estudiante admin) {
+        public IHttpActionResult ModificarEstudiante (string id, [FromBody] Estudiante admin) {
             //modificar admin
 
             return Ok ();
         }
 
         [HttpDelete]
-        public IHttpActionResult BorrarEstudiante (int id) {
+        public IHttpActionResult BorrarEstudiante (string id) {
             //borrar admin
 
             return Ok ();

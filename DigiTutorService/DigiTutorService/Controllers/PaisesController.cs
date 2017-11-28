@@ -18,7 +18,7 @@ namespace DigiTutorService.Controllers
 
         //devuelve lista de paises
         [HttpGet]
-        public IEnumerable<Tecnologia> GetPaises()
+        public IEnumerable<Pais> GetPaises()
         {
             //return List<Paises>
 

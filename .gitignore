@@ -4,3 +4,5 @@ DigiTutorService/DigiTutorService/obj/Debug/
 DigiTutorService/DigiTutorService/bin/roslyn/VBCSCompiler.exe.config
 DigiTutorService/DigiTutorService/bin/roslyn/
 DigiTutorService/.vs/
+DigiTutorService/DigiTutorTest/obj/
+DigiTutorService/DigiTutorTest/Properties/AssemblyInfo.cs

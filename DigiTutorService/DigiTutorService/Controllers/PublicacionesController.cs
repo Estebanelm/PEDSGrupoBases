@@ -35,7 +35,7 @@ namespace DigiTutorService.Controllers {
         }
 
         [HttpPost]
-        public IHttpActionResult PostPublicacionContenido ([FromBody] Publicacion pub) {
+        public IHttpActionResult PostPublicacion ([FromBody] Contenido pub) {
             // crear un Publicacion
 
             return Ok ();
