@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiTutorService", "DigiTutorService\DigiTutorService.csproj", "{AD3FEB2C-4815-4420-BE8D-0F1D84476F88}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiTutorTest", "DigiTutorTest\DigiTutorTest.csproj", "{D1A42EF9-7F63-4E9E-8619-A100D247EC2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{AD3FEB2C-4815-4420-BE8D-0F1D84476F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD3FEB2C-4815-4420-BE8D-0F1D84476F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD3FEB2C-4815-4420-BE8D-0F1D84476F88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1A42EF9-7F63-4E9E-8619-A100D247EC2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1A42EF9-7F63-4E9E-8619-A100D247EC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1A42EF9-7F63-4E9E-8619-A100D247EC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1A42EF9-7F63-4E9E-8619-A100D247EC2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
