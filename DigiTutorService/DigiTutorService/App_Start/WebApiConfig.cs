@@ -16,9 +16,10 @@ namespace DigiTutorService
             
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{userid}/{controller}/{id}",
+                defaults: new { userid= RouterParameter.Optional, id = RouteParameter.Optional }
             );
+           
         }
     }
 }
