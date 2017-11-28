@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using DigiTutorService.Models;
+
+namespace DigiTutorService.DataAccessLayer
+{
+    public class FachadaCatalogoDAL
+    {
+        public IEnumerable<Tecnologia> GetTecnologias()
+        {
+            return null;
+        }
+        public IEnumerable<Universidad> GetUniversidades()
+        {
+            return null;
+        }
+        public IEnumerable<Pais> GetPaises()
+        {
+            return null;
+        }
+
+    }
+}

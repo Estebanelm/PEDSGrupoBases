@@ -16,7 +16,7 @@ namespace DigiTutorService.Controllers
         public IEnumerable<Tecnologia> GetTecnologias()
         {
             //return List<Tecnologias>
-
+            return null;
         }
         
      

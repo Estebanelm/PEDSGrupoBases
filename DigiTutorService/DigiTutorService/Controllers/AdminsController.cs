@@ -12,7 +12,7 @@ namespace DigiTutorService.Controllers {
         [HttpGet]
         public Administrador GetAdministrador (int id) {
             //return List<Tecnologias>
-
+            return null;
         }
 
         [HttpPost]

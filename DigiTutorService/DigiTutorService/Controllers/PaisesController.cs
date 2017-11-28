@@ -10,7 +10,11 @@ namespace DigiTutorService.Controllers
 {
     public class PaisesController : ApiController
     {
-        List<Pais> paises = new {"Argentina", "Australia", "Austria", "Costa Rica"};
+        List<Pais> paises = new Pais[]{
+            new Pais { Nombre = "Argentina" },
+            new Pais { Nombre = "Australia" },
+            new Pais { Nombre = "Austria" },
+            new Pais { Nombre ="Costa Rica" }}.ToList();
 
         //devuelve lista de paises
         [HttpGet]
@@ -18,6 +22,7 @@ namespace DigiTutorService.Controllers
         {
             //return List<Paises>
 
-      
+            return null;
+        }
     }
 }

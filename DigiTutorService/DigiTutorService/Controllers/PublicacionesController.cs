@@ -11,15 +11,16 @@ namespace DigiTutorService.Controllers {
 
         //retorna lista de publicaciones que puede ver un estudiante
         [HttpGet]
-        public List<Publicacion> GetPublicacionesVisibles (int userid, int pag) {
+        public List<Publicacion> GetPublicacionesVisibles (string userid, int pag) {
             //return List<Publicacion>
-
+            return null;
         }
 
         //retorna lista de publicaciones de un estudiante específico
         [HttpGet]
-        public List<Publicacion> GetPublicacionesEstudiante (int userid, int id, int pag) {
+        public List<Publicacion> GetPublicacionesEstudiante (string userid, string id, int pag) {
             //return List<Publicacion>
+            return null;
 
         }
 
@@ -34,7 +35,7 @@ namespace DigiTutorService.Controllers {
         }
 
         [HttpPost]
-        public IHttpActionResult PostPublicacionContenido ([FromBody] PublicacionContenido pub) {
+        public IHttpActionResult PostPublicacionContenido ([FromBody] Publicacion pub) {
             // crear un Publicacion
 
             return Ok ();

@@ -163,7 +163,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\ApoyosController.cs" />
+    <Compile Include="Controllers\ComentariosController.cs" />
+    <Compile Include="Controllers\EstudiantesController.cs" />
+    <Compile Include="Controllers\EvaluacionesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PaisesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\PublicacionesController.cs" />
+    <Compile Include="Controllers\SeguimientoController.cs" />
+    <Compile Include="Controllers\TecnologiasController.cs" />
+    <Compile Include="Controllers\UniversidadesController.cs" />
     <Compile Include="DataAccessLayer\CategoriaDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>

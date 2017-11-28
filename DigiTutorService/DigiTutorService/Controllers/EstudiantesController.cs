@@ -12,15 +12,16 @@ namespace DigiTutorService.Controllers {
         [HttpGet]
         public Estudiante GetEstudiante (int userid, int id) {
             //retorna un entidad estudiante
-
+            return null;
         }
 
         //busqueda de estudiantes
         [HttpGet]
         public List<Estudiante> GetEstudiantes (string nombre, int id_un, int id_pais, 
-                                    int id_tec, int pag )
+                                    int id_tec, int pag)
+        {
             //retorna una lista de Estudiantes ordenada por reputacion
-
+            return null;
 
         }
 
@@ -28,8 +29,10 @@ namespace DigiTutorService.Controllers {
         [HttpGet]
         public List<Estudiante> BusquedaAdministrativa ( int id_un, int id_pais, 
                          int ec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4, int pag )
-            //retorna una lista de Estudiantes ordenada por el
-            //algoritmo calculado de reclutamiento
+        {
+        //retorna una lista de Estudiantes ordenada por el
+        //algoritmo calculado de reclutamiento
+        return null;
             
 
         }
