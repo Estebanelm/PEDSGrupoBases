@@ -7,9 +7,10 @@ namespace DigiTutorService.Models
 {
     public class Administrador
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Category { get; set; }
-        public decimal Price { get; set; }
+        public string Id { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Correo { get; set; }
+        public DateTime FechaInscripcion { get; set; }
     }
 }
