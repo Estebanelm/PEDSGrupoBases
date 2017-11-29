@@ -38,7 +38,7 @@ namespace DigiTutorService.DataAccessLayer
         public virtual DbSet<TutoriaDAO> TutoriaDAOs { get; set; }
         public virtual DbSet<UniversidadDAO> UniversidadDAOs { get; set; }
         public virtual DbSet<UsuarioDAO> UsuarioDAOs { get; set; }
-        public virtual DbSet<DAO> DAOs { get; set; }
+        public virtual DbSet<ApoyoDAO> ApoyoDAOs { get; set; }
         public virtual DbSet<ComentarioDAO> ComentarioDAOs { get; set; }
         public virtual DbSet<ContenidoDAO> ContenidoDAOs { get; set; }
     }

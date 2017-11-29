@@ -709,8 +709,9 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="activo" Type="Boolean" Nullable="false" />
           <Property Name="is_admin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Estudiante" Relationship="Self.FK_Estudiante_Usuario" FromRole="Usuario" ToRole="Estudiante" />
+          <Property Name="id_generado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="DAO">
+        <EntityType Name="ApoyoDAO">
           <Key>
             <PropertyRef Name="id_estudianteApoyado" />
             <PropertyRef Name="id_estudianteDaApoyo" />
@@ -778,7 +779,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
         </Association>
         <Association Name="FK_Apoyado">
           <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Apoyo" Type="DataAccessLayer.DAO" Multiplicity="*" />
+          <End Role="Apoyo" Type="DataAccessLayer.ApoyoDAO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -802,7 +803,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
         </Association>
         <Association Name="FK_DaApoyo">
           <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Apoyo" Type="DataAccessLayer.DAO" Multiplicity="*" />
+          <End Role="Apoyo" Type="DataAccessLayer.ApoyoDAO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -982,7 +983,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
         </Association>
         <Association Name="FK_Apoyo_Tecnologia">
           <End Role="Tecnologia" Type="DataAccessLayer.TecnologiaDAO" Multiplicity="1" />
-          <End Role="Apoyo" Type="DataAccessLayer.DAO" Multiplicity="*" />
+          <End Role="Apoyo" Type="DataAccessLayer.ApoyoDAO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tecnologia">
               <PropertyRef Name="id" />
@@ -1018,7 +1019,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <EntitySet Name="TutoriaDAOs" EntityType="DataAccessLayer.TutoriaDAO" />
           <EntitySet Name="UniversidadDAOs" EntityType="DataAccessLayer.UniversidadDAO" />
           <EntitySet Name="UsuarioDAOs" EntityType="DataAccessLayer.UsuarioDAO" />
-          <EntitySet Name="DAOs" EntityType="DataAccessLayer.DAO" />
+          <EntitySet Name="ApoyoDAOs" EntityType="DataAccessLayer.ApoyoDAO" />
           <EntitySet Name="ComentarioDAOs" EntityType="DataAccessLayer.ComentarioDAO" />
           <EntitySet Name="ContenidoDAOs" EntityType="DataAccessLayer.ContenidoDAO" />
           <AssociationSet Name="FK_Tecnologia_Categoria" Association="Self.FK_Tecnologia_Categoria">
@@ -1031,7 +1032,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </AssociationSet>
           <AssociationSet Name="FK_Apoyado" Association="Self.FK_Apoyado">
             <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Apoyo" EntitySet="DAOs" />
+            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
           </AssociationSet>
           <AssociationSet Name="FK_Comentario_Estudiante" Association="Self.FK_Comentario_Estudiante">
             <End Role="Estudiante" EntitySet="EstudianteDAOs" />
@@ -1039,7 +1040,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </AssociationSet>
           <AssociationSet Name="FK_DaApoyo" Association="Self.FK_DaApoyo">
             <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Apoyo" EntitySet="DAOs" />
+            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
           </AssociationSet>
           <AssociationSet Name="FK_Estudiante_Pais" Association="Self.FK_Estudiante_Pais">
             <End Role="Pais" EntitySet="PaiDAOs" />
@@ -1099,7 +1100,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </AssociationSet>
           <AssociationSet Name="FK_Apoyo_Tecnologia" Association="Self.FK_Apoyo_Tecnologia">
             <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
-            <End Role="Apoyo" EntitySet="DAOs" />
+            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
           </AssociationSet>
           <AssociationSet Name="FK_Tecnologia_x_Estudiante_Tecnologia" Association="Self.FK_Tecnologia_x_Estudiante_Tecnologia">
             <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
@@ -1249,8 +1250,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.DAO">
+          <EntitySetMapping Name="ApoyoDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.ApoyoDAO">
               <MappingFragment StoreEntitySet="Apoyo">
                 <ScalarProperty Name="id_estudianteApoyado" ColumnName="id_estudianteApoyado" />
                 <ScalarProperty Name="id_estudianteDaApoyo" ColumnName="id_estudianteDaApoyo" />
