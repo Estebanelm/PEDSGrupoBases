@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataAccessLayer.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DataAccessLayer.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DigiTutorDB.dbo.Apoyo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Apoyo">
@@ -140,6 +140,14 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="id_tecnologia" Type="int" Nullable="false" />
           <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tecnologia_x_publicacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_tecnologia" Type="int" Nullable="false" />
+          <Property Name="id_publicacion" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Tutoria">
           <Key>
             <PropertyRef Name="id" />
@@ -169,7 +177,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="correo_principal" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="activo" Type="bit" Nullable="false" />
           <Property Name="is_admin" Type="bit" Nullable="false" />
-		  <Property Name="id_generado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_generado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK_Apoyado">
           <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
@@ -327,6 +335,18 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Publicacion_Tecnologia">
+          <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
+          <End Role="Tecnologia_x_publicacion" Type="Self.Tecnologia_x_publicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tecnologia_x_publicacion">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RegistroTutoria_Estudiante">
           <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
           <End Role="RegistroTutoria" Type="Self.RegistroTutoria" Multiplicity="*" />
@@ -387,6 +407,18 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tecnologia_Publicacion">
+          <End Role="Tecnologia" Type="Self.Tecnologia" Multiplicity="1" />
+          <End Role="Tecnologia_x_publicacion" Type="Self.Tecnologia_x_publicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tecnologia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tecnologia_x_publicacion">
+              <PropertyRef Name="id_tecnologia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tecnologia_x_Estudiante_Estudiante">
           <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
           <End Role="Tecnologia_x_Estudiante" Type="Self.Tecnologia_x_Estudiante" Multiplicity="*" />
@@ -434,6 +466,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <EntitySet Name="RegistroTutoria" EntityType="Self.RegistroTutoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tecnologia" EntityType="Self.Tecnologia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tecnologia_x_Estudiante" EntityType="Self.Tecnologia_x_Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tecnologia_x_publicacion" EntityType="Self.Tecnologia_x_publicacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tutoria" EntityType="Self.Tutoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Universidad" EntityType="Self.Universidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -514,6 +547,10 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             <End Role="Estudiante" EntitySet="Estudiante" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
+          <AssociationSet Name="FK_Publicacion_Tecnologia" Association="Self.FK_Publicacion_Tecnologia">
+            <End Role="Publicacion" EntitySet="Publicacion" />
+            <End Role="Tecnologia_x_publicacion" EntitySet="Tecnologia_x_publicacion" />
+          </AssociationSet>
           <AssociationSet Name="FK_RegistroTutoria_Estudiante" Association="Self.FK_RegistroTutoria_Estudiante">
             <End Role="Estudiante" EntitySet="Estudiante" />
             <End Role="RegistroTutoria" EntitySet="RegistroTutoria" />
@@ -534,6 +571,10 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Tecnologia" EntitySet="Tecnologia" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_Publicacion" Association="Self.FK_Tecnologia_Publicacion">
+            <End Role="Tecnologia" EntitySet="Tecnologia" />
+            <End Role="Tecnologia_x_publicacion" EntitySet="Tecnologia_x_publicacion" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tecnologia_x_Estudiante_Estudiante" Association="Self.FK_Tecnologia_x_Estudiante_Estudiante">
             <End Role="Estudiante" EntitySet="Estudiante" />
             <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_Estudiante" />
@@ -547,8 +588,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             <End Role="Tutoria" EntitySet="Tutoria" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataAccessLayer" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -645,6 +685,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentario_Publicacion" FromRole="Publicacion" ToRole="Comentario" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Contenido_Publicacion" FromRole="Publicacion" ToRole="Contenido" />
           <NavigationProperty Name="Tutorias" Relationship="Self.FK_Tutoria_Publicacion" FromRole="Publicacion" ToRole="Tutoria" />
+          <NavigationProperty Name="Tecnologia_x_publicacion" Relationship="DataAccessLayer.FK_Publicacion_Tecnologia" FromRole="PublicacionDAO" ToRole="Tecnologia_x_publicacion" />
         </EntityType>
         <EntityType Name="RegistroTutoriaDAO">
           <Key>
@@ -666,6 +707,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <NavigationProperty Name="Categoria" Relationship="Self.FK_Tecnologia_Categoria" FromRole="Tecnologia" ToRole="Categoria" />
           <NavigationProperty Name="Apoyoes" Relationship="Self.FK_Apoyo_Tecnologia" FromRole="Tecnologia" ToRole="Apoyo" />
           <NavigationProperty Name="Tecnologia_x_Estudiante" Relationship="Self.FK_Tecnologia_x_Estudiante_Tecnologia" FromRole="Tecnologia" ToRole="Tecnologia_x_Estudiante" />
+          <NavigationProperty Name="Tecnologia_x_publicacion" Relationship="DataAccessLayer.FK_Tecnologia_Publicacion" FromRole="TecnologiaDAO" ToRole="Tecnologia_x_publicacion" />
         </EntityType>
         <EntityType Name="Tecnologia_x_EstudianteDAO">
           <Key>
@@ -1107,7 +1149,50 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
             <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_EstudianteDAO" />
           </AssociationSet>
+          <EntitySet Name="Tecnologia_x_publicacionDAO" EntityType="DataAccessLayer.Tecnologia_x_publicacionDAO" />
+          <AssociationSet Name="FK_Publicacion_Tecnologia" Association="DataAccessLayer.FK_Publicacion_Tecnologia">
+            <End Role="PublicacionDAO" EntitySet="PublicacionDAOs" />
+            <End Role="Tecnologia_x_publicacion" EntitySet="Tecnologia_x_publicacionDAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_Publicacion" Association="DataAccessLayer.FK_Tecnologia_Publicacion">
+            <End Role="TecnologiaDAO" EntitySet="TecnologiaDAOs" />
+            <End Role="Tecnologia_x_publicacion" EntitySet="Tecnologia_x_publicacionDAO" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Tecnologia_x_publicacionDAO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_tecnologia" Type="Int32" Nullable="false" />
+          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Publicacion" Relationship="DataAccessLayer.FK_Publicacion_Tecnologia" FromRole="Tecnologia_x_publicacion" ToRole="PublicacionDAO" />
+          <NavigationProperty Name="Tecnologia" Relationship="DataAccessLayer.FK_Tecnologia_Publicacion" FromRole="Tecnologia_x_publicacion" ToRole="TecnologiaDAO" />
+        </EntityType>
+        <Association Name="FK_Publicacion_Tecnologia">
+          <End Type="DataAccessLayer.PublicacionDAO" Role="PublicacionDAO" Multiplicity="1" />
+          <End Type="DataAccessLayer.Tecnologia_x_publicacionDAO" Role="Tecnologia_x_publicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicacionDAO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tecnologia_x_publicacion">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tecnologia_Publicacion">
+          <End Type="DataAccessLayer.TecnologiaDAO" Role="TecnologiaDAO" Multiplicity="1" />
+          <End Type="DataAccessLayer.Tecnologia_x_publicacionDAO" Role="Tecnologia_x_publicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TecnologiaDAO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tecnologia_x_publicacion">
+              <PropertyRef Name="id_tecnologia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1280,6 +1365,15 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
                 <ScalarProperty Name="enlace_video" ColumnName="enlace_video" />
                 <ScalarProperty Name="enlace_extra" ColumnName="enlace_extra" />
                 <ScalarProperty Name="id_documento" ColumnName="id_documento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tecnologia_x_publicacionDAO">
+            <EntityTypeMapping TypeName="DataAccessLayer.Tecnologia_x_publicacionDAO">
+              <MappingFragment StoreEntitySet="Tecnologia_x_publicacion">
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+                <ScalarProperty Name="id_tecnologia" ColumnName="id_tecnologia" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

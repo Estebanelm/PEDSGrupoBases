@@ -42,6 +42,9 @@
         <AssociationConnector Association="DataAccessLayer.FK_RegistroTutoria_Tutoria" ManuallyRouted="false" />
         <AssociationConnector Association="DataAccessLayer.FK_Apoyo_Tecnologia" ManuallyRouted="false" />
         <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_x_Estudiante_Tecnologia" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DataAccessLayer.Tecnologia_x_publicacionDAO" Width="1.5" PointX="12.25" PointY="11.75" />
+        <AssociationConnector Association="DataAccessLayer.FK_Publicacion_Tecnologia" />
+        <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_Publicacion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

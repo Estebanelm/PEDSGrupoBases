@@ -234,6 +234,9 @@
     <Compile Include="DataAccessLayer\Tecnologia_x_EstudianteDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccessLayer\Tecnologia_x_publicacionDAO.cs">
+      <DependentUpon>DataAccessLayer.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAccessLayer\TutoriaDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>

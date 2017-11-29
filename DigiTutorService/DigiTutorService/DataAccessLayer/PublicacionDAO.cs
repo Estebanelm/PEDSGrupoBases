@@ -20,6 +20,7 @@ namespace DigiTutorService.DataAccessLayer
             this.Evaluacions = new HashSet<EvaluacionDAO>();
             this.Comentarios = new HashSet<ComentarioDAO>();
             this.Tutorias = new HashSet<TutoriaDAO>();
+            this.Tecnologia_x_publicacion = new HashSet<Tecnologia_x_publicacionDAO>();
         }
     
         public int id { get; set; }
@@ -39,5 +40,7 @@ namespace DigiTutorService.DataAccessLayer
         public virtual ContenidoDAO Contenido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TutoriaDAO> Tutorias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tecnologia_x_publicacionDAO> Tecnologia_x_publicacion { get; set; }
     }
 }

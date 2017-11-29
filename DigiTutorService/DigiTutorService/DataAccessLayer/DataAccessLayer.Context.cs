@@ -41,5 +41,6 @@ namespace DigiTutorService.DataAccessLayer
         public virtual DbSet<ApoyoDAO> ApoyoDAOs { get; set; }
         public virtual DbSet<ComentarioDAO> ComentarioDAOs { get; set; }
         public virtual DbSet<ContenidoDAO> ContenidoDAOs { get; set; }
+        public virtual DbSet<Tecnologia_x_publicacionDAO> Tecnologia_x_publicacionDAO { get; set; }
     }
 }

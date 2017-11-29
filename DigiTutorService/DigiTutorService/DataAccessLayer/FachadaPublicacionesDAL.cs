@@ -8,12 +8,18 @@ namespace DigiTutorService.DataAccessLayer
 {
     public class FachadaPublicacionDAL
     {
+        //este método busca las publicaciones que se van a mostar en la página principal
+        //para el estudiante que se logueó
         public IEnumerable<Publicacion> GetPublicaciones(string userid, int pag)
         {
+            //usar skip y take(20) en LINQ
             return null;
         }
+        //este método busca las publicaciones que se van a mostar en la página de otro
+        //estudiante cuando se visita otro perfil.
         public IEnumerable<Publicacion> GetPublicaciones(string userid, string otherUserId, int pag)
         {
+            //usar skip y take(20) en LINQ
             return null;
         }
         public T GetDocumento<T>(int DocId) where T : class
