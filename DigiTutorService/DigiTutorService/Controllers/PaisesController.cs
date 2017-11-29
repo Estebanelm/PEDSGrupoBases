@@ -18,13 +18,9 @@ namespace DigiTutorService.Controllers
 
         //devuelve lista de paises
         [HttpGet]
-<<<<<<< HEAD
         public IHttpActionResult GetPaises()
-=======
-        public IEnumerable<Pais> GetPaises()
->>>>>>> d18fbcafdf0944b53f93db55dd5ce6e7b081a608
         {
-            return paises;
+            return Ok(paises);
         }
 
             return null;

@@ -10,27 +10,17 @@ namespace DigiTutorService.Controllers {
     public class EstudiantesController : ApiController {
 
         [HttpGet]
-<<<<<<< HEAD
         public IHttpActionResult GetEstudiante (int userid, int id) {
-=======
-        public Estudiante GetEstudiante (string userid, int id) {
->>>>>>> d18fbcafdf0944b53f93db55dd5ce6e7b081a608
             //retorna un entidad estudiante
-            return null;
+            return Ok();
         }
 
         //busqueda de estudiantes
         [HttpGet]
-<<<<<<< HEAD
         public IHttpActionResult GetEstudiantes (string nombre, int id_un, int id_pais, 
-                                    int id_tec, int pag )
-=======
-        public List<Estudiante> GetEstudiantes (string nombre, int id_un, int id_pais, 
-                                    int id_tec, int pag)
-        {
->>>>>>> d18fbcafdf0944b53f93db55dd5ce6e7b081a608
+                                    int id_tec, int pag ){
             //retorna una lista de Estudiantes ordenada por reputacion
-            return null;
+            return Ok();
 
         }
 
@@ -41,7 +31,7 @@ namespace DigiTutorService.Controllers {
         {
         //retorna una lista de Estudiantes ordenada por el
         //algoritmo calculado de reclutamiento
-        return null;
+        return Ok();
             
 
         }
