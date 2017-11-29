@@ -39,7 +39,7 @@ namespace DigiTutorService.DataAccessLayer.Repository
 
             }
         }
-        public static int Create<T>(T newObject) where T : class
+        public static bool Create<T>(T newObject) where T : class
         {
             using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
             {
@@ -47,18 +47,32 @@ namespace DigiTutorService.DataAccessLayer.Repository
                 {
                     dbContext.Set<T>().Add(newObject);
                     dbContext.SaveChanges();
-                    return 1;
+                    return true;
                 }
                 catch (Exception)
                 {
-                    return 0;
+                    return true;
                 }
                     
             }
         }
-        public static int Delete(Expression<Func<Object, bool>> predicate)
+        public static bool Delete<T>(T objectToDelete) where T : class
         {
-            return 0;
+            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
+            {
+                try
+                {
+                    dbContext.Set<T>().Attach(objectToDelete);
+                    dbContext.Set<T>().Remove(objectToDelete);
+                    dbContext.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
         }
         public static int Update<T>(T modifiedObject) where T : class
         {

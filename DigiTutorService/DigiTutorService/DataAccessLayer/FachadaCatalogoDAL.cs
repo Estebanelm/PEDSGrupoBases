@@ -50,23 +50,33 @@ namespace DigiTutorService.DataAccessLayer
         }
         public IEnumerable<Pais> GetPaises()
         {
-            return null;
+            return GetAll<Pais, PaisDAO>();
         }
         public bool AddTecnologia(Tecnologia tecnologia)
         {
-            return false;
+            CategoriaDAO categoriacategoriaExistente = RepositoryDAL.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Nombre)).FirstOrDefault();
+            if (categoriacategoriaExistente == null)
+            {
+                CategoriaDAO nuevaCat = new CategoriaDAO { nombre = tecnologia.Nombre };
+                RepositoryDAL.Create(nuevaCat);
+            }
+            CategoriaDAO categoriaActual = RepositoryDAL.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Nombre)).FirstOrDefault();
+            TecnologiaDAO nuevaTec = new TecnologiaDAO { nombre = tecnologia.Nombre, id_categoria = categoriaActual.id};
+            return RepositoryDAL.Create(nuevaTec);
         }
         public bool AddUniversidad(Universidad universidad)
         {
-            return false;
+            return RepositoryDAL.Create(Switch<UniversidadDAO>(universidad));
         }
 		public bool DeleteUniversidad(int UniversidadId)
 		{
-			return false;
+            UniversidadDAO universidadABorrar = new UniversidadDAO { id = UniversidadId };
+            return RepositoryDAL.Delete(universidadABorrar);
 		}
 		public bool DeleteTecnologia(int TecnologiaId)
 		{
-			return false;
-		}
+            TecnologiaDAO tecnologiaABorrar = new TecnologiaDAO { id = TecnologiaId };
+            return RepositoryDAL.Delete(tecnologiaABorrar);
+        }
     }
 }

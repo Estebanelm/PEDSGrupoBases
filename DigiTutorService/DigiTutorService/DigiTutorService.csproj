@@ -218,7 +218,7 @@
     <Compile Include="DataAccessLayer\FachadaCatalogoDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaPublicacionesDAL.cs" />
     <Compile Include="DataAccessLayer\FachadaUsuariosDAL.cs" />
-    <Compile Include="DataAccessLayer\PaiDAO.cs">
+    <Compile Include="DataAccessLayer\PaisDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\PublicacionDAO.cs">
