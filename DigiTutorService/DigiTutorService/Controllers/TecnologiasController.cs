@@ -21,8 +21,9 @@ namespace DigiTutorService.Controllers
             // agregar una tecnologia
             if (tec.Categoria != null && tec.Nombre != null)
             {
-                catalogo.AddTecnologia(tec);
-                return Ok();
+                if (catalogo.AddTecnologia(tec))
+                    return Ok();
+                else return BadRequest();
             }
             else return BadRequest();
         }
@@ -32,9 +33,10 @@ namespace DigiTutorService.Controllers
         {
             //borrar tecnologia
             //revisar si esta usada por algun estudiante
-            if (catalogo.DeleteTecnologia(id)) Ok();
+            if (catalogo.DeleteTecnologia(id))
+                return Ok();
+            else return BadRequest();
 
-            return BadRequest();
         }
 
 

@@ -26,18 +26,20 @@ namespace DigiTutorService.Controllers
             }
             else
             {
-                catalogo.AddUniversidad(univ);
-                return Ok();
+                if (catalogo.AddUniversidad(univ))
+                    return Ok();
+                else return BadRequest();
             }
         }
 
         [HttpDelete]
-        public IHttpActionResult BorrarUniversidad(string nombre)
+        public IHttpActionResult BorrarUniversidad(int id)
         {
             //borrar universidad
             //hay q revisar si esta siendo usada por algun estudiante
-            
-            return Ok();
+            if (catalogo.DeleteUniversidad(id))
+                return Ok();
+            else return BadRequest();
         }
     }
 }

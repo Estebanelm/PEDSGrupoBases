@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+
 
 namespace DigiTutorService.Models
 {
@@ -12,5 +10,15 @@ namespace DigiTutorService.Models
         public string Nombre_Autor { get; set; }
         public string Contenido { get; set; }
         public DateTime Fecha_comentario { get; set; }
+
+        public bool isFull()
+        {
+            if (Id_Autor != null && Nombre_Autor != null && Contenido != null)
+                if (Contenido != "")
+                    return true;
+                else return false;
+            else return false;
+           
+        }
     }
 }

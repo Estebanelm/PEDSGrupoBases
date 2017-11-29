@@ -13,5 +13,12 @@ namespace DigiTutorService.Models
         public string Apellido { get; set; }
         public string Correo { get; set; }
         public DateTime FechaInscripcion { get; set; }
+
+        public bool hasInfoCreacion()
+        {
+            if (NombreUsuario != null && Nombre != null && Apellido != null && Correo != null)
+                return true;
+            else return false;
+        }
     }
 }

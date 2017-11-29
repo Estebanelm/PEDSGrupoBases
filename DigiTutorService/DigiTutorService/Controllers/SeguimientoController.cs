@@ -15,8 +15,9 @@ namespace DigiTutorService.Controllers
             {
                 //agregar seguimiento a la tabla de seguimientos
                 Seguimiento seg = new Seguimiento { id_estudianteSigue = userid, id_estudianteSeguido = id };
-                usuarios.AddSeguimiento(seg);
+                if(usuarios.AddSeguimiento(seg))
                 return Ok("se agrego seguimiento");
+                else return BadRequest();
             }
             else
             {

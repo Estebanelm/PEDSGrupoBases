@@ -21,6 +21,13 @@ namespace DigiTutorService.Models
         public DateTime FechaCreacion { get; set; }
         public string MiEvaluacion { get; set; }
         public int CantidadEvaluaciones { get; set; }
-    }
 
+
+        public bool hasInfoCreacion()
+        {
+            if (Id_autor != null && Nombre_autor != null && Descripcion != null && Tecnologias.Count != 0)
+                return true;
+            else return false;
+        }
+    }
 }
