@@ -16,7 +16,7 @@ namespace DigiTutorService.Controllers
         public IHttpActionResult GetTecnologias()
         {
             //return List<Tecnologias>
-            return null;
+            return Ok("hola");
         }
         
         [HttpPost]

@@ -10,17 +10,20 @@ namespace DigiTutorService.Controllers {
     public class PublicacionesController : ApiController {
 
         //retorna lista de publicaciones que puede ver un estudiante
+        //[Route("api/{userid:int}/publicaciones")]
         [HttpGet]
         public IHttpActionResult GetPublicacionesVisibles (int userid, int pag) {
             //return List<Publicacion>
-            return Ok();
+            return Ok("metido en pubs");
+
         }
 
         //retorna lista de publicaciones de un estudiante específico
+        [Route("api/{userid:int}/publicaciones/{id}")]
         [HttpGet]
         public IHttpActionResult GetPublicacionesEstudiante (int userid, int id, int pag) {
             //return List<Publicacion>
-            return Ok();
+            return Ok("metido en las publicaciones de estudiante especifico");
 
         }
 
@@ -38,7 +41,7 @@ namespace DigiTutorService.Controllers {
         public IHttpActionResult PostPublicacion ([FromBody] Contenido pub) {
             // crear un Publicacion
 
-            return Ok ();
+            return Ok ("borrar pub");
         }
 
 
@@ -48,7 +51,7 @@ namespace DigiTutorService.Controllers {
         [HttpDelete]
         public IHttpActionResult BorrarPublicacion (int id) {
             //desactivar publicacion
-            return Ok ();
+            return NotFound();
         }
     }
 }

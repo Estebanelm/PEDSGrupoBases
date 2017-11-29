@@ -7,3 +7,5 @@ DigiTutorService/.vs/
 DigiTutorService/DigiTutorTest/obj/
 DigiTutorService/DigiTutorTest/Properties/AssemblyInfo.cs
 DigiTutorService/DigiTutorTest/bin/
+/.vs
+/DigiTutorService/DigiTutorService/bin

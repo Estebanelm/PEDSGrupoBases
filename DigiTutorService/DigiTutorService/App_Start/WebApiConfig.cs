@@ -13,13 +13,21 @@ namespace DigiTutorService
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            
+
             config.Routes.MapHttpRoute(
-                name: "DigiTutorAPI",
-                routeTemplate: "api/{userid}/{controller}/{id}",
-                defaults: new { userid= RouteParameter.Optional, id = RouteParameter.Optional }
-            );
-           
+               name: "DigiTutorAPI",
+               routeTemplate: "api/{userid:int}/{controller}/{id}",
+               defaults: new { userid = RouteParameter.Optional , id = RouteParameter.Optional }
+           );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "DigiTutorAPI",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
+
+
+
         }
     }
 }
