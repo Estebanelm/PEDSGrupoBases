@@ -10,6 +10,17 @@ namespace DigiTutorService.DataAccessLayer
 {
     public class FachadaCatalogoDAL
     {
+        public List<T> GetAll<T, TDAO>() where T : new() where TDAO : class
+        {
+            List<TDAO> listObjetos = RepositoryDAL.Read<TDAO>();
+            List<T> returnList = new List<T>();
+            foreach (TDAO item in listObjetos)
+            {
+                T switchedObject = Switch<T>(item);
+                returnList.Add(switchedObject);
+            }
+            return returnList;
+        }
         public TConvert Switch<TConvert>(object entity) where TConvert : new()
         {
             var convertProperties = TypeDescriptor.GetProperties(typeof(TConvert)).Cast<PropertyDescriptor>();
@@ -20,7 +31,7 @@ namespace DigiTutorService.DataAccessLayer
             foreach (var entityProperty in entityProperties)
             {
                 var property = entityProperty;
-                var convertProperty = convertProperties.FirstOrDefault(prop => prop.Name == property.Name);
+                var convertProperty = convertProperties.FirstOrDefault(prop => prop.Name.Equals(property.Name, StringComparison.OrdinalIgnoreCase));
                 if (convertProperty != null)
                 {
                     convertProperty.SetValue(convert, Convert.ChangeType(entityProperty.GetValue(entity), convertProperty.PropertyType));
@@ -31,31 +42,11 @@ namespace DigiTutorService.DataAccessLayer
         }
         public List<Tecnologia> GetTecnologias()
         {
-            List<TecnologiaDAO> listTecnologias = RepositoryDAL.Read<TecnologiaDAO>(tec => tec.id > 0);
-            List<Tecnologia> returnList = new List<Tecnologia>();
-            foreach (TecnologiaDAO tec in listTecnologias)
-            {
-                returnList.Add(new Tecnologia
-                {
-                    Nombre = tec.nombre,
-                    Categoria = tec.Categoria.nombre
-                });
-            }
-            return returnList;
+            return GetAll<Tecnologia, TecnologiaDAO>();
         }
         public IEnumerable<Universidad> GetUniversidades()
         {
-            List<UniversidadDAO> listUniversidades = RepositoryDAL.Read<UniversidadDAO>(univ => univ.id > 0);
-            List<Universidad> returnList = new List<Universidad>();
-            foreach (UniversidadDAO univ in listUniversidades)
-            {
-                Universidad asd = Switch<Universidad>(univ);
-                returnList.Add(new Universidad
-                {
-                    Nombre = univ.nombre
-                });
-            }
-            return returnList;
+            return GetAll<Universidad, UniversidadDAO>();
         }
         public IEnumerable<Pais> GetPaises()
         {
