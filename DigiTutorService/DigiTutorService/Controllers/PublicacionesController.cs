@@ -1,29 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using DigiTutorService.Models;
+using DigiTutorService.DataAccessLayer;
 
 namespace DigiTutorService.Controllers {
     public class PublicacionesController : ApiController {
 
+        FachadaPublicacionDAL publicaciones = new FachadaPublicacionDAL();
+
         //retorna lista de publicaciones que puede ver un estudiante
         [Route("api/{userid:int}/publicaciones")]
         [HttpGet]
-        public IHttpActionResult GetPublicacionesVisibles (int userid, int pag) {
+        public IHttpActionResult GetPublicacionesVisibles (string userid, int pag) {
             //return List<Publicacion>
-            return Ok("metido en pubs");
+            return Ok(publicaciones.GetPublicaciones(userid, pag));
 
         }
 
         //retorna lista de publicaciones de un estudiante específico
         [Route("api/{userid:int}/publicaciones/{id}")]
         [HttpGet]
-        public IHttpActionResult GetPublicacionesEstudiante (int userid, int id, int pag) {
+        public IHttpActionResult GetPublicacionesEstudiante (string userid, string id, int pag) {
             //return List<Publicacion>
-            return Ok("metido en las publicaciones de estudiante especifico");
+            return Ok(publicaciones.GetPublicaciones(userid,id, pag));
 
         }
 
@@ -34,14 +32,18 @@ namespace DigiTutorService.Controllers {
         public IHttpActionResult PostTutoria ([FromBody] Tutoria tut) {
             // crear una tutoria
 
-            return Ok ("crear tutoria");
+            if(publicaciones.CreateTutoria(tut))
+                return Ok();
+            else return BadRequest();
         }
 
         [HttpPost]
         public IHttpActionResult PostPublicacion ([FromBody] Contenido pub) {
             // crear un Publicacion
 
-            return Ok ("post publicaciones");
+            if (publicaciones.CreatePublicacion(pub))
+                return Ok();
+            else return BadRequest();
         }
 
 
@@ -50,7 +52,9 @@ namespace DigiTutorService.Controllers {
         [HttpDelete]
         public IHttpActionResult BorrarPublicacion (int id) {
             //desactivar publicacion
-            return NotFound();
+            if (publicaciones.DeletePublicacion(id))
+                return Ok();
+            else return BadRequest();
         }
     }
 }

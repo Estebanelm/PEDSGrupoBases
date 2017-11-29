@@ -1,21 +1,23 @@
+using DigiTutorService.DataAccessLayer;
 using DigiTutorService.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace DigiTutorService.Controllers
 {
     public class ApoyosController : ApiController
-    {        
+    {
+
+        private FachadaUsuariosDAL usuarios = new FachadaUsuariosDAL();
 
         [HttpPut]
         public IHttpActionResult DarApoyo([FromBody] Apoyo apoyo)
         {
             //agregar apoyo a la lista de apoyos
-            
+            if(apoyo.id_estudianteApoyado !=null && apoyo.id_estudianteQueApoya != null && apoyo.Tecnologia != null)
+            {
+                if (usuarios.AddApoyo(apoyo)) return Ok();
+                else return BadRequest();
+            }
             return Ok();
         }
 
@@ -23,8 +25,13 @@ namespace DigiTutorService.Controllers
         public IHttpActionResult QuitarApoyo([FromBody] Apoyo apoyo)
         {
             //dejar de dar apoyo
-            
-            return Ok();
+            if (apoyo.id_estudianteApoyado != null && apoyo.id_estudianteQueApoya != null && apoyo.Tecnologia != null)
+            {
+                if (usuarios.DeleteApoyo(apoyo)) return Ok();
+                else return BadRequest();
+            }
+            else
+                return BadRequest();
         }
     }
 }

@@ -1,27 +1,42 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using DigiTutorService.Models;
+using DigiTutorService.DataAccessLayer;
 
 namespace DigiTutorService.Controllers {
     public class EstudiantesController : ApiController {
 
+        private FachadaUsuariosDAL usuarios = new FachadaUsuariosDAL();
+
+
         [Route("api/{userid:int}/estudiantes/{id}")]
         [HttpGet]
-        public IHttpActionResult GetEstudiante (int userid, int id) {
-            //retorna un entidad estudiante
-            return Ok();
+        public IHttpActionResult GetEstudiante (string userid, string id) {
+            Estudiante est = null;
+            if (userid != null && id != null)
+            {
+                if (userid == id)
+                    est = usuarios.GetEstudiantePropio(id);
+                else
+                    est = usuarios.GetEstudianteAjeno(userid, id);
+
+            }
+
+            if (est != null)
+            {
+                return Ok(est);
+            }
+            else
+                return BadRequest();
+            
         }
+
 
         //busqueda de estudiantes
         [HttpGet]
         public IHttpActionResult GetEstudiantes (string nombre, int id_un, int id_pais, 
                                     int id_tec, int pag ){
             //retorna una lista de Estudiantes ordenada por reputacion
-            return Ok();
+            return Ok(usuarios.GetEstudiantes(nombre, id_un, id_pais, id_tec, pag));
 
         }
 
@@ -32,7 +47,7 @@ namespace DigiTutorService.Controllers {
         {
         //retorna una lista de Estudiantes ordenada por el
         //algoritmo calculado de reclutamiento
-        return Ok();
+        return Ok(usuarios.GetReporteEstudiantes(id_un,id_pais,tec1, w1, tec2, w2, tec3, w3, tec4, w4, pag));
             
 
         }
@@ -40,24 +55,37 @@ namespace DigiTutorService.Controllers {
 
 
         [HttpPost]
-        public IHttpActionResult PostEstudiante (string pwd, [FromBody] Estudiante tec) {
+        public IHttpActionResult PostEstudiante (string pwd, [FromBody] Estudiante estudiante) {
             // crear un Estudiante
-
-            return Ok ();
+            if (estudiante.hasInfoCreacion())
+            {
+                if (usuarios.CrearEstudiante(pwd, estudiante))
+                    return Ok();
+                else return BadRequest();
+            }
+            else return BadRequest();
         }
 
         [HttpPut]
-        public IHttpActionResult ModificarEstudiante (string id, [FromBody] Estudiante admin) {
-            //modificar admin
-
-            return Ok ();
+        public IHttpActionResult ModificarEstudiante (string id, [FromBody] Estudiante estudiante) {
+            //modificar estudiante
+                 if (estudiante.hasInfoCreacion())
+            {
+                if (usuarios.ModificarEstudiante(id, estudiante))
+                    return Ok();
+                else return BadRequest();
+            }
+            else return BadRequest();
         }
 
         [HttpDelete]
         public IHttpActionResult BorrarEstudiante (string id) {
             //borrar admin
-
-            return Ok ();
+            if (usuarios.DeleteEstudiante(id))
+                return Ok();
+            else return BadRequest();
         }
+
+        
     }
 }

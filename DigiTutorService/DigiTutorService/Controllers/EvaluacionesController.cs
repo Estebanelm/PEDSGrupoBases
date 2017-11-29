@@ -1,22 +1,22 @@
+using DigiTutorService.DataAccessLayer;
 using DigiTutorService.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+
 using System.Web.Http;
 
 namespace DigiTutorService.Controllers
 {
     public class EvaluacionesController : ApiController
-    {        
+    {
+        FachadaPublicacionDAL publicaciones = new FachadaPublicacionDAL();
 
         [HttpPut]
         public IHttpActionResult DarEvaluacion(int id, [FromBody] Evaluacion eval)
         {
             //agregar o modificar evaluacion
+            if (publicaciones.AddOrModifyEvaluacion(eval))
+                return Ok();
+            else return BadRequest();
             
-            return Ok();
         }
     
     

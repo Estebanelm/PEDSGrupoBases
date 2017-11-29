@@ -5,13 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DigiTutorService.Models;
+using DigiTutorService.DataAccessLayer;
 
 namespace DigiTutorService.Controllers {
     public class AdminsController : ApiController {
-
         [HttpGet]
         public IHttpActionResult GetAdministrador (int id) {
             //return List<Tecnologias>
+
             return Ok();
         }
 

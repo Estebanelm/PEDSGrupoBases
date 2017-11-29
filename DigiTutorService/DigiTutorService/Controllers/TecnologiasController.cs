@@ -1,30 +1,30 @@
+using DigiTutorService.DataAccessLayer;
 using DigiTutorService.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace DigiTutorService.Controllers
 {
     public class TecnologiasController : ApiController
     {
-
+        private FachadaCatalogoDAL catalogo = new FachadaCatalogoDAL();
         //devuelve lista de tecnologias
         [HttpGet]
         public IHttpActionResult GetTecnologias()
         {
             //return List<Tecnologias>
-            return Ok("hola");
+            return Ok(catalogo.GetTecnologias());
         }
         
         [HttpPost]
         public IHttpActionResult PostTecnologia([FromBody] Tecnologia tec)
         {
             // agregar una tecnologia
-
-            return Ok($"creo la tecnologia con nombre {tec.Nombre}");
+            if (tec.Categoria != null && tec.Nombre != null)
+            {
+                catalogo.AddTecnologia(tec);
+                return Ok();
+            }
+            else return BadRequest();
         }
 
         [HttpDelete]
@@ -32,8 +32,9 @@ namespace DigiTutorService.Controllers
         {
             //borrar tecnologia
             //revisar si esta usada por algun estudiante
-            
-            return Ok();
+            if (catalogo.DeleteTecnologia(id)) Ok();
+
+            return BadRequest();
         }
 
 

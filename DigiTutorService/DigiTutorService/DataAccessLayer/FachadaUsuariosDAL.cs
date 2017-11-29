@@ -32,7 +32,7 @@ namespace DigiTutorService.DataAccessLayer
             return null;
         }
         public IEnumerable<Estudiante> GetReporteEstudiantes(int id_un, int id_pais,
-                         int ec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4, int pag)
+                         int tec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4, int pag)
         {
             return null;
         }
@@ -64,7 +64,7 @@ namespace DigiTutorService.DataAccessLayer
         {
             return false;
         }
-        public bool DeleteSeguimiento(int estudianteQueSigue, int estudianteSeguido)
+        public bool DeleteSeguimiento(Seguimiento seguimiento)
         {
             return false;
         }

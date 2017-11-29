@@ -1,3 +1,4 @@
+using DigiTutorService.DataAccessLayer;
 using DigiTutorService.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace DigiTutorService.Controllers
 {
     public class PaisesController : ApiController
     {
+        private FachadaCatalogoDAL catalogo = new FachadaCatalogoDAL();
         List<Pais> paises = new Pais[]{
             new Pais { Nombre = "Argentina" },
             new Pais { Nombre = "Australia" },
@@ -20,7 +22,7 @@ namespace DigiTutorService.Controllers
         [HttpGet]
         public IHttpActionResult GetPaises()
         {
-            return Ok(paises);
+            return Ok(catalogo.GetPaises());
         }
     }
 }

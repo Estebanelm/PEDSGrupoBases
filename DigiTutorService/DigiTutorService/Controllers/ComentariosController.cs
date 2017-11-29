@@ -1,22 +1,18 @@
 using DigiTutorService.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using DigiTutorService.DataAccessLayer;
 
 namespace DigiTutorService.Controllers
 {
     public class ComentariosController : ApiController
     {
-
+        FachadaPublicacionDAL publicaciones = new FachadaPublicacionDAL();
         //devuelve lista de Comentarios
         [HttpGet]
         public IHttpActionResult GetComentarios(int id, int pag)
         {
             //return List<Comentario>
-             return null;
+             return Ok(publicaciones.GetComentarios(id, pag));
         }
         
      
@@ -24,16 +20,19 @@ namespace DigiTutorService.Controllers
         public IHttpActionResult PostComentario(int id, [FromBody] Comentario comm)
         {
             // agregar un Comentario
-
-            return Ok();
+            if (publicaciones.AddComentario(comm))
+                return Ok();
+            else return BadRequest();
         }
 
         [HttpDelete]
         public IHttpActionResult BorrarComentario(int id)
         {
             //borrar Comentario
-            
-            return Ok();
+            if (publicaciones.DeleteComentario(id))
+                return Ok();
+            else return BadRequest();
+           
         }
 
 
