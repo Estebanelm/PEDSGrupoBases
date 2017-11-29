@@ -13,7 +13,7 @@ namespace DigiTutorService.Controllers
 
         //devuelve lista de tecnologias
         [HttpGet]
-        public IEnumerable<Tecnologia> GetTecnologias()
+        public IHttpActionResult GetTecnologias()
         {
             //return List<Tecnologias>
 

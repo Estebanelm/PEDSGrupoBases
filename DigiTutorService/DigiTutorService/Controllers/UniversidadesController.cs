@@ -13,7 +13,7 @@ namespace DigiTutorService.Controllers
 
         //devuelve lista de Universidades
         [HttpGet]
-        public IEnumerable<Universidad> GetUniversidades()
+        public IHttpActionResult GetUniversidades()
         {
             //return List<Universidades>
 
