@@ -140,6 +140,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_tecnologia" Type="int" Nullable="false" />
           <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="cantidadApoyos" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tecnologia_x_publicacion">
           <Key>
@@ -718,6 +719,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_tecnologia" Type="Int32" Nullable="false" />
           <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cantidadApoyos" Type="Int32" Nullable="false" DefaultValue="0" />
           <NavigationProperty Name="Estudiante" Relationship="Self.FK_Tecnologia_x_Estudiante_Estudiante" FromRole="Tecnologia_x_Estudiante" ToRole="Estudiante" />
           <NavigationProperty Name="Tecnologia" Relationship="Self.FK_Tecnologia_x_Estudiante_Tecnologia" FromRole="Tecnologia_x_Estudiante" ToRole="Tecnologia" />
         </EntityType>
@@ -1303,6 +1305,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_tecnologia" ColumnName="id_tecnologia" />
                 <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="cantidadApoyos" ColumnName="cantidadApoyos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,9 +14,16 @@ namespace DigiTutorService.DataAccessLayer
     
     public partial class Tecnologia_x_EstudianteDAO
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tecnologia_x_EstudianteDAO()
+        {
+            this.cantidadApoyos = 0;
+        }
+    
         public int id { get; set; }
         public int id_tecnologia { get; set; }
         public string id_estudiante { get; set; }
+        public int cantidadApoyos { get; set; }
     
         public virtual EstudianteDAO Estudiante { get; set; }
         public virtual TecnologiaDAO Tecnologia { get; set; }

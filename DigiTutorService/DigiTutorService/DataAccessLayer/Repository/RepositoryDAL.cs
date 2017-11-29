@@ -45,7 +45,7 @@ namespace DigiTutorService.DataAccessLayer.Repository
             {
                 try
                 {
-                    return dbContext.Set<T>().Where(predicate).OrderBy(orderingKey).ToList();
+                    return dbContext.Set<T>().Where(predicate).OrderByDescending(orderingKey).ToList();
                 }
                 catch (Exception)
                 {
