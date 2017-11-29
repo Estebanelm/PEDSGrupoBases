@@ -22,8 +22,5 @@ namespace DigiTutorService.Controllers
         {
             return Ok(paises);
         }
-
-            return null;
-        }
     }
 }

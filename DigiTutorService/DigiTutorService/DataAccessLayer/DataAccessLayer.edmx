@@ -620,7 +620,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <NavigationProperty Name="Estudiante" Relationship="Self.FK_Evaluacion_Estudiante" FromRole="Evaluacion" ToRole="Estudiante" />
           <NavigationProperty Name="Publicacion" Relationship="Self.FK_Evaluacion_Publicacion" FromRole="Evaluacion" ToRole="Publicacion" />
         </EntityType>
-        <EntityType Name="PaiDAO">
+        <EntityType Name="PaisDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -815,7 +815,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Estudiante_Pais">
-          <End Role="Pais" Type="DataAccessLayer.PaiDAO" Multiplicity="1" />
+          <End Role="Pais" Type="DataAccessLayer.PaisDAO" Multiplicity="1" />
           <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pais">
@@ -1012,7 +1012,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <EntitySet Name="EstudianteDAOs" EntityType="DataAccessLayer.EstudianteDAO" />
           <EntitySet Name="Estudiante_sigue_EstudianteDAO" EntityType="DataAccessLayer.Estudiante_sigue_EstudianteDAO" />
           <EntitySet Name="EvaluacionDAOs" EntityType="DataAccessLayer.EvaluacionDAO" />
-          <EntitySet Name="PaiDAOs" EntityType="DataAccessLayer.PaiDAO" />
+          <EntitySet Name="PaisDAOs" EntityType="DataAccessLayer.PaisDAO" />
           <EntitySet Name="PublicacionDAOs" EntityType="DataAccessLayer.PublicacionDAO" />
           <EntitySet Name="RegistroTutoriaDAOs" EntityType="DataAccessLayer.RegistroTutoriaDAO" />
           <EntitySet Name="TecnologiaDAOs" EntityType="DataAccessLayer.TecnologiaDAO" />
@@ -1044,7 +1044,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             <End Role="Apoyo" EntitySet="ApoyoDAOs" />
           </AssociationSet>
           <AssociationSet Name="FK_Estudiante_Pais" Association="Self.FK_Estudiante_Pais">
-            <End Role="Pais" EntitySet="PaiDAOs" />
+            <End Role="Pais" EntitySet="PaisDAOs" />
             <End Role="Estudiante" EntitySet="EstudianteDAOs" />
           </AssociationSet>
           <AssociationSet Name="FK_Estudiante_Universidad" Association="Self.FK_Estudiante_Universidad">
@@ -1169,8 +1169,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PaiDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.PaiDAO">
+          <EntitySetMapping Name="PaisDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.PaisDAO">
               <MappingFragment StoreEntitySet="Pais">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />

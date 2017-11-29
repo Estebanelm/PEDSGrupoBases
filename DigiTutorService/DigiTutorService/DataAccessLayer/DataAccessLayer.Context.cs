@@ -30,7 +30,7 @@ namespace DigiTutorService.DataAccessLayer
         public virtual DbSet<EstudianteDAO> EstudianteDAOs { get; set; }
         public virtual DbSet<Estudiante_sigue_EstudianteDAO> Estudiante_sigue_EstudianteDAO { get; set; }
         public virtual DbSet<EvaluacionDAO> EvaluacionDAOs { get; set; }
-        public virtual DbSet<PaiDAO> PaiDAOs { get; set; }
+        public virtual DbSet<PaisDAO> PaisDAOs { get; set; }
         public virtual DbSet<PublicacionDAO> PublicacionDAOs { get; set; }
         public virtual DbSet<RegistroTutoriaDAO> RegistroTutoriaDAOs { get; set; }
         public virtual DbSet<TecnologiaDAO> TecnologiaDAOs { get; set; }

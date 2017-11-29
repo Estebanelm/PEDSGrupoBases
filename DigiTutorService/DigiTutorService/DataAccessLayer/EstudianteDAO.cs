@@ -47,7 +47,7 @@ namespace DigiTutorService.DataAccessLayer
         public virtual ICollection<ComentarioDAO> Comentarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApoyoDAO> Apoyoes1 { get; set; }
-        public virtual PaiDAO Pai { get; set; }
+        public virtual PaisDAO Pai { get; set; }
         public virtual UniversidadDAO Universidad { get; set; }
         public virtual UsuarioDAO Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

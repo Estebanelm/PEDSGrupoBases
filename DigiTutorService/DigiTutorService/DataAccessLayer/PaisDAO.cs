@@ -12,10 +12,10 @@ namespace DigiTutorService.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class PaiDAO
+    public partial class PaisDAO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PaiDAO()
+        public PaisDAO()
         {
             this.Estudiantes = new HashSet<EstudianteDAO>();
         }

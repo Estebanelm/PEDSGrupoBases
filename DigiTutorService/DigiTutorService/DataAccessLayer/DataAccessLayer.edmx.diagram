@@ -10,7 +10,7 @@
         <EntityTypeShape EntityType="DataAccessLayer.EstudianteDAO" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccessLayer.Estudiante_sigue_EstudianteDAO" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccessLayer.EvaluacionDAO" Width="1.5" PointX="7.5" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.PaiDAO" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.PaisDAO" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccessLayer.PublicacionDAO" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccessLayer.RegistroTutoriaDAO" Width="1.5" PointX="9.75" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccessLayer.TecnologiaDAO" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
