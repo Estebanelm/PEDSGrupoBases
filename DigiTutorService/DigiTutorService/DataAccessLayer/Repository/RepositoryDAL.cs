@@ -9,6 +9,21 @@ namespace DigiTutorService.DataAccessLayer.Repository
 {
     public static class RepositoryDAL
     {
+        public static List<T> Read<T>() where T : class
+        {
+            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
+            {
+                try
+                {
+                    return dbContext.Set<T>().ToList();
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+
+            }
+        }
         public static List<T> Read<T>(Expression<Func<T, bool>> predicate) where T:class
         {
             using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
