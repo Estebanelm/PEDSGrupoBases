@@ -1,5 +1,6 @@
 
 
+
 var app = angular.module("crearPerfilEstudianteApp", []); 
 
 app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$location,$window) {
@@ -13,8 +14,9 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 	$scope.aUniversidades=[{"Nombre":"TEC"},{"Nombre":"UCR"},{"Nombre":"UNA"}];
 	$scope.aPaises=[{"Nombre":"Costa Rica"},{"Nombre":"USA"},{"Nombre":"España"}];
 	$scope.formulario={};
+	$scope.estudiante={};
 	$scope.sSelCategoria="";
-	
+	$scope.uploadme="Perfil.png"
 	$scope.sPassword;
 	$scope.spassword2;
 	$scope.bCondiciones;
@@ -22,10 +24,10 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 	
 	//función que determina si se aceptaron los terminos y condiciones y si las contraseñas ingresadas coiciden. 
 	//en caso de no cumplir las condicones retorna un string indicando el error.
-	$scope.VerificaFormulario=function(){
-		if($scope.bCondiciones){
-			if($scope.sPassword==$scope.sPassword2){
-				if($scope.sPassword.length>=4){return "ok";}
+	$scope.VerificaFormulario=function(p_sPassword,p_sPassword2,p_condiciones){
+		if(p_condiciones){
+			if(p_sPassword==p_sPassword2){
+				if(p_sPassword.length>=4){return "ok";}
 				else{return "La Contraseña debe ser de mínimo 4 caracteres";}	
 			
 
@@ -36,27 +38,40 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 
 	};
 	
-	$scope.BuildTecs=function(){
+	$scope.BuildTecs=function(p_myTec){
 		aTecs=[];
-		for (var i = 0; i<$scope.myTec.length ; i++) {
+		for (var i = 0; i<p_myTec.length ; i++) {
 			  
-			  aTecs.push({"Nombre": $scope.myTec[i].Nombre , "Apoyos": -1, "MiApoyo":"null"});
+			  aTecs.push({"Nombre": p_myTec[i].Nombre , "Apoyos": -1, "MiApoyo":"null"});
 		}
 		return aTecs;
 	};
 
-	$scope.BuildStudent=function(){
-		$scope.formulario.Tecnologias=$scope.BuildTecs();
-		$scope.formulario.CantSeguidores=-1;
-		$scope.formulario.Participacion=-1;
-		$scope.formulario.Reputacion=-1;
-		//$scope.formulario.FechaInscripcion=new Date();
+	$scope.BuildStudent=function(p_formulario){
+		newObj={};
+		newObj.Nombre=$scope.formulario.Nombre;
+		newObj.Apellido=$scope.formulario.Apellido;
+		newObj.Id=$scope.formulario.Id;
+		newObj.Universidad=$scope.formulario.Universidad;
+		newObj.Pais=$scope.formulario.Pais;
+		newObj.Descripcion=$scope.formulario.Descripcion;
+		newObj.Correo=$scope.formulario.Correo;
+		newObj.Correo2=$scope.formulario.Correo2;
+		newObj.Telefono=$scope.formulario.Telefono;
+		newObj.telefono2=$scope.formulario.Telefono2;
+		newObj.Tecnologias=$scope.BuildTecs($scope.myTec);
+		newObj.CantSeguidores=-1;
+		newObj.Participacion=-1;
+		newObj.Reputacion=-1;
+		newObj.FechaInscripcion=new Date();
+
+		return newObj;
 
 
 	};
 
 	$scope.SubmitForm=function(){
-		sVerificacion=$scope.VerificaFormulario();
+		sVerificacion=$scope.VerificaFormulario($scope.sPassword,$scope.sPassword2,$scope.bCondiciones);
 		if(sVerificacion!="ok"){
 			swal({
 			  position: 'center',
@@ -68,9 +83,9 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 
 		}
 		else{
-			$scope.BuildStudent();
+			$scope.estudiante=$scope.BuildStudent($scope.formulario);
 			url="api/estudiantes?pwd="+$scope.sPassword;
-			jsonStudent=angular.toJson($scope.formulario);
+			jsonStudent=angular.toJson($scope.estudiante);
 			 
 			//post
 			$http.post(url,jsonStudent).then(function (response) {
@@ -110,9 +125,9 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 					swal({
 					  position: 'center',
 					  type: 'error',
-					  title: jsonStudent,
+					  title: "ERROR DE CONEXIÓN",
 					  showConfirmButton: false,
-					  timer: 2000
+					  timer: 12000
 					})
 
 
@@ -172,9 +187,9 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
         return output;
    };
 
-	$scope.GetCategorias=function(){
+	$scope.GetCategorias=function(p_tecnologias){
 		aHelper=["todas"];
-		aHelper2= $scope.GetUnique($scope.tecnologiasDisponibles,"Categoria");
+		aHelper2= $scope.GetUnique(p_tecnologias,"Categoria");
 		for (var i = aHelper2.length - 1; i >= 0; i--) {
 			aHelper.push(aHelper2[i].Categoria);
 		}  
@@ -182,6 +197,40 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 
 	};   
 	
+	$scope.uploadImage = function() {
+      var fd = new FormData();
+      var imgBlob = dataURItoBlob($scope.uploadme);
+      fd.append('file', imgBlob);
+      $http.post(
+          'imageURL',
+          fd, {
+            transformRequest: angular.identity,
+            headers: {
+              'Content-Type': undefined
+            }
+          }
+        )
+        .success(function(response) {
+          console.log('success', response);
+        })
+        .error(function(response) {
+          console.log('error', response);
+        });
+    }
+
+
+    
+    function dataURItoBlob(dataURI) {
+      var binary = atob(dataURI.split(',')[1]);
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+      var array = [];
+      for (var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
+      }
+      return new Blob([new Uint8Array(array)], {
+        type: mimeString
+      });
+    }
 
    // get para obtener toda la lista de tecnologias server/tecnologias
    /*$http.get("https://www.w3schools.com/angular/customers_sql.aspx").then(function (response) {$scope.tecnologiasDisponibles = response.data.records;}
@@ -204,7 +253,28 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
         $scope.tecnologiasDisponibles = "Error";
     });*/
 
-    $scope.aCategorias=$scope.GetCategorias();
+    $scope.aCategorias=$scope.GetCategorias($scope.tecnologiasDisponibles);
 
     
 });
+
+app.directive("fileread", [
+  function() {
+    return {
+      scope: {
+        fileread: "="
+      },
+      link: function(scope, element, attributes) {
+        element.bind("change", function(changeEvent) {
+          var reader = new FileReader();
+          reader.onload = function(loadEvent) {
+            scope.$apply(function() {
+              scope.fileread = loadEvent.target.result;
+            });
+          }
+          reader.readAsDataURL(changeEvent.target.files[0]);
+        });
+      }
+    }
+  }
+]);
