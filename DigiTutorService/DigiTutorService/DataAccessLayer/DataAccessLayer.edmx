@@ -169,6 +169,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="correo_principal" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="activo" Type="bit" Nullable="false" />
           <Property Name="is_admin" Type="bit" Nullable="false" />
+		  <Property Name="id_generado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK_Apoyado">
           <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
@@ -1247,6 +1248,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
                 <ScalarProperty Name="correo_principal" ColumnName="correo_principal" />
                 <ScalarProperty Name="activo" ColumnName="activo" />
                 <ScalarProperty Name="is_admin" ColumnName="is_admin" />
+				<ScalarProperty Name="id_generado" ColumnName="id_generado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

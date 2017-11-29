@@ -175,6 +175,9 @@
     <Compile Include="Controllers\SeguimientoController.cs" />
     <Compile Include="Controllers\TecnologiasController.cs" />
     <Compile Include="Controllers\UniversidadesController.cs" />
+    <Compile Include="DataAccessLayer\ApoyoDAO.cs">
+      <DependentUpon>DataAccessLayer.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAccessLayer\CategoriaDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
@@ -183,9 +186,6 @@
     </Compile>
     <Compile Include="DataAccessLayer\ConexionDAL.cs" />
     <Compile Include="DataAccessLayer\ContenidoDAO.cs">
-      <DependentUpon>DataAccessLayer.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataAccessLayer\DAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\DataAccessLayer.Context.cs">
