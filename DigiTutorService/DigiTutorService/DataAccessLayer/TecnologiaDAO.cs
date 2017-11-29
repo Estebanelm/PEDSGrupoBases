@@ -9,6 +9,7 @@
 
 namespace DigiTutorService.DataAccessLayer
 {
+    using DigiTutorService.DataAccessLayer.Repository;
     using System;
     using System.Collections.Generic;
     
@@ -30,5 +31,10 @@ namespace DigiTutorService.DataAccessLayer
         public virtual ICollection<DAO> Apoyoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tecnologia_x_EstudianteDAO> Tecnologia_x_Estudiante { get; set; }
+
+        public static List<TecnologiaDAO> GetTecnologias()
+        {
+            return RepositoryDAL.Read<TecnologiaDAO>(x => x.id >= 1);
+        }
     }
 }

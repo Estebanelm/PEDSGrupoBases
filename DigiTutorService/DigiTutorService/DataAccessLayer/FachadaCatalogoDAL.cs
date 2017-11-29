@@ -8,9 +8,19 @@ namespace DigiTutorService.DataAccessLayer
 {
     public class FachadaCatalogoDAL
     {
-        public IEnumerable<Tecnologia> GetTecnologias()
+        public List<Tecnologia> GetTecnologias()
         {
-            return null;
+            List<TecnologiaDAO> listTecnologias = TecnologiaDAO.GetTecnologias();
+            List<Tecnologia> returnList = new List<Tecnologia>();
+            foreach (TecnologiaDAO tec in listTecnologias)
+            {
+                returnList.Add(new Tecnologia
+                {
+                    Nombre = tec.nombre,
+                    Categoria = tec.Categoria.nombre
+                });
+            }
+            return returnList;
         }
         public IEnumerable<Universidad> GetUniversidades()
         {

@@ -1,0 +1,1 @@
+﻿SELECT * FROM dbo.Tecnologia WHERE id>0
