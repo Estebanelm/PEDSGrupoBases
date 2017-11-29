@@ -12,16 +12,17 @@ namespace DigiTutorService.Controllers
     {
 
         
-
+        [Route("api/{userid}/seguimiento/{id}")]
         [HttpPost]
-        public IHttpActionResult SeguirEstudiante([FromBody] Seguimiento seguimiento)
+        public IHttpActionResult SeguirEstudiante(int userid, int id)
         {
             //seguir
             //agregar seguimiento a la tabla de seguimientos
             
-            return Ok();
+            return Ok("se agrego seguimiento");
         }
 
+        [Route("api/{userid}/seguimiento/{id}")]
         [HttpDelete]
         public IHttpActionResult DejarSeguirEstudiante(int userid, int id)
         {

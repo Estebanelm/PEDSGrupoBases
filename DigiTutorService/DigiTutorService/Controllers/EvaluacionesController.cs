@@ -12,7 +12,7 @@ namespace DigiTutorService.Controllers
     {        
 
         [HttpPut]
-        public IHttpActionResult DarEvaluacion([FromBody] Evaluacion eval)
+        public IHttpActionResult DarEvaluacion(int id, [FromBody] Evaluacion eval)
         {
             //agregar o modificar evaluacion
             

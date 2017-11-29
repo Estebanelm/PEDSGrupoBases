@@ -13,7 +13,7 @@ namespace DigiTutorService.Controllers
 
         //devuelve lista de Comentarios
         [HttpGet]
-        public IHttpActionResult GetComentarios()
+        public IHttpActionResult GetComentarios(int id, int pag)
         {
             //return List<Comentario>
              return null;
@@ -21,7 +21,7 @@ namespace DigiTutorService.Controllers
         
      
         [HttpPost]
-        public IHttpActionResult PostComentario([FromBody] Comentario comm)
+        public IHttpActionResult PostComentario(int id, [FromBody] Comentario comm)
         {
             // agregar un Comentario
 

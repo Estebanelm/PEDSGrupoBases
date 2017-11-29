@@ -24,7 +24,7 @@ namespace DigiTutorService.Controllers
         {
             // agregar una tecnologia
 
-            return Ok();
+            return Ok($"creo la tecnologia con nombre {tec.Nombre}");
         }
 
         [HttpDelete]
