@@ -39,6 +39,21 @@ namespace DigiTutorService.DataAccessLayer.Repository
 
             }
         }
+        public static List<T> Read<T, TKey>(Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderingKey) where T: class
+        {
+            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
+            {
+                try
+                {
+                    return dbContext.Set<T>().Where(predicate).OrderBy(orderingKey).ToList();
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+
+            }
+        }
         public static bool Create<T>(T newObject) where T : class
         {
             using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())

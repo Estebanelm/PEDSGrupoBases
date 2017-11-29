@@ -19,9 +19,11 @@ namespace DigiTutorService.Controllers
         }.ToList();
 
         [HttpGet]
-        public IEnumerable<Product> GetAllProducts()
+        public IHttpActionResult GetAllProducts()
         {
-            return products;
+            FachadaCatalogoDAL asd = new FachadaCatalogoDAL();
+            return Ok(asd.GetUniversidades());
+            //return products;
         }
         
         [HttpGet]

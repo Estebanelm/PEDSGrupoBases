@@ -9,7 +9,7 @@ namespace DigiTutorService.Models
     {
         public class Tecnologia
         {
-            string Nombre { get; set; }
+            public string Nombre { get; set; }
         }
         public int Id { get; set; }
         public string Titulo { get; set; }

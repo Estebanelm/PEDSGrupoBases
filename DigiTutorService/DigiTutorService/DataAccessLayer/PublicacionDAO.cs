@@ -17,6 +17,7 @@ namespace DigiTutorService.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PublicacionDAO()
         {
+            this.isTutoria = false;
             this.Evaluacions = new HashSet<EvaluacionDAO>();
             this.Comentarios = new HashSet<ComentarioDAO>();
             this.Tutorias = new HashSet<TutoriaDAO>();
@@ -31,6 +32,7 @@ namespace DigiTutorService.DataAccessLayer
         public int evaluaciones_positivas { get; set; }
         public System.DateTime fecha_publicacion { get; set; }
         public bool activo { get; set; }
+        public bool isTutoria { get; set; }
     
         public virtual EstudianteDAO Estudiante { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

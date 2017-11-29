@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DigiTutorService.Models;
-
+using DigiTutorService.DataAccessLayer.Repository;
 
 namespace DigiTutorService.DataAccessLayer
 {
@@ -11,7 +11,7 @@ namespace DigiTutorService.DataAccessLayer
         //Obtiene los datos del estudiante que está logueado
         public Estudiante GetEstudiantePropio(string EstudianteId)
         {
-            
+            EstudianteDAO estudiante = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(EstudianteId)).FirstOrDefault();
             return null;
         }
         public bool CheckLogin(Login login)

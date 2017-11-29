@@ -115,6 +115,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="evaluaciones_positivas" Type="int" Nullable="false" />
           <Property Name="fecha_publicacion" Type="date" Nullable="false" />
           <Property Name="activo" Type="bit" Nullable="false" />
+          <Property Name="isTutoria" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="RegistroTutoria">
           <Key>
@@ -680,6 +681,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="evaluaciones_positivas" Type="Int32" Nullable="false" />
           <Property Name="fecha_publicacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="isTutoria" Type="Boolean" Nullable="false" DefaultValue="false" />
           <NavigationProperty Name="Estudiante" Relationship="Self.FK_Publicacion_Estudiante" FromRole="Publicacion" ToRole="Estudiante" />
           <NavigationProperty Name="Evaluacions" Relationship="Self.FK_Evaluacion_Publicacion" FromRole="Publicacion" ToRole="Evaluacion" />
           <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentario_Publicacion" FromRole="Publicacion" ToRole="Comentario" />
@@ -1273,6 +1275,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
                 <ScalarProperty Name="evaluaciones_positivas" ColumnName="evaluaciones_positivas" />
                 <ScalarProperty Name="fecha_publicacion" ColumnName="fecha_publicacion" />
                 <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="isTutoria" ColumnName="isTutoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,5 +1,3 @@
-﻿SELECT * FROM dbo.Universidad WHERE id>0
+﻿SELECT * FROM	dbo.Publicacion
 
-DELETE FROM dbo.Universidad WHERE id = 2
-
-UPDATE dbo.Universidad SET id = 1
+UPDATE dbo.Publicacion SET isTutoria = 1
