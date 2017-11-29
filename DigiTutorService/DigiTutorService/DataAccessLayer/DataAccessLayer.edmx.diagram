@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="DataAccessLayer.TutoriaDAO" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccessLayer.UniversidadDAO" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccessLayer.UsuarioDAO" Width="1.5" PointX="0.75" PointY="13.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.DAO" Width="1.5" PointX="10.25" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataAccessLayer.ApoyoDAO" Width="1.5" PointX="10.25" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccessLayer.ComentarioDAO" Width="1.5" PointX="10.5" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DataAccessLayer.ContenidoDAO" Width="1.5" PointX="7.625" PointY="19.125" IsExpanded="true" />
         <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_Categoria" ManuallyRouted="false" />

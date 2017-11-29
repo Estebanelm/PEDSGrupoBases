@@ -13,10 +13,14 @@ namespace DigiTutorService.Controllers
 
         //devuelve lista de Comentarios
         [HttpGet]
+<<<<<<< HEAD
         public IHttpActionResult GetComentarios()
+=======
+        public IEnumerable<Comentario> GetComentarios(int pubId, int noPag)
+>>>>>>> d18fbcafdf0944b53f93db55dd5ce6e7b081a608
         {
             //return List<Comentario>
-             return Ok();
+             return null;
         }
         
      

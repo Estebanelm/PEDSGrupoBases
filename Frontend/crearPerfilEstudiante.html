@@ -13,15 +13,15 @@
   <script src="crearPerfilEstudianteApp.js"></script>
 </head>
 
-<body style="background-color:lavender;">
-  <div class="header clearfix" style="background-color:#0c486c; height: 173px">
+<body style="background-color:lavender;" ng-controller="tecnologiasDisponiblesCtrl">
+  <div class="header clearfix" style="background-color:#0c486c; height: 171px">
 
      <h1 id="logo">
-            <div class="col-lg-4 hidden-xs" > <img src="logo2.png" width="115" height="85">
-            <font  color="#ffffff">DigiTutor</font> </div>
+            <div class="col-lg-4 hidden-xs" > <img src="logo.png" width="41" height="30">
+            <img src="logonombre.png" width="100" height="20"> </div>
             
             
-            <div class="col-lg-6 col-xs-9" >  <font color="#ffffff">Creación de perfil</font> </div>
+            <div class="col-lg-6 col-xs-9" >  <font color="#ffffff" style="font-family:Inconsolata; font-size: xx-large;">Creación de perfil</font> </div>
 
             <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
               <li class="dropdown col-lg-12 col-xs-2">
@@ -61,27 +61,32 @@
             <label class="col-md-12 control-label " for="nombre ">* Añadir imagen de perfil</label>
           </div>
 
-          <form class="form-horizontal ">
+          <form name="formulario" class="form-horizontal ">
             <fieldset>
-              <div class="form-group ">
+              <div class="form-group" ng-model="formu=!formulario.$valid;">
                 <div class="col-sm-12 " style="background-color:lavender; height: 20px; "></div>
-                <label class="col-md-4 control-label " for="nombre ">Nombre:</label>
+                <label class="col-md-4 control-label " for="nombre">Nombre:</label>
                 <div class="col-md-7 ">
-                  <input id="nombre " name="nombre " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                  <input id="nombre " name="nombre" ng-model="formulario.Nombre" ng-pattern="/^[a-zA-Z]+$/" type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                  <span ng-show="!formulario.$pristine && formulario.nombre.$error.pattern">Solo se pueden escribir letras</span>
+
+                 
                 </div>
               </div>
 
               <div class="form-group ">
-                <label class="col-md-4 control-label " for="apellido ">Apellido:</label>
+                <label class="col-md-4 control-label " for="apellido">Apellidos:</label>
                 <div class="col-md-7 ">
-                  <input id="apellido " name="apellido " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                  <input id="apellido" name="apellido" ng-model="formulario.Apellido" ng-pattern="/^[a-zA-Z]+$/" type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                  <span ng-show="!formulario.$pristine && formulario.apellido.$error.pattern">Solo se pueden escribir letras</span>
                 </div>
               </div>
 
               <div class="form-group ">
-                <label class="col-md-4 control-label " for="carnet ">Carné:</label>
+                <label class="col-md-4 control-label " for="carnet">Carné:</label>
                 <div class="col-md-7 ">
-                  <input id="carnet " name="carnet " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                  <input id="carnet" name="carnet" ng-model="formulario.Id" ng-pattern="/^[a-zA-Z0-9]+$/" type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                  <span ng-show="!formulario.$pristine && formulario.carnet.$error.pattern">Solo se pueden escribir caracteres alfanuméricos</span>
                 </div>
               </div>
 
@@ -89,7 +94,7 @@
                 <label class="col-md-4 control-label " for="universidad ">Universidad:</label>
                 <div class="col-md-7 ">
                   <select id="universidad " name="universidad " class="form-control ">
-                    <option value="India ">Tecnológico de CR</option>
+                    <option  ng-repeat="u in aUniversidades" ng-model="formulario.Universidad">{{u.Nombre}}</option>
 
                   </select>
                 </div>
@@ -99,7 +104,7 @@
                 <label class="col-md-4 control-label " for="pais ">País:</label>
                 <div class="col-md-7 ">
                   <select id="country " name="country " class="form-control ">
-                    <option value="India ">Costa Rica</option>
+                    <option ng-repeat="p in aPaises" ng-model="formulario.Pais">{{p.Nombre}}</option>
 
                   </select>
                 </div>
@@ -110,7 +115,7 @@
           
           <div class="col-xs-12 " >
             <!--Windows-->
-            <div class="panel panel-primary " ng-controller="tecnologiasDisponiblesCtrl" >
+            <div class="panel panel-primary " >
               <div class="panel-heading " style=" background:#79be9a ">
                 <h3 class="panel-title "><i class="fa fa-windows fa-2x "></i> Tecnologías de conocimiento</h3>
               </div>
@@ -180,7 +185,7 @@
 
 
           <div class="col-sm-5 col-xs-12 " style="background-color:lavender; ">
-            <form class="form-horizontal ">
+            <form  name="formularioEstudiante" class="form-horizontal ">
               <fieldset>
                 <!-- Form Name -->
                 <!-- <legend>Form Name</legend>-->
@@ -189,53 +194,59 @@
                   <div class="col-sm-12 " style="background-color:lavender; height: 20px; "></div>
                   <label class="col-md-4 control-label " for="descripción ">Descripción:</label>
                   <div class="col-md-7 ">
-                    <textarea id="Descripción " name="Descripción " type="text " placeholder="escriba aquí " maxlength="300 " rows="5 " class="form-control input-md " required=" "></textarea>
+                    <textarea id="Descripción " name="Descripción " ng-model="formulario.Descripcion" type="text" placeholder="escriba aquí " maxlength="300 " rows="5 " class="form-control input-md " required=" "></textarea>
                   </div>
 
                 </div>
 
                 <div class="form-group ">
-                  <label class="col-md-4 control-label " for="correo ">Correo Electrónico:</label>
+                  <label class="col-md-4 control-label " for="correo">Correo Electrónico:</label>
                   <div class="col-md-7 ">
-                    <input id="correo " name="correo " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                    <input id="correo " name="correo" type="email"  ng-model="formulario.Correo" ng-pattern="/^[@a-zA-Z0-9._-]+$/" placeholder="ejemplo@tutor.com " maxlength="30 " size="9 " class="form-control input-md " required="" />
+                    <span ng-show="!formularioEstudiante.$pristine && formularioEstudiante.correo.$error.email">El formato de correo electrónico debe ser ejemplo@algo.com</span>
                   </div>
                 </div>
 
                 <div class="form-group ">
-                  <label class="col-md-4 control-label " for="correo2 ">* Correo Electrónico 2:</label>
+                  <label class="col-md-4 control-label " for="correo2">* Correo #2:</label>
                   <div class="col-md-7 ">
-                    <input id="correo2 " name="correo2 " type="text " placeholder="escriba aquí " maxlength="30 " size="9 " class="form-control input-md "/>
+                    <input id="correo2" name="correo2" type="email" ng-model="formulario.Correo2" ng-pattern="/^[@a-zA-Z0-9._-]+$/" placeholder="ejemplo@tutor.com " maxlength="30 " size="9 " class="form-control input-md "/>
+                    <span ng-show="!formularioEstudiante.$pristine && formularioEstudiante.correo2.$error.email">El formato de correo electrónico debe ser ejemplo@algo.com</span>
                   </div>
                 </div>
 
                 <div class="form-group ">
-                  <label class="col-md-4 control-label " for="celular ">Teléfono móvil:</label>
+                  <label class="col-md-4 control-label " for="celular">Teléfono móvil:</label>
                   <div class="col-md-7 ">
-                    <input id="celular " name="celular " type="text " placeholder="escriba su número " maxlength="10" class="form-control input-md " required=" " />
+                    <input id="celular " name="celular" type="text" ng-model="formulario.Telefono" ng-pattern="/^[0-9]{1,10}$/" placeholder="escriba su número " maxlength="10" class="form-control input-md " required=" " />
+                    <span ng-show="!formularioEstudiante.$pristine && formularioEstudiante.celular.$error.pattern">Solo se pueden colocar números (max 10 dígitos)</span>
                   </div>
                 </div>
 
                 <div class="form-group ">
-                  <label class="col-md-4 control-label " for="telefono ">* Teléfono fijo:</label>
+                  <label class="col-md-4 control-label " for="telefono">* Teléfono fijo:</label>
                   <div class="col-md-7 ">
-                    <input id="telefono " name="telefono " type="text " placeholder="escriba su número " maxlength="10" class="form-control input-md " />
+                    <input id="telefono" name="telefono" type="text " ng-model="formulario.Telefono2"  ng-pattern="/^[0-9]{1,10}$/" placeholder="escriba su número " maxlength="10" class="form-control input-md " />
+                     <span ng-show="!formularioEstudiante.$pristine && formularioEstudiante.telefono.$error.pattern">Solo se pueden colocar números (max 10 dígitos)</span>
                   </div>
                 </div>
 
 
                 <!-- Password input-->
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="contraseña">Contraseña:</label>
+                  <label class="col-md-4 control-label" for="password">Contraseña:</label>
                   <div class="col-md-7">
-                    <input id="contraseña" name="contraseña" type="password" placeholder="" maxlength="8" class="form-control input-md" required="" />
+                    <input id="password" name="password" ng-model="sPassword" ng-pattern="/([a-zA-Z]+[0-9]|[0-9]+[a-zA-Z])\w*/" type="password" placeholder="" maxlength="8" class="form-control input-md" required="" />
+                    <span ng-show="!formularioEstudiante.$pristine && formularioEstudiante.password.$error.pattern">La contraseña aún no cumple con los requisitos</span>
                     <span class="help-block">max 8 y min 4 caracteres alfanumericos (al menos una letra y un número)</span>
+
                   </div>
                 </div>
                 <!-- Password input-->
                 <div class="form-group">
                   <label class="col-md-4 control-label" for="contraseña2">Confirmar contraseña:</label>
                   <div class="col-md-7">
-                    <input id="contraseña2" name="contraseña2" type="password" placeholder="Reescriba su contraseña"  maxlength="8" class="form-control input-md" required="" />
+                    <input id="contraseña2" name="contraseña2" ng-model="sPassword2" ng-pattern="/^[a-zA-Z0-9]+$/" type="password" placeholder="Reescriba su contraseña"  maxlength="8" class="form-control input-md" required="" />
                   </div>
                 </div>
 
@@ -243,11 +254,11 @@
                 <div class="col-md-4"> </div>
                 <a class="col-md-8" href="http://www.timeinc.net/subs/privacy/termsofservice/pptos.html">Lea los términos y condiciones aquí</a>
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="check">Acepto términos y condiciones</label>
+                  <label class="col-md-4 control-label" for="check">Acepto términos y condiciones</label> 
                   <div class="col-md-7">
                     <div class="input-group">
                       <span class="input-group-addon">
-                    <input type="checkbox" />
+                    <input type="checkbox" ng-model="bCondiciones"/>
                   </span>
                       
                   </div>
@@ -256,7 +267,9 @@
                 <div class="form-group ">
                   <label class="col-md-4 control-label " for="submit "></label>
                   <div class="col-md-4 ">
-                    <button id="submit " name="submit " class="btn btn-success " style=" background:#79be9a ">Crear perfil</button>
+                    <button type="submit"  class="btn btn-success " ng-disabled="!formularioEstudiante.$valid || formu" ng-click="SubmitForm()" style=" background:#79be9a ">Crear perfil</button>
+                  
+                  
                   </div>
                 </div>
               </fieldset>

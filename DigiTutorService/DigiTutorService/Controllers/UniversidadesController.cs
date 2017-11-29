@@ -16,7 +16,7 @@ namespace DigiTutorService.Controllers
         public IHttpActionResult GetUniversidades()
         {
             //return List<Universidades>
-
+            return null;
         }
         
      
@@ -25,14 +25,6 @@ namespace DigiTutorService.Controllers
         {
             // agregar una Universidad
 
-            return Ok();
-        }
-
-        [HttpPut]
-        public IHttpActionResult ModificarUniversidad(int id, [FromBody] Universidad univ)
-        {
-            //modificar Universidad
-            
             return Ok();
         }
 

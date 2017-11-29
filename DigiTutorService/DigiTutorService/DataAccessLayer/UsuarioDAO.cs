@@ -22,6 +22,7 @@ namespace DigiTutorService.DataAccessLayer
         public string correo_principal { get; set; }
         public bool activo { get; set; }
         public bool is_admin { get; set; }
+        public int id_generado { get; set; }
     
         public virtual EstudianteDAO Estudiante { get; set; }
     }

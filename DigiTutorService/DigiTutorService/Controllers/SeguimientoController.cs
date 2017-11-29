@@ -13,8 +13,8 @@ namespace DigiTutorService.Controllers
 
         
 
-        [HttpPut]
-        public IHttpActionResult SeguirEstudiante(int userid, int id)
+        [HttpPost]
+        public IHttpActionResult SeguirEstudiante([FromBody] Seguimiento seguimiento)
         {
             //seguir
             //agregar seguimiento a la tabla de seguimientos

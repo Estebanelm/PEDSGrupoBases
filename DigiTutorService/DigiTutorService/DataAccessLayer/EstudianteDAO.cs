@@ -17,9 +17,9 @@ namespace DigiTutorService.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EstudianteDAO()
         {
-            this.Apoyoes = new HashSet<DAO>();
+            this.Apoyoes = new HashSet<ApoyoDAO>();
             this.Comentarios = new HashSet<ComentarioDAO>();
-            this.Apoyoes1 = new HashSet<DAO>();
+            this.Apoyoes1 = new HashSet<ApoyoDAO>();
             this.Evaluacions = new HashSet<EvaluacionDAO>();
             this.Publicacions = new HashSet<PublicacionDAO>();
             this.RegistroTutorias = new HashSet<RegistroTutoriaDAO>();
@@ -42,11 +42,11 @@ namespace DigiTutorService.DataAccessLayer
         public int numero_seguidores { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DAO> Apoyoes { get; set; }
+        public virtual ICollection<ApoyoDAO> Apoyoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComentarioDAO> Comentarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DAO> Apoyoes1 { get; set; }
+        public virtual ICollection<ApoyoDAO> Apoyoes1 { get; set; }
         public virtual PaiDAO Pai { get; set; }
         public virtual UniversidadDAO Universidad { get; set; }
         public virtual UsuarioDAO Usuario { get; set; }

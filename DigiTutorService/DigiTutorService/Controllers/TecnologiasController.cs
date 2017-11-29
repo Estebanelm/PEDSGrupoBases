@@ -16,22 +16,13 @@ namespace DigiTutorService.Controllers
         public IHttpActionResult GetTecnologias()
         {
             //return List<Tecnologias>
-
+            return null;
         }
         
-     
         [HttpPost]
         public IHttpActionResult PostTecnologia([FromBody] Tecnologia tec)
         {
             // agregar una tecnologia
-
-            return Ok();
-        }
-
-        [HttpPut]
-        public IHttpActionResult ModificarTecnologia(int id, [FromBody] Tecnologia tec)
-        {
-            //modificar tecnologia
 
             return Ok();
         }

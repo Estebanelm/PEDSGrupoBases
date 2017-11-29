@@ -1,4 +1,5 @@
-﻿using DigiTutorService.Models;
+﻿using DigiTutorService.DataAccessLayer;
+using DigiTutorService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
