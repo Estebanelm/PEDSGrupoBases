@@ -14,32 +14,34 @@
 </head>
 
 <body style="background-color:lavender;" ng-controller="tecnologiasDisponiblesCtrl">
-  <div class="header clearfix" style="background-color:#0c486c; height: 171px">
+  <div class="header clearfix" style="background-color:#0c486c; width: auto;">
 
      <h1 id="logo">
             <div class="col-lg-4 hidden-xs" > <img src="logo.png" width="41" height="30">
             <img src="logonombre.png" width="100" height="20"> </div>
             
             
-            <div class="col-lg-6 col-xs-9" >  <font color="#ffffff" style="font-family:Inconsolata; font-size: xx-large;">Creación de perfil</font> </div>
+            <div class="col-lg-6 col-xs-6" >  <font color="#ffffff" style="font-family:Inconsolata; font-size: xx-large;">Creación de perfil</font> </div>
 
-            <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
-              <li class="dropdown col-lg-12 col-xs-2">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="color: white;"></span> </a>
-            <ul class="dropdown-menu">
-              <li><a href="http://www.google.ch" target="_blank">Ayuda</a></li>
-              <li><a href="http://www.google.ch" target="_blank">Idioma</a></li>
-              
-            </ul>
+            <div class="dropdown col-lg-1" style="float: right; " >
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size:28px; color:#ffffff">
+                        &#x2699; <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" style="right: 0; left: auto;">
+                        <li><a class="dropdown-item" href="#">Ayuda</a></li>
+                        <li><a class="dropdown-item" href="#">Cambiar Idioma</a></li>
+                        
+                    </ul>
+                </div>
              
               
         </h1>
-        <div class="col-sm-12 " style="background-color:#388787; padding-left:60px; ">
+        <div class="col-xs-12 " style="background-color:#388787; padding-left:60px; ">
           <h3>
             <font color="#ffffff ">Por favor llene los espacios con la información solicitada</font>
           </h3>
           <h4>
-            <font color="#ffffff ">(los campos marcados con "* " son opcionales)</font>
+            <font color="#ffffff ">(los campos marcados con "*" son opcionales)</font>
           </h4>
         </div>  
 
@@ -57,8 +59,9 @@
         <div class="col-sm-12 ">
           <div class="col-sm-3 ">
             <div class="col-sm-12 " style="background-color:lavender; height: 20px; "></div>
-            <img class="img-responsive img-thumbnail " src="perfil.png " width="200 " height="200 ">
-            <label class="col-md-12 control-label " for="nombre ">* Añadir imagen de perfil</label>
+            <img class="img-responsive img-thumbnail " src="{{uploadme}} " width="200 " height="200 ">
+            <label class="col-md-12 control-label " for="image">* Añadir imagen de perfil   (Click aquí)</label>
+            <input name="image" id="image" type="file" size="4" fileread="uploadme" style="opacity: 0" />
           </div>
 
           <form name="formulario" class="form-horizontal ">
@@ -93,8 +96,8 @@
               <div class="form-group ">
                 <label class="col-md-4 control-label " for="universidad ">Universidad:</label>
                 <div class="col-md-7 ">
-                  <select id="universidad " name="universidad " class="form-control ">
-                    <option  ng-repeat="u in aUniversidades" ng-model="formulario.Universidad">{{u.Nombre}}</option>
+                  <select id="universidad " name="universidad " class="form-control " ng-model="formulario.Universidad" required="">
+                    <option  ng-repeat="u in aUniversidades" >{{u.Nombre}}</option>
 
                   </select>
                 </div>
@@ -103,8 +106,8 @@
               <div class="form-group ">
                 <label class="col-md-4 control-label " for="pais ">País:</label>
                 <div class="col-md-7 ">
-                  <select id="country " name="country " class="form-control ">
-                    <option ng-repeat="p in aPaises" ng-model="formulario.Pais">{{p.Nombre}}</option>
+                  <select id="country " name="country " class="form-control " ng-model="formulario.Pais" required="">
+                    <option ng-repeat="p in aPaises">{{p.Nombre}}</option>
 
                   </select>
                 </div>
@@ -192,9 +195,9 @@
                 <!-- Text input-->
                 <div class="form-group ">
                   <div class="col-sm-12 " style="background-color:lavender; height: 20px; "></div>
-                  <label class="col-md-4 control-label " for="descripción ">Descripción:</label>
+                  <label class="col-md-4 control-label " for="descripción ">* Descripción personal:</label>
                   <div class="col-md-7 ">
-                    <textarea id="Descripción " name="Descripción " ng-model="formulario.Descripcion" type="text" placeholder="escriba aquí " maxlength="300 " rows="5 " class="form-control input-md " required=" "></textarea>
+                    <textarea id="Descripción " name="Descripción " ng-model="formulario.Descripcion" type="text" placeholder="escriba aquí " maxlength="300 " rows="5 " class="form-control input-md "></textarea>
                   </div>
 
                 </div>
@@ -267,7 +270,7 @@
                 <div class="form-group ">
                   <label class="col-md-4 control-label " for="submit "></label>
                   <div class="col-md-4 ">
-                    <button type="submit"  class="btn btn-success " ng-disabled="!formularioEstudiante.$valid || formu" ng-click="SubmitForm()" style=" background:#79be9a ">Crear perfil</button>
+                    <button type="submit"  class="btn btn-success " ng-disabled="!formularioEstudiante.$valid || formu" ng-click="SubmitForm()" style=" background:#79be9a; float: right;">Crear perfil</button>
                   
                   
                   </div>
