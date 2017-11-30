@@ -12,7 +12,7 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 	$scope.aCategorias=[];
 	$scope.myTec=[];
 	$scope.aUniversidades=[{"Nombre":"TEC"},{"Nombre":"UCR"},{"Nombre":"UNA"}];
-	$scope.aPaises=[{"Nombre":"Costa Rica"},{"Nombre":"USA"},{"Nombre":"España"}];
+	//$scope.aPaises=[{"Nombre":"Costa Rica"},{"Nombre":"USA"},{"Nombre":"España"}];
 	$scope.formulario={};
 	$scope.estudiante={};
 	$scope.sSelCategoria="";
@@ -240,11 +240,11 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
     });*/
 
     // get para obtener toda la lista de paises server/paises
-   /*$http.get("https://www.w3schools.com/angular/customers_sql.aspx").then(function (response) {$scope.aPaises = response.data.records;}
+   $http.get("http://186.176.172.50/DigiTutor/api/paises/").then(function (response) {$scope.aPaises = response.data;}
     , function(response) {
         //Second function handles error
-        $scope.tecnologiasDisponibles = "Error";
-    });*/
+        $scope.aPaises = "Error";
+    });
 
     // get para obtener toda la lista de universidades server/universidades
    /*$http.get("https://www.w3schools.com/angular/customers_sql.aspx").then(function (response) {$scope.aUniversidades = response.data.records;}
