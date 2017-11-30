@@ -57,7 +57,7 @@ namespace DigiTutorService.Controllers {
         [HttpPost]
         public IHttpActionResult PostEstudiante (string pwd, [FromBody] Estudiante estudiante) {
             // crear un Estudiante
-            if (estudiante.hasInfoCreacion())
+            if (estudiante.HasInfoCreacion())
             {
                 if (usuarios.CrearEstudiante(pwd, estudiante))
                     return Ok();
@@ -69,7 +69,7 @@ namespace DigiTutorService.Controllers {
         [HttpPut]
         public IHttpActionResult ModificarEstudiante (string id, [FromBody] Estudiante estudiante) {
             //modificar estudiante
-                 if (estudiante.hasInfoCreacion())
+                 if (estudiante.HasInfoCreacion())
             {
                 if (usuarios.ModificarEstudiante(id, estudiante))
                     return Ok();

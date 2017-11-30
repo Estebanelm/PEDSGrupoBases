@@ -5,6 +5,7 @@ using System.Web;
 
 namespace DigiTutorService.Models
 {
+    
     public class Estudiante
     {
         public class TecnologiaPerfil
@@ -28,8 +29,9 @@ namespace DigiTutorService.Models
         public string Correo2 { get; set; }
         public DateTime FechaInscripcion { get; set; }
         public string Descripcion { get; set; }
-
-        public bool hasInfoCreacion()
+        public int ApoyosDisponibles { get; set; }
+        public string Foto { get; set;}
+        public bool HasInfoCreacion()
         {
             if (Id != null && Universidad != null && Nombre != null && Pais != null && Apellido != null &&
                 Telefono != null && Correo != null)

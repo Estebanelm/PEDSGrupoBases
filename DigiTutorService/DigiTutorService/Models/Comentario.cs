@@ -11,7 +11,7 @@ namespace DigiTutorService.Models
         public string Contenido { get; set; }
         public DateTime Fecha_comentario { get; set; }
 
-        public bool isFull()
+        public bool IsFull()
         {
             if (Id_Autor != null && Nombre_Autor != null && Contenido != null)
                 if (Contenido != "")

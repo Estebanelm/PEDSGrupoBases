@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using DigiTutorService.Models;
 using DigiTutorService.DataAccessLayer;
@@ -24,7 +19,7 @@ namespace DigiTutorService.Controllers {
             if(admin == null) return BadRequest();
 
             // crear un administrador
-            if (admin.hasInfoCreacion())
+            if (admin.HasInfoCreacion())
             {
                 //desencriptar o encriptar o si viene encriptada solo guardarla talvez o no se
 
@@ -42,7 +37,7 @@ namespace DigiTutorService.Controllers {
 
             if (admin==null) return BadRequest();
 
-            if (admin.hasInfoCreacion())
+            if (admin.HasInfoCreacion())
             {
                 if (usuarios.ModificarAdministador(id, admin))
                     return Ok();

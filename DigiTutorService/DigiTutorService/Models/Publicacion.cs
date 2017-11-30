@@ -23,7 +23,7 @@ namespace DigiTutorService.Models
         public int CantidadEvaluaciones { get; set; }
 
 
-        public bool hasInfoCreacion()
+        public bool HasInfoCreacion()
         {
             if (Id_autor != null && Nombre_autor != null && Descripcion != null && Tecnologias.Count != 0)
                 return true;
