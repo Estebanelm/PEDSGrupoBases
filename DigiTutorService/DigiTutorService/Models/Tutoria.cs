@@ -15,7 +15,7 @@ namespace DigiTutorService.Models
         [DataMember]
         public string Lugar { get; set; }
         [DataMember]
-        public bool EstoyRegitrado { get; set; }
+        public bool EstoyRegistrado { get; set; }
         [DataMember]
         public DateTime FechaTutoria { get; set; }
 

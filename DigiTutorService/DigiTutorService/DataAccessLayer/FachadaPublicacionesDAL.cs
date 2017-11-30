@@ -66,7 +66,7 @@ namespace DigiTutorService.DataAccessLayer
                     TutoriaDAO tutoria = listaTutorias.Where(x => x.id_publicacion == publicacion.id).FirstOrDefault();
                     publicacionAAgregar.Costo = tutoria.costo;
                     IEnumerable<string> listaIdEstudiantesRegistro = listRegistros.Where(x => x.id_tutoria == tutoria.id).Select(x => x.id_estudiante);
-                    publicacionAAgregar.EstoyRegitrado = listaIdEstudiantesRegistro.Contains(userid) ? true : false;
+                    publicacionAAgregar.EstoyRegistrado = listaIdEstudiantesRegistro.Contains(userid) ? true : false;
                     publicacionAAgregar.FechaTutoria = tutoria.fecha_tutoria;
                     publicacionAAgregar.Lugar = tutoria.lugar;
                     listaAEnviar.Add(publicacionAAgregar);
