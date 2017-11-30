@@ -41,7 +41,19 @@ namespace DigiTutorService.DataAccessLayer
         }
         public List<Tecnologia> GetTecnologias()
         {
-            return GetAll<Tecnologia, TecnologiaDAO>();
+            List<TecnologiaDAO> listaTecnologias = RepositoryDAL.Read<TecnologiaDAO>();
+            List<CategoriaDAO> listaCategorias = RepositoryDAL.Read<CategoriaDAO>();
+            List<Tecnologia> listaARetornar = new List<Tecnologia>();
+            foreach (var tecnologia in listaTecnologias)
+            {
+                listaARetornar.Add(new Tecnologia
+                {
+                    Nombre = tecnologia.nombre,
+                    Id = tecnologia.id,
+                    Categoria = listaCategorias.Where(x => x.id == tecnologia.id_categoria).Select(x => x.nombre).FirstOrDefault()
+                });
+            }
+            return listaARetornar;
         }
         public IEnumerable<Universidad> GetUniversidades()
         {

@@ -14,6 +14,7 @@ namespace DigiTutorService
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            config.EnableCors();
             config.Routes.MapHttpRoute(
                 name: "DigiTutorAPI",
                 routeTemplate: "api/{controller}/{id}",

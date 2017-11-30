@@ -148,21 +148,50 @@ namespace DigiTutorService.DataAccessLayer
         }
         public IEnumerable<Comentario> GetComentarios(int pubId, int noPag)
         {
-            List<ComentarioDAO> listaComentarios = RepositoryDAL.Read<ComentarioDAO>(x => x.id_publicacion == pubId).Skip(20 * (noPag - 1)).Take(20).ToList();
-            foreach(ComentarioDAO comentario in listaComentarios)
+            List<ComentarioDAO> listaComentarios = RepositoryDAL.Read<ComentarioDAO, DateTime>(x => x.id_publicacion == pubId && x.activo, x => x.fecha_creacion).Skip(20 * (noPag - 1)).Take(20).ToList();
+            IEnumerable<string> listaestudianteIdComentarios = listaComentarios.Select(x => x.id_estudiante);
+            List<UsuarioDAO> listaComentadores = RepositoryDAL.Read<UsuarioDAO>(x => listaestudianteIdComentarios.Contains(x.id));
+            List<Comentario> listaComentariosRetorno = new List<Comentario>();
+            foreach (ComentarioDAO comentario in listaComentarios)
             {
+                UsuarioDAO usuario = listaComentadores.Where(x => x.id.Equals(comentario.id_estudiante)).FirstOrDefault();
                 Comentario nuevoComentario = new Comentario
                 {
                     Id_Autor = comentario.id_estudiante,
-                    Id_Comentario = comentario.id
+                    Id_Comentario = comentario.id,
+                    Contenido = comentario.contenido,
+                    Fecha_comentario = comentario.fecha_creacion,
+                    Nombre_Autor = usuario.nombre + " " + usuario.apellido
                 };
+                listaComentariosRetorno.Add(nuevoComentario);
             }
-            List<Comentario> listaComentariosRetorno = new List<Comentario>();
-            return null;
+            return listaComentariosRetorno;
         }
         public bool CreatePublicacion(Contenido contenido)
         {
-            return false;
+            IEnumerable<string> nombresTecnologias = contenido.Tecnologias.Select(x => x.Nombre);
+            List<TecnologiaDAO> listaTecnologias = RepositoryDAL.Read<TecnologiaDAO>(x => nombresTecnologias.Contains(x.nombre));
+            List<Tecnologia_x_publicacionDAO> listaTecnologiasPublicacion = new List<Tecnologia_x_publicacionDAO>();
+            foreach (var tecnologia in listaTecnologias)
+            {
+                listaTecnologiasPublicacion.Add(new Tecnologia_x_publicacionDAO { Tecnologia = tecnologia });
+            }
+            return RepositoryDAL.Create<PublicacionDAO>(new PublicacionDAO
+            {
+                descripcion = contenido.Descripcion,
+                fecha_publicacion = contenido.FechaCreacion,
+                id_estudiante = contenido.Id_autor,
+                isTutoria = false,
+                titulo = contenido.Titulo,
+                Contenido = new ContenidoDAO
+                {
+                    enlace_extra = contenido.Link,
+                    enlace_video = contenido.Video,
+                    Documento = contenido.Documento == null ? null : new DocumentoDAO { contenido = contenido.Documento, tipo = "", tamano = 0 }
+                },
+                Tecnologia_x_publicacion = listaTecnologiasPublicacion
+            });
+            
         }
 		public bool CreateTutoria(Tutoria tutoria)
 		{
