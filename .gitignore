@@ -9,3 +9,5 @@ DigiTutorService/DigiTutorTest/Properties/AssemblyInfo.cs
 DigiTutorService/DigiTutorTest/bin/
 /.vs
 /DigiTutorService/DigiTutorService/bin
+DigiTutorService/DigiTutorService/obj/
+DigiTutorService/DigiTutorService/Properties/PublishProfiles/CustomProfile.pubxml
