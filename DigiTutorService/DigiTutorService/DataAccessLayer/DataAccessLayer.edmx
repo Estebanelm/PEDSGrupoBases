@@ -30,17 +30,14 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Apoyo' does not have a primary key
 warning 6002: The table/view 'DigiTutorDB.dbo.Comentario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Comentario">
           <Key>
-            <PropertyRef Name="id_estudiante" />
-            <PropertyRef Name="id_publicacion" />
-            <PropertyRef Name="contenido" />
-            <PropertyRef Name="fecha_creacion" />
-            <PropertyRef Name="activo" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id_estudiante" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="id_publicacion" Type="int" Nullable="false" />
           <Property Name="contenido" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="fecha_creacion" Type="date" Nullable="false" />
           <Property Name="activo" Type="bit" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -486,7 +483,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
     [Comentario].[id_publicacion] AS [id_publicacion], 
     [Comentario].[contenido] AS [contenido], 
     [Comentario].[fecha_creacion] AS [fecha_creacion], 
-    [Comentario].[activo] AS [activo]
+    [Comentario].[activo] AS [activo],
+    [Comentario].[id] AS [id]
     FROM [dbo].[Comentario] AS [Comentario]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Contenido" EntityType="Self.Contenido" store:Type="Tables" store:Schema="dbo">
@@ -775,17 +773,14 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
         </EntityType>
         <EntityType Name="ComentarioDAO">
           <Key>
-            <PropertyRef Name="id_estudiante" />
-            <PropertyRef Name="id_publicacion" />
-            <PropertyRef Name="contenido" />
-            <PropertyRef Name="fecha_creacion" />
-            <PropertyRef Name="activo" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="id_publicacion" Type="Int32" Nullable="false" />
           <Property Name="contenido" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Estudiante" Relationship="Self.FK_Comentario_Estudiante" FromRole="Comentario" ToRole="Estudiante" />
           <NavigationProperty Name="Publicacion" Relationship="Self.FK_Comentario_Publicacion" FromRole="Comentario" ToRole="Publicacion" />
         </EntityType>
@@ -1361,6 +1356,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
                 <ScalarProperty Name="contenido" ColumnName="contenido" />
                 <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
                 <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

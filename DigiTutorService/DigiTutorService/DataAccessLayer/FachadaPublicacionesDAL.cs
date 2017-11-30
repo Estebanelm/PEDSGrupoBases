@@ -33,7 +33,7 @@ namespace DigiTutorService.DataAccessLayer
             publicacionAAgregar.Tecnologias = listaTecnologiasPub;
             publicacionAAgregar.Titulo = publicacion.titulo;
         }
-        public List<Publicacion> GetPublicaciones(string userid, int pag)
+        public IEnumerable<Publicacion> GetPublicaciones(string userid, int pag)
         {
             List<Estudiante_sigue_EstudianteDAO> listSeguidos = RepositoryDAL.Read<Estudiante_sigue_EstudianteDAO>(x => x.id_estudianteSeguidor.Equals(userid));
             listSeguidos.Add(new Estudiante_sigue_EstudianteDAO { id_estudianteSeguido = userid });
@@ -148,6 +148,16 @@ namespace DigiTutorService.DataAccessLayer
         }
         public IEnumerable<Comentario> GetComentarios(int pubId, int noPag)
         {
+            List<ComentarioDAO> listaComentarios = RepositoryDAL.Read<ComentarioDAO>(x => x.id_publicacion == pubId).Skip(20 * (noPag - 1)).Take(20).ToList();
+            foreach(ComentarioDAO comentario in listaComentarios)
+            {
+                Comentario nuevoComentario = new Comentario
+                {
+                    Id_Autor = comentario.id_estudiante,
+                    Id_Comentario = comentario.id
+                };
+            }
+            List<Comentario> listaComentariosRetorno = new List<Comentario>();
             return null;
         }
         public bool CreatePublicacion(Contenido contenido)

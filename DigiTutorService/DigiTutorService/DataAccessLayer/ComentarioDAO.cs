@@ -19,6 +19,7 @@ namespace DigiTutorService.DataAccessLayer
         public string contenido { get; set; }
         public System.DateTime fecha_creacion { get; set; }
         public bool activo { get; set; }
+        public int id { get; set; }
     
         public virtual EstudianteDAO Estudiante { get; set; }
         public virtual PublicacionDAO Publicacion { get; set; }
