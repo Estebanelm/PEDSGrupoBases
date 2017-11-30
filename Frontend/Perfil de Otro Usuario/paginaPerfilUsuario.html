@@ -7,7 +7,7 @@
     
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link href="estilosHome.css" rel="stylesheet">
+    <link href="estilosPerfilUsuario.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
 </head>
 <body ng-controller="">
@@ -65,234 +65,14 @@
                             <label style="font-size:x-large; color:white">Nombre Apellido</label>
                         </a>
                     </li>
-                    <li class="col-lg-6">
-                        <form class="form-inline pt-4">
+                    <li class="col-lg-6 row">
+                        <form class="form-inline ml-auto">
                             <div class="btn-toolbar">
                                 <div class="btn-group pr-1">
-                                    <button class="btn navbar-btn btn-reponsive" data-toggle="modal" data-target="#mdlPublicacion" type="button" style="font-size:large; background: #79be9a; color:white;">Hacer Publicación</button>
-
+                                    <button class="btn navbar-btn btn-reponsive" type="button" style="font-size:large; background: #79be9a; color:white;">Dejar de seguir</button>
                                 </div>
-
-                                <div class="btn-group pl-1">
-                                    <button class="btn navbar-btn btn-reponsive" data-toggle="modal" data-target="#mdlTutoria" type="button" style="font-size:large; background: #79be9a; color:white;">Ofrecer Tutoría</button>
-                                </div>  
                             </div>
-
                         </form>
-
-                        <!-- Modal Publicación-->
-                        <div class="modal fade" id="mdlPublicacion" role="dialog">
-                            <div class="modal-dialog modal-lg">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header" style="background:#0c486c">
-                                        <h4 class="modal-title" style="color:white">Nueva Publicación</h4>
-                                        <button type="button" style="color:white" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    
-                                    <div class="modal-body" style="background:#ffffff;">
-                                        <form class="form-horizontal">
-                                            <!-- Título -->
-                                            <div class="form-group row">
-                                                <label for="titulo" class="col-lg-2 form-control-label">Título de la publicación</label>
-                                                <div class="col-lg-10">
-                                                    <input id="titulo" class="form-control" name="titulo" type="text" placeholder="Título" required="">
-                                                </div>
-                                            </div>
-                                            <!-- Video -->
-                                            <div class="form-group row">
-                                                <label for="video" class="col-lg-2 form-control-label">Video de YouTube</label>
-                                                <div class="col-lg-8">
-                                                    <input id="video" class="form-control" name="video" type="text" placeholder="URL del video" />
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <p1>* opcional</p1>
-                                                </div>
-                                            </div>
-                                            <!-- Documento -->
-                                            <div class="form-group row">
-
-                                                <label for="documento" class="col-lg-2 form-control-label">Cargar un documento</label>
-                                                <div class="col-lg-8">
-                                                    <input id="documento" name="documento" class="form-control" type="file" multiple>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <p1>* opcional</p1>
-                                                </div>
-                                            </div>
-                                            <!-- Link -->
-                                            <div class="form-group row">
-                                                <label for="link" class="col-lg-2 control-label">Link externo</label>
-                                                <div class="col-lg-8">
-                                                    <input id="link" class="form-control" name="link" type="text" placeholder="URL externo" />
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <p1>* opcional</p1>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <!-- Descripción -->
-                                                <div class="form-group col-lg-4 mr-1">
-                                                    <label for="descripcion" class="control-label">Descripción</label>
-                                                    <textarea id="descripcion" class="form-control" rows="5" required=""></textarea>
-                                                </div>
-                                                <!-- Menu Tecnologías -->
-                                                <div class="form-group row col-lg-4 bg-light" style="height:40vh">
-                                                    <label for="menuTec" class="control-label">Tecnologías relacionadas</label>
-                                                    <div id="menuTec">
-                                                        <input type="search" placeholder="Buscar tecnología" />
-                                                        <div style="overflow-y:scroll; height:40%">
-                                                            <ul class="list-group">
-                                                                <p1>Agronomía</p1>
-                                                                <li class="list-group-item">Suelos</li>
-                                                                <li class="list-group-item">Arboles</li>
-                                                            </ul>
-                                                            <ul class="list-group">
-                                                                <p1>Programación</p1>
-                                                                <li class="list-group-item">Java</li>
-                                                                <li class="list-group-item">Python</li>
-                                                            </ul>
-                                                            <ul class="list-group">
-                                                                <p1>Programación</p1>
-                                                                <li class="list-group-item">Java</li>
-                                                                <li class="list-group-item">Python</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Tecnologías añadidas -->
-                                                <div class="form-group col-lg-4 bg-light">
-                                                    <label for="tecA" class="control-label">Tecnologías añadidas (1/3)</label>
-                                                    <div class="form-group" id="tecA">
-                                                        <ul class="list-group">
-                                                            <li class="list-group-item">Arboles <button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button">x</button></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <!-- Botones (Footer) -->
-                                            <div class="modal-footer form-group row">
-                                                <button class="btn btn-reponsive mr-auto" style="background:#79be9a; color:#ffffff" type="submit">Publicar</button>
-                                                <button type="reset" class="btn btn-reponsive" style="background:#79be9a; color:#ffffff" data-dismiss="modal">Cancelar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal Tutoría -->
-                        <div class="modal fade" id="mdlTutoria" role="dialog">
-                            <div class="modal-dialog modal-lg">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header" style="background:#0c486c">
-                                        <h4 class="modal-title" style="color:white">Información de Tutoría</h4>
-                                        <button type="button" style="color:white" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                   
-                                    <div class="modal-body" style="background:#ffffff;">
-                                        <form class="form-horizontal">
-                                            <!-- Título -->
-                                            <div class="form-group row">
-                                                <label for="titulo" class="col-lg-2 form-control-label">Título de la publicación</label>
-                                                <div class="col-lg-10">
-                                                    <input id="titulo" class="form-control" name="titulo" type="text" placeholder="Título" required="">
-                                                </div>
-                                            </div>
-                                            <!-- Lugar -->
-                                            <div class="form-group row">
-                                                <label for="lugar" class="col-lg-2 form-control-label">Lugar</label>
-                                                <div class="col-lg-8">
-                                                    <input id="lugar" class="form-control" name="lugar" type="text" placeholder="Dirección" required=""/>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <p1>&#128205;</p1>
-                                                </div>
-                                            </div>
-                                            <!-- Fecha -->
-                                            <div class="form-group row">
-                                                <label for="fecha" class="col-lg-2 form-control-label">Fecha</label>
-                                                <div class="col-lg-8">
-                                                    <input id="fecha" class="form-control" name="fecha" type="date" required=""/>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <p1>&#128197;</p1>
-                                                </div>
-                                            </div>
-                                            <!-- Costo -->
-                                            <div class="form-group row">
-                                                <label for="costo" class="col-lg-2 control-label">Costo</label>
-                                                <div class="col-lg-8">
-                                                    <input id="costo" class="form-control" name="costo" type="text" placeholder="" />
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <p1>* opcional</p1>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <!-- Descripción -->
-                                                <div class="form-group col-lg-4 mr-1">
-                                                    <label for="descripcion" class="control-label">Descripción general</label>
-                                                    <textarea id="descripcion" class="form-control" rows="5" required=""></textarea>
-                                                </div>
-                                                <!-- Menu Tecnologías -->
-                                                <div class="form-group row col-lg-4 bg-light" style="height:40vh">
-                                                    <label for="menuTec" class="control-label">Tecnologías relacionadas</label>
-                                                    <div id="menuTec">
-                                                        <input type="search" placeholder="Buscar tecnología" />
-                                                        <div style="overflow-y:scroll; height:40%">
-                                                            <ul class="list-group">
-                                                                <p1>Agronomía</p1>
-                                                                <li class="list-group-item">Suelos</li>
-                                                                <li class="list-group-item">Arboles</li>
-                                                            </ul>
-                                                            <ul class="list-group">
-                                                                <p1>Programación</p1>
-                                                                <li class="list-group-item">Java</li>
-                                                                <li class="list-group-item">Python</li>
-                                                            </ul>
-                                                            <ul class="list-group">
-                                                                <p1>Programación</p1>
-                                                                <li class="list-group-item">Java</li>
-                                                                <li class="list-group-item">Python</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Tecnologías añadidas -->
-                                                <div class="form-group col-lg-4 bg-light">
-                                                    <label for="tecA" class="control-label">Tecnologías añadidas (1/3)</label>
-                                                    <div class="form-group" id="tecA">
-                                                        <ul class="list-group">
-                                                            <li class="list-group-item">Arboles <button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button">x</button></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <!-- Botones (Footer) -->
-                                            <div class="modal-footer form-group row">
-                                                <button class="btn btn-reponsive mr-auto" style="background:#79be9a; color:#ffffff" type="submit">Publicar</button>
-                                                <button type="reset" class="btn btn-reponsive" style="background:#79be9a; color:#ffffff" data-dismiss="modal">Cancelar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
                     </li>
                 </ul>         
             </nav>
@@ -306,7 +86,7 @@
             <!-- Sección de informacion Personal -->
             <nav class="col-sm-4 col-md-4 d-none d-sm-block bg-light mt-3">
                 <form class="form-horizontal">
-                    <h1 style="font-size:x-large">Mi Información</h1>
+                    <h1 style="font-size:x-large">Información del Estudiante</h1>
                     <fieldset>
                         <div class="form-group">
                             <strong><label>Universidad:</label></strong>
@@ -346,14 +126,8 @@
             </nav>
 
             <!-- Sección de publicaciones -->
-            <main role="main" class="col-sm-8 ml-sm-auto col-md-8 pt-3 mb-0">
+            <main role="main" class="col-sm-8 ml-sm-auto col-md-8 pt-3 mb-0" >
 
-                <!-- Tabs de publicaciones -->
-                <ul class="nav nav-tabs nav-justified">
-                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#">Mis publicaciones</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#">Publicaciones de otros</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#">Todas la publicaciones</a></li>
-                </ul>
 
                 <!-- Lista de publicaciones -->
                 <ul class="list-group" style="overflow-y:scroll; height:90vh">
@@ -492,6 +266,9 @@
                                             <div class="col-lg-12 input-group">
                                                 <label class="form-control-label">Costo: </label>
                                                 <input type="text" class="form-control" readonly placeholder="3000 colones" style="width:auto">
+                                            </div>
+                                            <div class="col-lg-12 mt-3 input-group">
+                                                <button class="btn btn-reponsive ml-auto" type="button" style="background:#79be9a; color:white; ">Registrarse</button>
                                             </div>
                                         </fieldset>
                                         <!---->
