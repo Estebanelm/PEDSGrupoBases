@@ -89,8 +89,58 @@ namespace DigiTutorService.DataAccessLayer
         //estudiante cuando se visita otro perfil.
         public IEnumerable<Publicacion> GetPublicaciones(string userid, string otherUserId, int pag)
         {
-            
-            return null;
+            Estudiante_sigue_EstudianteDAO estudianteSeguido = RepositoryDAL.Read<Estudiante_sigue_EstudianteDAO>(x => x.id_estudianteSeguidor.Equals(userid) && x.id_estudianteSeguido.Equals(otherUserId)).FirstOrDefault();
+            if (estudianteSeguido == null)
+            {
+                return null;
+            }
+            string IdEstudianteSeguido = estudianteSeguido.id_estudianteSeguido;
+            List<PublicacionDAO> listaPublicacionesVisibles = RepositoryDAL.Read<PublicacionDAO, DateTime>(x => x.id_estudiante.Equals(IdEstudianteSeguido) && x.activo, x => x.fecha_publicacion);
+            List<PublicacionDAO> veintePublicaciones = listaPublicacionesVisibles.Skip(20 * (pag - 1)).Take(20).ToList();
+            IEnumerable<int> listaIdPublicaciones = veintePublicaciones.Select(x => x.id);
+            List<TutoriaDAO> listaTutorias = RepositoryDAL.Read<TutoriaDAO>(x => listaIdPublicaciones.Contains(x.id_publicacion));
+            IEnumerable<int> listaIDTutorias = listaTutorias.Select(x => x.id);
+            List<RegistroTutoriaDAO> listRegistros = RepositoryDAL.Read<RegistroTutoriaDAO>(x => listaIDTutorias.Contains(x.id_tutoria));
+            List<Tecnologia_x_publicacionDAO> listaTecnologiasxPublicacion = RepositoryDAL.Read<Tecnologia_x_publicacionDAO>(x => listaIdPublicaciones.Contains(x.id_publicacion));
+            IEnumerable<int> listaIdTecnologias = listaTecnologiasxPublicacion.Select(x => x.id_tecnologia);
+            List<TecnologiaDAO> listaTecnologias = RepositoryDAL.Read<TecnologiaDAO>(x => listaIdTecnologias.Contains(x.id));
+            List<ContenidoDAO> listaContenidos = RepositoryDAL.Read<ContenidoDAO>(x => listaIdPublicaciones.Contains(x.id_publicacion));
+            IEnumerable<int> listaIdDocumentos = listaContenidos.Where(x => x.id_documento != null).Select(x => (int)x.id_documento);
+            List<DocumentoDAO> listaDocumentos = RepositoryDAL.Read<DocumentoDAO>(x => listaIdDocumentos.Contains(x.id));
+            List<ComentarioDAO> comentarios = RepositoryDAL.Read<ComentarioDAO>(x => listaIdPublicaciones.Contains(x.id_publicacion));
+            List<EvaluacionDAO> evaluaciones = RepositoryDAL.Read<EvaluacionDAO>(x => listaIdPublicaciones.Contains(x.id_publicacion));
+            IEnumerable<string> estudiantesIdPublicando = veintePublicaciones.Select(x => x.id_estudiante);
+            List<UsuarioDAO> listaUsuarios = RepositoryDAL.Read<UsuarioDAO>(x => estudiantesIdPublicando.Contains(x.id));
+
+
+            List<Publicacion> listaAEnviar = new List<Publicacion>();
+            foreach (PublicacionDAO publicacion in listaPublicacionesVisibles)
+            {
+                if (publicacion.isTutoria)
+                {
+                    Tutoria publicacionAAgregar = new Tutoria();
+                    AddDatosPublicacion(publicacion, comentarios, evaluaciones, listaUsuarios, listaTecnologiasxPublicacion, listaTecnologias, userid, ref publicacionAAgregar);
+                    TutoriaDAO tutoria = listaTutorias.Where(x => x.id_publicacion == publicacion.id).FirstOrDefault();
+                    publicacionAAgregar.Costo = tutoria.costo;
+                    IEnumerable<string> listaIdEstudiantesRegistro = listRegistros.Where(x => x.id_tutoria == tutoria.id).Select(x => x.id_estudiante);
+                    publicacionAAgregar.EstoyRegistrado = listaIdEstudiantesRegistro.Contains(userid) ? true : false;
+                    publicacionAAgregar.FechaTutoria = tutoria.fecha_tutoria;
+                    publicacionAAgregar.Lugar = tutoria.lugar;
+                    listaAEnviar.Add(publicacionAAgregar);
+                }
+                else
+                {
+                    Contenido publicacionAAgregar = new Contenido();
+                    AddDatosPublicacion(publicacion, comentarios, evaluaciones, listaUsuarios, listaTecnologiasxPublicacion, listaTecnologias, userid, ref publicacionAAgregar);
+                    ContenidoDAO contenido = listaContenidos.Where(x => x.id_publicacion == publicacion.id).FirstOrDefault();
+                    publicacionAAgregar.Documento = listaDocumentos.Where(x => x.id == contenido.id_documento).FirstOrDefault().contenido;
+                    publicacionAAgregar.Link = contenido.enlace_extra;
+                    publicacionAAgregar.Video = contenido.enlace_video;
+                    listaAEnviar.Add(publicacionAAgregar);
+                }
+
+            }
+            return listaAEnviar;
         }
         public T GetDocumento<T>(int DocId) where T : class
         {
