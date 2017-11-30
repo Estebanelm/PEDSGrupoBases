@@ -8,7 +8,7 @@ namespace DigiTutorService.Controllers {
         private FachadaUsuariosDAL usuarios = new FachadaUsuariosDAL();
 
 
-        [Route("api/{userid:int}/estudiantes/{id}")]
+        [Route("api/{userid}/estudiantes/{id}")]
         [HttpGet]
         public IHttpActionResult GetEstudiante (string userid, string id) {
             Estudiante est = null;
@@ -57,11 +57,13 @@ namespace DigiTutorService.Controllers {
         [HttpPost]
         public IHttpActionResult PostEstudiante (string pwd, [FromBody] Estudiante estudiante) {
             // crear un Estudiante
+          
+            if (estudiante == null) return BadRequest();
             if (estudiante.HasInfoCreacion())
             {
                 if (usuarios.CrearEstudiante(pwd, estudiante))
                     return Ok();
-                else return BadRequest();
+                else return BadRequest("");
             }
             else return BadRequest();
         }

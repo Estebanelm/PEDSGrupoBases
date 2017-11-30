@@ -8,7 +8,7 @@ namespace DigiTutorService.Controllers {
         FachadaPublicacionDAL publicaciones = new FachadaPublicacionDAL();
 
         //retorna lista de publicaciones que puede ver un estudiante
-        [Route("api/{userid:int}/publicaciones")]
+        [Route("api/{userid}/publicaciones")]
         [HttpGet]
         public IHttpActionResult GetPublicacionesVisibles (string userid, int pag) {
             //return List<Publicacion>
@@ -17,7 +17,7 @@ namespace DigiTutorService.Controllers {
         }
 
         //retorna lista de publicaciones de un estudiante específico
-        [Route("api/{userid:int}/publicaciones/{id}")]
+        [Route("api/{userid}/publicaciones/{id}")]
         [HttpGet]
         public IHttpActionResult GetPublicacionesEstudiante (string userid, string id, int pag) {
             //return List<Publicacion>

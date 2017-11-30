@@ -85,7 +85,7 @@ namespace DigiTutorService.DataAccessLayer
             List<Estudiante.TecnologiaPerfil> tecApoyo = new List<Estudiante.TecnologiaPerfil>();
             foreach (Tecnologia_x_EstudianteDAO tec in tecEstudiante)
             {
-                //buscamos si la persona a sido apoyada por el estudiante que lo busca
+                //buscamos si la persona ha sido apoyada por el estudiante que lo busca
                 ApoyoDAO apoyo = RepositoryDAL.Read<ApoyoDAO>(x => x.id_estudianteDaApoyo.Equals(estudiante1) && x.id_estudianteApoyado.Equals(EstudianteaBuscar) &&
                         x.id_tecnologia.Equals(tec.id_tecnologia)).FirstOrDefault();
                 if (apoyo != null)
@@ -162,13 +162,26 @@ namespace DigiTutorService.DataAccessLayer
         public bool CrearEstudiante(string password, Estudiante estudiante)
         {
             //primero buscamos a ver si existe ese estudiante
+            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(estudiante.Id)).FirstOrDefault();
             EstudianteDAO existente = RepositoryDAL.Read<EstudianteDAO>(x => x.Usuario.id.Equals(estudiante.Id)).FirstOrDefault();
             //si no existe el estudiante
-            if (existente == null)
+            if (user == null && existente == null)
             {
                 PaisDAO pais = RepositoryDAL.Read<PaisDAO>(x => x.nombre.Equals(estudiante.Pais)).FirstOrDefault();
                 UniversidadDAO univ = RepositoryDAL.Read<UniversidadDAO>(x => x.nombre.Equals(estudiante.Universidad)).FirstOrDefault();
+                //fallo al crear el pais y universidad
                 if (pais == null || univ ==null) return false;
+                user = new UsuarioDAO
+                {
+                    id = estudiante.Id,
+                    activo = true,
+                    apellido = estudiante.Apellido,
+                    contrasena = password,
+                    correo_principal = estudiante.Correo,
+                    fecha_creacion = DateTime.Now,
+                    is_admin = false,
+                    nombre = estudiante.Nombre
+                };
                 existente = new EstudianteDAO
                 {
                     id_usuario = estudiante.Id,
@@ -185,6 +198,17 @@ namespace DigiTutorService.DataAccessLayer
                     reputacion = 0
                 };
 
+                //agregar los DAO a la base de Datos
+                if (RepositoryDAL.Create(user))
+                {
+                    if (RepositoryDAL.Create(existente))
+                    {
+                        //estudiante creado
+                        return true;
+                    }
+                }
+                //fallo al ingresar a la base de datos
+
             }
             return false;
         }
@@ -192,44 +216,168 @@ namespace DigiTutorService.DataAccessLayer
         //===============================================================================================================================================================
         public bool CrearAdministrador(string password, Administrador administrador)
         {
-            return false;
+            //primero buscamos a ver si existe esl administrador
+            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(administrador.Id)).FirstOrDefault();
+            if (user==null)
+            {
+                user = new UsuarioDAO
+                {
+                    activo = true,
+                    fecha_creacion = DateTime.Now,
+                    apellido = administrador.Apellido,
+                    contrasena = password,
+                    correo_principal = administrador.Correo,
+                    id = administrador.NombreUsuario,
+                    is_admin = true,
+                    nombre = administrador.Nombre
+                };
+                if (RepositoryDAL.Create(user)) return true; //se creo administrador
+
+                //no se logro crear fallo en BD
+
+            }
+            return false;//ya existe un administrador asi
         }
 
         //===============================================================================================================================================================
         public bool AddSeguimiento(Seguimiento seguimiento)
         {
+            //buscamos si ya existe un seguimiento (es decir si el estudiante "seguidor" sigue al estudiante "seguido")
+            Estudiante_sigue_EstudianteDAO seg = RepositoryDAL.Read<Estudiante_sigue_EstudianteDAO>(x => x.id_estudianteSeguido.Equals(seguimiento.id_estudianteSeguido) && x.id_estudianteSeguidor.Equals(seguimiento.id_estudianteSigue)).FirstOrDefault();
+            //si no existe
+            if (seg == null)
+            {
+                seg = new Estudiante_sigue_EstudianteDAO { id_estudianteSeguidor = seguimiento.id_estudianteSigue, id_estudianteSeguido = seguimiento.id_estudianteSeguido };
+                if (RepositoryDAL.Create(seg))
+                {
+                    EstudianteDAO estSeguido = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(seguimiento.id_estudianteSeguido)).FirstOrDefault();
+                    if (estSeguido == null) return false; //error, no existe el estudiante q usted quiere seguir
+                    //sumamos la cantidad de seguidores 
+                    estSeguido.numero_seguidores += 1;
+                    if(RepositoryDAL.Update(estSeguido)==1) return true; //se creo el seguimiento correctamente y se sumo los seguidores al seguido
+
+                }
+
+                //fallo al entra a la base de datos
+            }
+
+            //ya existia el seguimiento, no se hizo nada
             return false;
         }
 
         //===============================================================================================================================================================
         public bool ModificarEstudiante(string estudianteId, Estudiante estudiante)
         {
+            //primero intentamos obtener el estudiante correcto
+            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(estudianteId)).FirstOrDefault();
+            EstudianteDAO existente = RepositoryDAL.Read<EstudianteDAO>(x => x.Usuario.id.Equals(estudianteId)).FirstOrDefault();
+            //si no existe el estudiante
+            if (user == null && existente == null) return false; //error, no existe el estudiante, no deberia suceder
+            else 
+            {
+                PaisDAO pais = RepositoryDAL.Read<PaisDAO>(x => x.nombre.Equals(estudiante.Pais)).FirstOrDefault();
+                UniversidadDAO univ = RepositoryDAL.Read<UniversidadDAO>(x => x.nombre.Equals(estudiante.Universidad)).FirstOrDefault();
+                //fallo al crear el pais y universidad
+                if (pais == null || univ == null) return false;
+
+
+                //modificar el usuario
+                user.apellido = estudiante.Apellido;
+                user.correo_principal = estudiante.Correo;
+                user.nombre = estudiante.Nombre;
+
+                //modificar estudiante
+                existente.id_usuario = estudiante.Id;
+                existente.apoyos_disponibles = APOYOS_SEMANA;
+                existente.descripcion = estudiante.Descripcion;
+                existente.correo_secundario = estudiante.Correo2;
+                existente.id_pais = pais.id;
+                existente.telefono_celular = estudiante.Telefono;
+                existente.telefono_fijo = estudiante.Telefono2;
+                existente.foto = estudiante.Foto;
+                //actualizar informacion
+                if (RepositoryDAL.Update<UsuarioDAO>(user) == 1)
+                {
+                    if (RepositoryDAL.Update(existente) == 1) return true;
+                }
+                        
+                   
+                //fallo al ingresar a la base de datos
+
+            }
             return false;
         }
         //===============================================================================================================================================================
         public bool ModificarAdministador(string adminId, Administrador administrador)
         {
-            return false;
+            //primero intentamos obtener el admnistrador
+            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(adminId)).FirstOrDefault();
+            //si no existe el administrador
+            if (user == null) return false; //error, no existe el administrador, no deberia suceder
+            else
+            {
+
+
+
+                //modificar el usuario
+                user.apellido = administrador.Apellido;
+                user.correo_principal = administrador.Correo;
+                user.nombre = administrador.Nombre;
+
+                if(RepositoryDAL.Update(user)==1)  return true;//se actualizo administrador
+            }
+
+            return false; //error al entrar en la base de datos
         }
         //===============================================================================================================================================================
         public bool DeleteEstudiante(string estudianteId)
         {
+            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(estudianteId)).FirstOrDefault();
+            if (user == null) return false; //no existe ese estudiante
+
+            user.activo = false;
+            if (RepositoryDAL.Update(user) == 1) return true; //Se desactivo el usuario
+
+            //fallo al entrar a la base de datos
             return false;
         }
         //===============================================================================================================================================================
         public bool DeleteAdministrador(string adminId)
         {
+            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(adminId)).FirstOrDefault();
+            if (user == null) return false; //no existe ese usuario
+
+            user.activo = false;
+            if (RepositoryDAL.Update(user) == 1) return true; //Se desactivo el usuario
+
+            //fallo al entrar a la base de datos
             return false;
         }
 
         //===============================================================================================================================================================
         public bool DeleteSeguimiento(Seguimiento seguimiento)
         {
+            Estudiante_sigue_EstudianteDAO seg = RepositoryDAL.Read<Estudiante_sigue_EstudianteDAO>(x => x.id_estudianteSeguido.Equals(seguimiento.id_estudianteSeguido) && x.id_estudianteSeguidor.Equals(seguimiento.id_estudianteSigue)).FirstOrDefault();
+            if (seg == null) return false;//no existe el seguimiento
+            if (RepositoryDAL.Delete(seg))
+            {
+
+                EstudianteDAO estSeguido = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(seguimiento.id_estudianteSeguido)).FirstOrDefault();
+                if (estSeguido == null) return false; //error, no existe el estudiante q usted quiere dejar seguir
+                                                      
+                estSeguido.numero_seguidores-= 1;//restamos cantidad de seguidores
+                if (RepositoryDAL.Update(estSeguido) == 1) return true;//se actualizo y dejo de seguir estudiante
+                
+                //problema actualizando el estudiante
+            }
+            //problema borrando
             return false;
         }
         //===============================================================================================================================================================
         public bool AddApoyo(Apoyo apoyo)
         {
+            TecnologiaDAO tecnologia = RepositoryDAL.Read<TecnologiaDAO>
+            ApoyoDAO apy = RepositoryDAL.Read<ApoyoDAO>(x => x.id_estudianteApoyado.Equals(apoyo.id_estudianteApoyado) && x.id_estudianteDaApoyo.Equals(apoyo.id_estudianteQueApoya)).FirstOrDefault();
             return false;
         }
 
