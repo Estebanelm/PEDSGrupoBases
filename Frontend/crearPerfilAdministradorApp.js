@@ -5,7 +5,7 @@ app.controller('AdminCtrl', function($scope, $http,$filter,$location,$window) {
 
 	$scope.formulario={};
 	$scope.administrador={};
-	
+	$scope.serverURL="http://186.176.172.50/DigiTutor/api/";
 	$scope.sPassword;
 	$scope.spassword2;
 	
@@ -52,12 +52,12 @@ app.controller('AdminCtrl', function($scope, $http,$filter,$location,$window) {
 		}
 		else{
 			$scope.administrador=$scope.BuildAdmin($scope.formulario);
-			url="api/admins?pwd="+$scope.sPassword;
-			jsonAdmin=angular.toJson($scope.administrador);
+			url=$scope.serverURL+"admins?pwd="+$scope.sPassword+"/";
+			jsonAdmin=JSON.stringify($scope.administrador);
 			 
 			//post
 			$http.post(url,jsonAdmin).then(function (response) {
-				if(response.data=="200 ok"){
+
 					swal({
 			 			  position: 'center',
 						  type: 'success',
@@ -65,27 +65,12 @@ app.controller('AdminCtrl', function($scope, $http,$filter,$location,$window) {
 						  showConfirmButton: false,
 						  timer: 2000
 					})
-					window.location="http://www.grupobases.hol.es/";
-				}
-				if(response.data=="401 datos invalidos"){
-					swal({
-					  position: 'center',
-					  type: 'error',
-					  title: "Datos Inválidos",
-					  showConfirmButton: false,
-					  timer: 2000
-					})
-				}	
-				else{
-					swal({
-					  position: 'center',
-					  type: 'error',
-					  title: "ERROR DE CONEXIÓN",
-					  showConfirmButton: false,
-					  timer: 2000
-					})
+					window.setTimeout(function(){
 
-				}
+       						 // Move to a new location or you can do something else
+        					 window.location="http://186.176.172.50/DigiTutor/";
+
+    				}, 2000);
 
 
 			}, 
@@ -93,7 +78,7 @@ app.controller('AdminCtrl', function($scope, $http,$filter,$location,$window) {
 					swal({
 					  position: 'center',
 					  type: 'error',
-					  title: jsonAdmin,
+					  title: "nombre de usuario o correo ya utilizados",
 					  showConfirmButton: false,
 					  timer: 12000
 					})
