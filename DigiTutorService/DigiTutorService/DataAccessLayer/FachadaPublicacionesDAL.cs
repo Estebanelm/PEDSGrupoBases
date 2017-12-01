@@ -284,6 +284,7 @@ namespace DigiTutorService.DataAccessLayer
         }
         public bool AddOrModifyEvaluacion(Evaluacion evaluacion)
         {
+            /////NO SE PUEDE EVALUAR SI NO ESTA REGISTRADO, CHEQUEAR ESO
             PublicacionDAO publicacionEvaluada = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == evaluacion.id_publicacion).FirstOrDefault();
             EstudianteDAO estudianteEvaluado = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(publicacionEvaluada.id_estudiante)).FirstOrDefault();
             List<PublicacionDAO> publicacionesDelUsuario = RepositoryDAL1.Read<PublicacionDAO>(x => x.id_estudiante.Equals(estudianteEvaluado.id_usuario));
@@ -299,6 +300,17 @@ namespace DigiTutorService.DataAccessLayer
                 totalEvaluacionesNegativas++;
                 reputacion = (totalEvaluacionesPositivas / (totalEvaluacionesPositivas + totalEvaluacionesNegativas)) * 100;
                 return RepositoryDAL1.Delete(evaluacionABorrar);
+            }
+            PublicacionDAO publicacionAEvaluar = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == evaluacion.id_publicacion).FirstOrDefault();
+            if (publicacionAEvaluar.isTutoria)
+            {
+                EstudianteDAO estudianteQueEvalua = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(evaluacion.Id_estudiante)).FirstOrDefault();
+                TutoriaDAO tutoriaEvaluada = publicacionAEvaluar.Tutorias.Where(x => x.id_publicacion == evaluacion.id_publicacion).FirstOrDefault();
+                IEnumerable<int> listaIdTutoriasRegistradas = estudianteQueEvalua.RegistroTutorias.Select(x => x.id_tutoria);
+                if (!listaIdTutoriasRegistradas.Contains(tutoriaEvaluada.id) || tutoriaEvaluada.fecha_tutoria > DateTime.Now)
+                {
+                    return false; //no se puede evaluar porque no está registrado o la tutoría no ha terminado
+                }
             }
             EvaluacionDAO evaluacionAAgregar = new EvaluacionDAO
             {
