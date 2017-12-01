@@ -286,24 +286,41 @@ namespace DigiTutorService.DataAccessLayer
         }
         public bool AddOrModifyEvaluacion(Evaluacion evaluacion)
         {
-            /////NO SE PUEDE EVALUAR SI NO ESTA REGISTRADO, CHEQUEAR ESO
-            PublicacionDAO publicacionEvaluada = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == evaluacion.id_publicacion).FirstOrDefault();
-            EstudianteDAO estudianteEvaluado = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(publicacionEvaluada.id_estudiante)).FirstOrDefault();
+            PublicacionDAO publicacionAEvaluar = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == evaluacion.id_publicacion).FirstOrDefault();
+            EstudianteDAO estudianteEvaluado = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(publicacionAEvaluar.id_estudiante)).FirstOrDefault();
             List<PublicacionDAO> publicacionesDelUsuario = RepositoryDAL1.Read<PublicacionDAO>(x => x.id_estudiante.Equals(estudianteEvaluado.id_usuario));
             int totalEvaluacionesNegativas = publicacionesDelUsuario.Select(x => x.evaluaciones_negativas).Sum();
             int totalEvaluacionesPositivas = publicacionesDelUsuario.Select(x => x.evaluaciones_positivas).Sum();
             int reputacion;
-            if (evaluacion.Tipo_evaluacion.Equals("null"))
-            {
-                EvaluacionDAO evaluacionABorrar = RepositoryDAL1.Read<EvaluacionDAO>(x => 
-                                                x.id_estudiante.Equals(evaluacion.Id_estudiante) && 
+            EvaluacionDAO evaluacionExistente = RepositoryDAL1.Read<EvaluacionDAO>(x =>
+                                                x.id_estudiante.Equals(evaluacion.Id_estudiante) &&
                                                 x.id_publicacion == evaluacion.id_publicacion)
                                                 .FirstOrDefault();
-                totalEvaluacionesNegativas++;
-                reputacion = (totalEvaluacionesPositivas / (totalEvaluacionesPositivas + totalEvaluacionesNegativas)) * 100;
-                return RepositoryDAL1.Delete(evaluacionABorrar);
+            if (evaluacion.Tipo_evaluacion.Equals("null") && evaluacionExistente != null)
+            {
+                if ((bool)evaluacionExistente.positiva)
+                {
+                    publicacionAEvaluar.evaluaciones_positivas--;
+                    totalEvaluacionesPositivas--;
+                }
+                else
+                {
+                    publicacionAEvaluar.evaluaciones_negativas--;
+                    totalEvaluacionesNegativas--;
+                }
+                if ((totalEvaluacionesPositivas + totalEvaluacionesNegativas) == 0)
+                {
+                    reputacion = 0;
+                }
+                else
+                {
+                    reputacion = (totalEvaluacionesPositivas / (totalEvaluacionesPositivas + totalEvaluacionesNegativas)) * 100;
+                }
+                estudianteEvaluado.reputacion = reputacion;
+                RepositoryDAL1.Update(estudianteEvaluado);
+                RepositoryDAL1.Update(publicacionAEvaluar);
+                return RepositoryDAL1.Delete(evaluacionExistente);
             }
-            PublicacionDAO publicacionAEvaluar = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == evaluacion.id_publicacion).FirstOrDefault();
             if (publicacionAEvaluar.isTutoria)
             {
                 EstudianteDAO estudianteQueEvalua = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(evaluacion.Id_estudiante)).FirstOrDefault();
@@ -320,8 +337,50 @@ namespace DigiTutorService.DataAccessLayer
                 positiva = evaluacion.Tipo_evaluacion.Equals("positiva") ? true : false,
                 id_estudiante = evaluacion.Id_estudiante
             };
-            totalEvaluacionesPositivas++;
+            if (evaluacion.Tipo_evaluacion.Equals("positiva") && evaluacionExistente != null)
+            {
+                if (!(bool)evaluacionExistente.positiva) //es negativa
+                {
+                    publicacionAEvaluar.evaluaciones_positivas++;
+                    totalEvaluacionesPositivas++;
+                    publicacionAEvaluar.evaluaciones_negativas--;
+                    totalEvaluacionesNegativas--;
+                }
+                else
+                {
+                    return true;
+                }
+                RepositoryDAL1.Delete(evaluacionExistente);
+            }
+            if (evaluacion.Tipo_evaluacion.Equals("positiva") && evaluacionExistente == null)
+            {
+                publicacionAEvaluar.evaluaciones_positivas++;
+                totalEvaluacionesPositivas++;
+            }
+            if (evaluacion.Tipo_evaluacion.Equals("negativa") && evaluacionExistente != null)
+            {
+                if ((bool)evaluacionExistente.positiva) //es negativa
+                {
+                    publicacionAEvaluar.evaluaciones_positivas--;
+                    totalEvaluacionesPositivas--;
+                    publicacionAEvaluar.evaluaciones_negativas++;
+                    totalEvaluacionesNegativas++;
+                }
+                else
+                {
+                    return true;
+                }
+                RepositoryDAL1.Delete(evaluacionExistente);
+            }
+            if (evaluacion.Tipo_evaluacion.Equals("negativa") && evaluacionExistente == null)
+            {
+                publicacionAEvaluar.evaluaciones_negativas++;
+                totalEvaluacionesNegativas++;
+            }
             reputacion = (totalEvaluacionesPositivas / (totalEvaluacionesPositivas + totalEvaluacionesNegativas)) * 100;
+            estudianteEvaluado.reputacion = reputacion;
+            RepositoryDAL1.Update(estudianteEvaluado);
+            RepositoryDAL1.Update(publicacionAEvaluar);
             return RepositoryDAL1.Create(evaluacionAAgregar);
         }
         public bool DeletePublicacion(int pubId)
