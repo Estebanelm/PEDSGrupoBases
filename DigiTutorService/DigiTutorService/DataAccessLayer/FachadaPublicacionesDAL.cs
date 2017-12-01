@@ -46,6 +46,10 @@ namespace DigiTutorService.DataAccessLayer
             IEnumerable<string> listIdSeguidos = listSeguidos.Select(y => y.id_estudianteSeguido);
             List<PublicacionDAO> listaPublicacionesVisibles = RepositoryDAL1.Read<PublicacionDAO, DateTime>(x => listIdSeguidos.Contains(x.id_estudiante) && x.activo, x => x.fecha_publicacion);
             List<PublicacionDAO> veintePublicaciones = listaPublicacionesVisibles.Skip(20 * (pag - 1)).Take(20).ToList();
+            if (veintePublicaciones.Count() == 0)
+            {
+                return new List<Publicacion>();
+            }
             IEnumerable<int> listaIdPublicaciones = veintePublicaciones.Select(x => x.id);
             List<TutoriaDAO> listaTutorias = RepositoryDAL1.Read<TutoriaDAO>(x => listaIdPublicaciones.Contains(x.id_publicacion));
             IEnumerable<int> listaIDTutorias = listaTutorias.Select(x => x.id);
@@ -104,6 +108,10 @@ namespace DigiTutorService.DataAccessLayer
             string IdEstudianteSeguido = estudianteSeguido.id_estudianteSeguido;
             List<PublicacionDAO> listaPublicacionesVisibles = RepositoryDAL1.Read<PublicacionDAO, DateTime>(x => x.id_estudiante.Equals(IdEstudianteSeguido) && x.activo, x => x.fecha_publicacion);
             List<PublicacionDAO> veintePublicaciones = listaPublicacionesVisibles.Skip(20 * (pag - 1)).Take(20).ToList();
+            if (veintePublicaciones.Count() == 0)
+            {
+                return new List<Publicacion>();
+            }
             IEnumerable<int> listaIdPublicaciones = veintePublicaciones.Select(x => x.id);
             List<TutoriaDAO> listaTutorias = RepositoryDAL1.Read<TutoriaDAO>(x => listaIdPublicaciones.Contains(x.id_publicacion));
             IEnumerable<int> listaIDTutorias = listaTutorias.Select(x => x.id);
@@ -400,6 +408,33 @@ namespace DigiTutorService.DataAccessLayer
             ComentarioDAO comentarioAModificar = RepositoryDAL1.Read<ComentarioDAO>(x => x.id == IdComentario).FirstOrDefault();
             comentarioAModificar.activo = false;
             return RepositoryDAL1.Update<ComentarioDAO>(comentarioAModificar);
+        }
+        public bool RegistrarseEnTutoria(int pubId, string estId)
+        {
+            PublicacionDAO publicacion = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == pubId).FirstOrDefault();
+            TutoriaDAO tutoria = publicacion.Tutorias.FirstOrDefault();
+            RegistroTutoriaDAO registroExistente = RepositoryDAL1.Read<RegistroTutoriaDAO>(x => x.id_estudiante.Equals(estId) && x.id_tutoria == tutoria.id).FirstOrDefault();
+            if (registroExistente == null)
+            {
+                RegistroTutoriaDAO nuevoRegistro = new RegistroTutoriaDAO
+                {
+                    id_estudiante = estId,
+                    id_tutoria = tutoria.id
+                };
+                return RepositoryDAL1.Create(nuevoRegistro);
+            }
+            return false;
+        }
+        public bool QuitarRegistro(int pubId, string estId)
+        {
+            PublicacionDAO publicacion = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == pubId).FirstOrDefault();
+            TutoriaDAO tutoria = publicacion.Tutorias.FirstOrDefault();
+            RegistroTutoriaDAO registroExistente = RepositoryDAL1.Read<RegistroTutoriaDAO>(x => x.id_estudiante.Equals(estId) && x.id_tutoria == tutoria.id).FirstOrDefault();
+            if (registroExistente != null)
+            {
+                return RepositoryDAL1.Delete(registroExistente);
+            }
+            return false;
         }
     }
 }

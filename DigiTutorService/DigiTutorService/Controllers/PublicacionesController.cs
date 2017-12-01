@@ -52,28 +52,21 @@ namespace DigiTutorService.Controllers {
         //=================================================================================================================     
 
             
-        [Route("api/tutorias/{tutId}/registro/{estId}")]
+        [Route("api/tutorias/{pubId}/registro/{estId}")]
         [HttpPut]
-        public IHttpActionResult RegistrarTutoria(string estId, int tutId)
+        public IHttpActionResult RegistrarTutoria(int pubId, string estId)
         {
-            //por hacer!!!
-
-
-            //publicaciones.
-           // if (publicaciones.CreateTutoria(tut))
+            if (publicaciones.RegistrarseEnTutoria(pubId, estId))
                 return Ok();
-           // else return BadRequest();
+            else return BadRequest();
         }
-        [Route("api/tutorias/{tutId}/registro/{estId}")]
+        [Route("api/tutorias/{pubId}/registro/{estId}")]
         [HttpDelete]
-        public IHttpActionResult DesregistrarTutoria(int tutId, string estId)
+        public IHttpActionResult DesregistrarTutoria(int pubId, string estId)
         {
-            //por hacer!!!
-
-
-            //publicaciones.
-            // if (publicaciones.CreateTutoria(tut))
-            return Ok();
+            if (publicaciones.QuitarRegistro(pubId, estId))
+                return Ok();
+            else return BadRequest();
         }
 
 

@@ -187,10 +187,11 @@ namespace DigiTutorService.DataAccessLayer
         public IEnumerable<Estudiante> GetEstudiantes(string nombreEstudiante, int id_universidad, int id_pais, int id_tecnologia, int pag)
         {
             //seleccionamos a los usuarios que cumplen con los  filtros 
-            var res = RepositoryDAL1.Read<UsuarioDAO>(x => (nombreEstudiante != null ? x.nombre.Equals(nombreEstudiante) : true) &&
+            List<UsuarioDAO> res = RepositoryDAL1.Read<UsuarioDAO>(x => (nombreEstudiante != null ? (x.nombre.Contains(nombreEstudiante) || x.apellido.Contains(nombreEstudiante)) : true) &&
             (id_universidad > 0 ? x.Estudiante.id_universidad == id_universidad : true) &&
             (id_pais > 0 ? x.Estudiante.id_pais == id_pais : true) &&
-            (id_tecnologia > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(id_tecnologia) : true));
+            (id_tecnologia > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(id_tecnologia) : true) &&
+            (x.activo));
 
             //ordenamos los resultados por reputacion
             res.OrderByDescending(x => x.Estudiante.reputacion);
