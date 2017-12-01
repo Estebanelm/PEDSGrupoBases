@@ -31,7 +31,7 @@ namespace DigiTutorService.Models
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("Fatal error!");
             }

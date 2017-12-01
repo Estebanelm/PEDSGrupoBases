@@ -91,7 +91,7 @@ namespace DigiTutorService.DataAccessLayer.Repository
                     return false;
                 }
         }
-        public int Update<T>(T modifiedObject) where T : class
+        public bool Update<T>(T modifiedObject) where T : class
         {
                 try
                 {
@@ -99,11 +99,11 @@ namespace DigiTutorService.DataAccessLayer.Repository
                     dbContext.Set<T>().Attach(modifiedObject);
                     entry.State = EntityState.Modified;
                     dbContext.SaveChanges();
-                    return 1;
+                    return true;
                 }
                 catch (Exception)
                 {
-                    return 0;
+                    return false;
                 }
         }
 

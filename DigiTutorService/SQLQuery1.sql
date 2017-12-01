@@ -1,5 +1,7 @@
 ﻿SELECT * FROM	dbo.Publicacion
 
+UPDATE dbo.Publicacion SET activo = 1 WHERE	id = 7
+
 DELETE FROM dbo.Publicacion WHERE id = 5
 
 SELECT * FROM dbo.Documento

@@ -10,6 +10,7 @@ namespace DigiTutorService.Models
         public string Nombre_Autor { get; set; }
         public string Contenido { get; set; }
         public DateTime Fecha_comentario { get; set; }
+        public int id_publicacion { get; set; }
 
         public bool IsFull()
         {

@@ -9,5 +9,6 @@ namespace DigiTutorService.Models
     {
         public string Id_estudiante { get; set; }
         public string Tipo_evaluacion { get; set; }
+        public int id_publicacion { get; set; }
     }
 }
