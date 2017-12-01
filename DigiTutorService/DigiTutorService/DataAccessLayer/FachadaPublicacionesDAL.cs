@@ -292,6 +292,7 @@ namespace DigiTutorService.DataAccessLayer
             int totalEvaluacionesNegativas = publicacionesDelUsuario.Select(x => x.evaluaciones_negativas).Sum();
             int totalEvaluacionesPositivas = publicacionesDelUsuario.Select(x => x.evaluaciones_positivas).Sum();
             int reputacion;
+            double porcentaje0a1;
             EvaluacionDAO evaluacionExistente = RepositoryDAL1.Read<EvaluacionDAO>(x =>
                                                 x.id_estudiante.Equals(evaluacion.Id_estudiante) &&
                                                 x.id_publicacion == evaluacion.id_publicacion)
@@ -314,7 +315,8 @@ namespace DigiTutorService.DataAccessLayer
                 }
                 else
                 {
-                    reputacion = (totalEvaluacionesPositivas / (totalEvaluacionesPositivas + totalEvaluacionesNegativas)) * 100;
+                    porcentaje0a1 = ((double)totalEvaluacionesPositivas / ((double)totalEvaluacionesPositivas + (double)totalEvaluacionesNegativas));
+                    reputacion = (int)((porcentaje0a1) * 100);
                 }
                 estudianteEvaluado.reputacion = reputacion;
                 RepositoryDAL1.Update(estudianteEvaluado);
@@ -377,7 +379,8 @@ namespace DigiTutorService.DataAccessLayer
                 publicacionAEvaluar.evaluaciones_negativas++;
                 totalEvaluacionesNegativas++;
             }
-            reputacion = (totalEvaluacionesPositivas / (totalEvaluacionesPositivas + totalEvaluacionesNegativas)) * 100;
+            porcentaje0a1 = ((double)totalEvaluacionesPositivas / ((double)totalEvaluacionesPositivas + (double)totalEvaluacionesNegativas));
+            reputacion = (int)((porcentaje0a1) * 100);
             estudianteEvaluado.reputacion = reputacion;
             RepositoryDAL1.Update(estudianteEvaluado);
             RepositoryDAL1.Update(publicacionAEvaluar);

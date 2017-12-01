@@ -11,7 +11,7 @@ namespace DigiTutorService.Controllers
 
         private FachadaUsuariosDAL usuarios = new FachadaUsuariosDAL();
 
-        [HttpPut]
+        [HttpPost]
         public IHttpActionResult DarApoyo([FromBody] Apoyo apoyo)
         {
             //agregar apoyo a la lista de apoyos
