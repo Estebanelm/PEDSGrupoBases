@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app=""> 
+<html ng-app="paginaPrincipalApp"> 
 <head>
     <title>DigiTutor - Home</title>
     <meta charset="utf-8" />
@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link href="estilosHome.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="paginaPrincipalApp.js"></script>
 </head>
-<body ng-controller="">
+<body ng-controller="paginaPrincipalCtrl">
     
     <!-- Navigation Bar -->
     <div class="container-fluid">
@@ -310,7 +312,7 @@
                     <fieldset>
                         <div class="form-group">
                             <strong><label>Universidad:</label></strong>
-                            <label >Tecnológico de Costa Rica</label>
+                            <label >{{usuario.Universidad}}</label>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-sm table-hover">
@@ -320,25 +322,25 @@
                                         <th>Apoyos</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-
+                                <tbody>       
                                 </tbody>
                             </table>
                         </div>
                         <div class="form-group">
+                            <div class="col-lg-12" ng-repeat="t in usuario.Tecnologias"><label class="col-lg-8">{{t.Nombre}}</label><label class="col-lg-4">{{t.Apoyos}}</label><br /></div>
                             <strong><label>Estadísticas</label></strong><br />
-                            <label>Seguidores: </label> <br />
-                            <label>Participación: </label> <br />
-                            <label>Reputación: </label>
+                            <label>Seguidores: </label><label>{{usuario.CantSeguidores}}</label> <br />
+                            <label>Participación: </label><label>{{usuario.Participacion}}</label>  <br />
+                            <label>Reputación: </label><label>{{usuario.Reputacion}}</label>% 
                         </div>
                         <div class="form-group">
                             <strong><label>Contacto</label></strong><br />
-                            <label>Teléfono: </label> <br />
-                            <label>Email: </label> 
+                            <label>Teléfono: </label><label>{{usuario.Telefono}}</label> <br />
+                            <label>Email: </label><label>{{usuario.Correo}}</label> 
                         </div>
                         <div class="form-group">
                             <strong><label>Fecha de Inscripción a DigiTutor</label></strong><br />
-                            <label></label>
+                            <label>{{usuario.FechaInscripcion}}</label>
                         </div>
                     </fieldset>
                 </form>
@@ -569,10 +571,7 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="app/app.module.js"></script>
-    <script src="app/main.js"></script>
     <script>
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();

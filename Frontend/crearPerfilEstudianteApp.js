@@ -83,7 +83,7 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 		}
 		else{
 			$scope.estudiante=$scope.BuildStudent($scope.formulario);
-			url=$scope.serverURL+"estudiantes?pwd="+$scope.sPassword+"/";
+			url=$scope.serverURL+"estudiantes?pwd="+$scope.sPassword;
 			jsonStudent=JSON.stringify($scope.estudiante);
 			 
 			//post
