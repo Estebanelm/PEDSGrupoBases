@@ -276,15 +276,15 @@ namespace DigiTutorService.DataAccessLayer
                     PuntuacionAlgoritmo = CalcularAlgoritmoReclutamiento(user, tec1, w1, tec2, w2, tec3, w3, tec4, w4)
                 });
 
-                //ordenar por puntuacion de algoritmo
-                resultado.OrderByDescending(x => x.PuntuacionAlgoritmo);
-
-                //sacar los 20 que necesitamos
-                var res= resultado.Skip(20 * (pag - 1)).Take(20).ToList();
+                
 
                 
             }
+            //ordenar por puntuacion de algoritmo
+            resultado.OrderByDescending(x => x.PuntuacionAlgoritmo);
 
+            //sacar los 20 que necesitamos
+            var res = resultado.Skip(20 * (pag - 1)).Take(20).ToList();
             return res;
 
         }
