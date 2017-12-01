@@ -242,7 +242,48 @@ namespace DigiTutorService.DataAccessLayer
             (tec2 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec2) : true) &&
             (tec3 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec3) : true) &&
             (tec4 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec4) : true));
+            List<Estudiante> resultado = new List<Estudiante>();
+          
+            foreach (UsuarioDAO user in usuarios)
+            {
+                //creamos la lista de tecnolgias con sus respectivos apoyos
+                List<Estudiante.TecnologiaPerfil> tecApoyo = new List<Estudiante.TecnologiaPerfil>();
+                foreach (Tecnologia_x_EstudianteDAO tec in user.Estudiante.Tecnologia_x_Estudiante)
+                {
+                    //se pone el apyo como "fijo" para que no salga el botoncito de "+" puesto que son resultados de busqueda
+                    tecApoyo.Add(new Estudiante.TecnologiaPerfil { Apoyos = tec.cantidadApoyos, MiApoyo = "fijo", Nombre = tec.Tecnologia.nombre });
+                }
 
+                
+                resultado.Add( new Estudiante
+                {
+                    Id = user.id,
+                    Apellido = user.apellido,
+                    CantSeguidores = user.Estudiante.numero_seguidores,
+                    Correo = user.correo_principal,
+                    Correo2 = user.Estudiante.correo_secundario,
+                    Descripcion = user.Estudiante.descripcion,
+                    FechaInscripcion = user.fecha_creacion,
+                    Nombre = user.nombre,
+                    Pais = user.Estudiante.Pai.nombre,
+                    Participacion = user.Estudiante.participacion,
+                    Reputacion = user.Estudiante.reputacion,
+                    Telefono = user.Estudiante.telefono_celular,
+                    Telefono2 = user.Estudiante.telefono_fijo,
+                    Universidad = user.Estudiante.Universidad.nombre,
+                    Tecnologias = tecApoyo,
+                    Foto = user.Estudiante.foto,
+                    PuntuacionAlgoritmo = CalcularAlgoritmoReclutamiento(user, tec1, w1, tec2, w2, tec3, w3, tec4, w4)
+                });
+
+                //ordenar por puntuacion de algoritmo
+                resultado.OrderByDescending(x => x.PuntuacionAlgoritmo);
+
+                //sacar los 20 que necesitamos
+                var res= resultado.Skip(20 * (pag - 1)).Take(20).ToList();
+
+                return res;
+            }
 
 
 
@@ -570,11 +611,122 @@ namespace DigiTutorService.DataAccessLayer
         //===============================================================================================================================================================
 
 
-        private int calcularAlgoritmoReclutamiento(UsuarioDAO user, int tec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4)
+        private int CalcularAlgoritmoReclutamiento(UsuarioDAO user, int tec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4)
         {
-            int puntajeReputacion = user.Estudiante.reputacion;
+            
+            int puntajeParticipacion = 0; //15%
+            int puntajeSeguidores = 0;//20%
+            int puntajeApoyos = 0;//40%
+            int puntajeReputacion = (user.Estudiante.reputacion * 25) / 100; //la reputacion es de 0 a 100 y representa un 25%
 
-            return 0;
+            //puntaje de apoyos
+            int puntajetec1 = 0;
+            int puntajetec2 = 0;
+            int puntajetec3 = 0;
+            int puntajetec4 = 0;
+
+
+            //calculo participacion
+            int part = user.Estudiante.participacion;
+            if(1<part&&part<4) puntajeParticipacion = 2;
+            if (3 < part && part < 7) puntajeParticipacion = 5;
+            if (6 < part && part < 15) puntajeParticipacion = 10;
+            if (14 < part) puntajeParticipacion = 15;
+
+            //calculo seguidores
+            int cant = user.Estudiante.numero_seguidores;
+            if (cant > 0 && cant < 4) puntajeSeguidores = 3;
+            if (cant > 3 && cant < 6) puntajeSeguidores = 5;
+            if (cant > 5 && cant < 8) puntajeSeguidores = 7;
+            if (cant > 7 && cant < 11) puntajeSeguidores = 10;
+            if (cant > 10 && cant < 16) puntajeSeguidores = 15;
+            if (cant > 15 ) puntajeSeguidores = 20;
+
+            //calculo de puntaje de apoyos
+            if (tec1 > 0 && w1>0)
+            {
+                int tecApoyo = user.Estudiante.Tecnologia_x_Estudiante.Where(x => x.id_tecnologia == tec1).FirstOrDefault().cantidadApoyos;
+
+                if (tecApoyo == 1) puntajetec1 = 5;
+                if (tecApoyo == 2) puntajetec1 = 10;
+                if (tecApoyo == 3) puntajetec1 = 15;
+                if (tecApoyo == 4) puntajetec1 = 20;
+                if (tecApoyo == 5) puntajetec1 = 25;
+                if (tecApoyo == 6) puntajetec1 = 35;
+                if (tecApoyo == 7) puntajetec1 = 45;
+                if (tecApoyo == 8) puntajetec1 = 50;
+                if (tecApoyo == 9) puntajetec1 = 60;
+                if (tecApoyo == 10) puntajetec1 = 70;
+                if (tecApoyo == 11) puntajetec1 = 80;
+                if (tecApoyo >= 12) puntajetec1 = 100;
+
+                puntajetec1 = (puntajetec1 * w1) / 100;
+            }
+
+            if (tec2 > 0 && w2 > 0)
+            {
+                int tecApoyo = user.Estudiante.Tecnologia_x_Estudiante.Where(x => x.id_tecnologia == tec2).FirstOrDefault().cantidadApoyos;
+
+                if (tecApoyo == 1) puntajetec2 = 5;
+                if (tecApoyo == 2) puntajetec2 = 10;
+                if (tecApoyo == 3) puntajetec2 = 15;
+                if (tecApoyo == 4) puntajetec2 = 20;
+                if (tecApoyo == 5) puntajetec2 = 25;
+                if (tecApoyo == 6) puntajetec2 = 35;
+                if (tecApoyo == 7) puntajetec2 = 45;
+                if (tecApoyo == 8) puntajetec2 = 50;
+                if (tecApoyo == 9) puntajetec2 = 60;
+                if (tecApoyo == 10) puntajetec2 = 70;
+                if (tecApoyo == 11) puntajetec2 = 80;
+                if (tecApoyo >= 12) puntajetec2 = 100;
+
+                puntajetec2 = (puntajetec2 * w2) / 100;
+            }
+
+            if (tec3 > 0 && w3 > 0)
+            {
+                int tecApoyo = user.Estudiante.Tecnologia_x_Estudiante.Where(x => x.id_tecnologia == tec3).FirstOrDefault().cantidadApoyos;
+
+                if (tecApoyo == 1) puntajetec3 = 5;
+                if (tecApoyo == 2) puntajetec3 = 10;
+                if (tecApoyo == 3) puntajetec3 = 15;
+                if (tecApoyo == 4) puntajetec3 = 20;
+                if (tecApoyo == 5) puntajetec3 = 25;
+                if (tecApoyo == 6) puntajetec3 = 35;
+                if (tecApoyo == 7) puntajetec3 = 45;
+                if (tecApoyo == 8) puntajetec3 = 50;
+                if (tecApoyo == 9) puntajetec3 = 60;
+                if (tecApoyo == 10) puntajetec3 = 70;
+                if (tecApoyo == 11) puntajetec3 = 80;
+                if (tecApoyo >= 12) puntajetec3 = 100;
+
+                puntajetec3 = (puntajetec3 * w3) / 100;
+            }
+
+            if (tec4 > 0 && w4 > 0)
+            {
+                int tecApoyo = user.Estudiante.Tecnologia_x_Estudiante.Where(x => x.id_tecnologia == tec4).FirstOrDefault().cantidadApoyos;
+
+                if (tecApoyo == 1) puntajetec4 = 5;
+                if (tecApoyo == 2) puntajetec4 = 10;
+                if (tecApoyo == 3) puntajetec4 = 15;
+                if (tecApoyo == 4) puntajetec4 = 20;
+                if (tecApoyo == 5) puntajetec4 = 25;
+                if (tecApoyo == 6) puntajetec4 = 35;
+                if (tecApoyo == 7) puntajetec4 = 45;
+                if (tecApoyo == 8) puntajetec4 = 50;
+                if (tecApoyo == 9) puntajetec4 = 60;
+                if (tecApoyo == 10) puntajetec4 = 70;
+                if (tecApoyo == 11) puntajetec4 = 80;
+                if (tecApoyo >= 12) puntajetec4 = 100;
+
+                puntajetec4 = (puntajetec4 * w4) / 100;
+            }
+
+            puntajeApoyos = puntajetec1 + puntajetec2 + puntajetec3 + puntajetec4;
+
+            return puntajeSeguidores + puntajeReputacion + puntajeParticipacion + puntajeApoyos;
+
         }
     }
 }
