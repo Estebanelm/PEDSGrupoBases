@@ -207,6 +207,9 @@ namespace DigiTutorService.DataAccessLayer
                     {
                         listaTecnologiasPublicacion.Add(new Tecnologia_x_publicacionDAO { id_tecnologia = tecnologia.id, id_publicacion = id_publicacionCreada });
                     }
+                    EstudianteDAO estudianteAModificar = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(contenido.Id_autor)).FirstOrDefault();
+                    estudianteAModificar.participacion++;
+                    RepositoryDAL1.Update(estudianteAModificar);
                     return RepositoryDAL1.Create<Tecnologia_x_publicacionDAO>(listaTecnologiasPublicacion);
                 }
             }
@@ -242,6 +245,9 @@ namespace DigiTutorService.DataAccessLayer
                     {
                         listaTecnologiasPublicacion.Add(new Tecnologia_x_publicacionDAO { id_tecnologia = tecnologia.id, id_publicacion = id_publicacionCreada });
                     }
+                    EstudianteDAO estudianteAModificar = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(tutoria.Id_autor)).FirstOrDefault();
+                    estudianteAModificar.participacion++;
+                    RepositoryDAL1.Update(estudianteAModificar);
                     return RepositoryDAL1.Create<Tecnologia_x_publicacionDAO>(listaTecnologiasPublicacion);
                 }
             }
@@ -254,23 +260,40 @@ namespace DigiTutorService.DataAccessLayer
 
         public bool AddComentario(Comentario comentario)
         {
-            ComentarioDAO nuevoDocumento = new ComentarioDAO
+            PublicacionDAO publicacionDeComentario = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == comentario.id_publicacion).FirstOrDefault();
+            bool puedeComentar = true;
+            if (publicacionDeComentario.isTutoria)
+            {
+                TutoriaDAO tutoria = publicacionDeComentario.Tutorias.FirstOrDefault();
+                List<RegistroTutoriaDAO> registroTutoria = tutoria.RegistroTutorias.ToList();
+                IEnumerable<string> estudiantesRegistrados = registroTutoria.Select(x => x.id_estudiante);
+                puedeComentar = estudiantesRegistrados.Contains(comentario.Id_Autor);
+            }
+            ComentarioDAO nuevoComentario = new ComentarioDAO
             {
                 contenido = comentario.Contenido,
                 fecha_creacion = comentario.Fecha_comentario,
                 id_estudiante = comentario.Id_Autor,
                 id_publicacion = comentario.id_publicacion
             };
-            return RepositoryDAL1.Create(nuevoDocumento);
+            return RepositoryDAL1.Create(nuevoComentario);
         }
         public bool AddOrModifyEvaluacion(Evaluacion evaluacion)
         {
+            PublicacionDAO publicacionEvaluada = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == evaluacion.id_publicacion).FirstOrDefault();
+            EstudianteDAO estudianteEvaluado = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(publicacionEvaluada.id_estudiante)).FirstOrDefault();
+            List<PublicacionDAO> publicacionesDelUsuario = RepositoryDAL1.Read<PublicacionDAO>(x => x.id_estudiante.Equals(estudianteEvaluado.id_usuario));
+            int totalEvaluacionesNegativas = publicacionesDelUsuario.Select(x => x.evaluaciones_negativas).Sum();
+            int totalEvaluacionesPositivas = publicacionesDelUsuario.Select(x => x.evaluaciones_positivas).Sum();
+            int reputacion;
             if (evaluacion.Tipo_evaluacion.Equals("null"))
             {
                 EvaluacionDAO evaluacionABorrar = RepositoryDAL1.Read<EvaluacionDAO>(x => 
                                                 x.id_estudiante.Equals(evaluacion.Id_estudiante) && 
                                                 x.id_publicacion == evaluacion.id_publicacion)
                                                 .FirstOrDefault();
+                totalEvaluacionesNegativas++;
+                reputacion = (totalEvaluacionesPositivas / (totalEvaluacionesPositivas + totalEvaluacionesNegativas)) * 100;
                 return RepositoryDAL1.Delete(evaluacionABorrar);
             }
             EvaluacionDAO evaluacionAAgregar = new EvaluacionDAO
@@ -279,12 +302,17 @@ namespace DigiTutorService.DataAccessLayer
                 positiva = evaluacion.Tipo_evaluacion.Equals("positiva") ? true : false,
                 id_estudiante = evaluacion.Id_estudiante
             };
+            totalEvaluacionesPositivas++;
+            reputacion = (totalEvaluacionesPositivas / (totalEvaluacionesPositivas + totalEvaluacionesNegativas)) * 100;
             return RepositoryDAL1.Create(evaluacionAAgregar);
         }
         public bool DeletePublicacion(int pubId)
         {
             PublicacionDAO publicacionAModificar = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == pubId).FirstOrDefault();
             publicacionAModificar.activo = false;
+            EstudianteDAO estudianteAModificar = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(publicacionAModificar.id_estudiante)).FirstOrDefault();
+            estudianteAModificar.participacion--;
+            RepositoryDAL1.Update(estudianteAModificar);
             return RepositoryDAL1.Update<PublicacionDAO>(publicacionAModificar);
         }
         public bool DeleteComentario(int IdComentario)
