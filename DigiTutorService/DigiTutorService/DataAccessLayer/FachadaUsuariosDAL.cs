@@ -181,7 +181,7 @@ namespace DigiTutorService.DataAccessLayer
         public IEnumerable<Estudiante> GetEstudiantes(string nombreEstudiante, int id_universidad, int id_pais, int id_tecnologia, int pag)
         {
             //seleccionamos a los usuarios que cumplen con los  filtros 
-            var res = RepositoryDAL1.Read<UsuarioDAO>(x => (nombreEstudiante != "" ? x.nombre.Equals(nombreEstudiante) : true) &&
+            var res = RepositoryDAL1.Read<UsuarioDAO>(x => (nombreEstudiante != null ? x.nombre.Equals(nombreEstudiante) : true) &&
             (id_universidad > 0 ? x.Estudiante.id_universidad == id_universidad : true) &&
             (id_pais > 0 ? x.Estudiante.id_pais == id_pais : true) &&
             (id_tecnologia > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(id_tecnologia) : true));
@@ -282,12 +282,11 @@ namespace DigiTutorService.DataAccessLayer
                 //sacar los 20 que necesitamos
                 var res= resultado.Skip(20 * (pag - 1)).Take(20).ToList();
 
-                return res;
+                
             }
 
+            return res;
 
-
-            return null;
         }
 
         //===============================================================================================================================================================
@@ -295,9 +294,9 @@ namespace DigiTutorService.DataAccessLayer
         {
             //primero buscamos a ver si existe ese estudiante
             UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(estudiante.Id)).FirstOrDefault();
-            EstudianteDAO existente = RepositoryDAL1.Read<EstudianteDAO>(x => x.Usuario.id.Equals(estudiante.Id)).FirstOrDefault();
+            EstudianteDAO estud = RepositoryDAL1.Read<EstudianteDAO>(x => x.Usuario.id.Equals(estudiante.Id)).FirstOrDefault();
             //si no existe el estudiante
-            if (user == null && existente == null)
+            if (user == null && estud == null)
             {
                 PaisDAO pais = RepositoryDAL1.Read<PaisDAO>(x => x.nombre.Equals(estudiante.Pais)).FirstOrDefault();
                 UniversidadDAO univ = RepositoryDAL1.Read<UniversidadDAO>(x => x.nombre.Equals(estudiante.Universidad)).FirstOrDefault();
@@ -318,7 +317,7 @@ namespace DigiTutorService.DataAccessLayer
                     is_admin = false,
                     nombre = estudiante.Nombre
                 };
-                existente = new EstudianteDAO
+                estud = new EstudianteDAO
                 {
                     id_usuario = estudiante.Id,
                     apoyos_disponibles = APOYOS_SEMANA,
@@ -338,7 +337,7 @@ namespace DigiTutorService.DataAccessLayer
                 //agregar los DAO a la base de Datos
                 if (RepositoryDAL1.Create(user))
                 {
-                    if (RepositoryDAL1.Create(existente))
+                    if (RepositoryDAL1.Create(estud))
                     {
                         //una vez creados el usuario y estudiante, agregamos las tecnologias
                         //se obtiene la lista de tecnologias que el estudiante selecciono
