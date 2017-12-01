@@ -6,7 +6,7 @@ using System.Net;
 
 namespace DigiTutorService.Controllers {
     public class EstudiantesController : ApiController {
-
+        static string SUCCESS = "success";
         private FachadaUsuariosDAL usuarios = new FachadaUsuariosDAL();
 
 
@@ -63,9 +63,10 @@ namespace DigiTutorService.Controllers {
             if (estudiante == null) return BadRequest();
             if (estudiante.HasInfoCreacion())
             {
-                if (usuarios.CrearEstudiante(pwd, estudiante))
+                var res = usuarios.CrearEstudiante(pwd, estudiante);
+                if (res==SUCCESS)
                     return Ok();
-                else return BadRequest("");
+                else return BadRequest(res);
             }
             else return BadRequest();
         }

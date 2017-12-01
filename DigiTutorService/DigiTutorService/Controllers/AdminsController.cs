@@ -24,10 +24,10 @@ namespace DigiTutorService.Controllers {
             if (admin.HasInfoCreacion())
             {
                 //desencriptar o encriptar o si viene encriptada solo guardarla talvez o no se
-
-                if (usuarios.CrearAdministrador(pwd, admin))
+                var res = usuarios.CrearAdministrador(pwd, admin);
+                if (res=="success")
                     return Ok();
-                else return BadRequest();
+                else return BadRequest(res);
             }
             else return BadRequest();
             

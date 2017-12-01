@@ -11,6 +11,7 @@ namespace DigiTutorService.DataAccessLayer
     {
         static int WEEK = 7;
         static int APOYOS_SEMANA = 5;
+        static string SUCCESS = "success";
 
         public RepositoryDAL RepositoryDAL1;
 
@@ -63,7 +64,11 @@ namespace DigiTutorService.DataAccessLayer
                 Telefono = estudiante.telefono_celular,
                 Telefono2 = estudiante.telefono_fijo,
                 Universidad = estudiante.Universidad.nombre,
-                Tecnologias = tecApoyo
+                Tecnologias = tecApoyo,
+                ApoyosDisponibles = estudiante.apoyos_disponibles,
+                Foto = estudiante.foto
+                
+                
             };
 
             return result;
@@ -148,7 +153,7 @@ namespace DigiTutorService.DataAccessLayer
                 Telefono2 = estudiante.telefono_fijo,
                 Universidad = estudiante.Universidad.nombre,
                 Tecnologias = tecApoyo,
-                ApoyosDisponibles = estudiante.apoyos_disponibles
+                Foto= estudiante.foto
             };
 
             return result;
@@ -220,7 +225,8 @@ namespace DigiTutorService.DataAccessLayer
                     Telefono = user.Estudiante.telefono_celular,
                     Telefono2 = user.Estudiante.telefono_fijo,
                     Universidad = user.Estudiante.Universidad.nombre,
-                    Tecnologias = tecApoyo
+                    Tecnologias = tecApoyo,
+                    Foto= user.Estudiante.foto
                 });                          
                 
              }
@@ -275,10 +281,7 @@ namespace DigiTutorService.DataAccessLayer
                     Foto = user.Estudiante.foto,
                     PuntuacionAlgoritmo = CalcularAlgoritmoReclutamiento(user, tec1, w1, tec2, w2, tec3, w3, tec4, w4)
                 });
-
-                
-
-                
+                               
             }
             //ordenar por puntuacion de algoritmo
             resultado.OrderByDescending(x => x.PuntuacionAlgoritmo);
@@ -290,7 +293,7 @@ namespace DigiTutorService.DataAccessLayer
         }
 
         //===============================================================================================================================================================
-        public bool CrearEstudiante(string password, Estudiante estudiante)
+        public string CrearEstudiante(string password, Estudiante estudiante)
         {
             //primero buscamos a ver si existe ese estudiante
             UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(estudiante.Id)).FirstOrDefault();
@@ -303,7 +306,7 @@ namespace DigiTutorService.DataAccessLayer
 
 
                 //fallo al crear el pais y universidad
-                if (pais == null || univ == null) return false;
+                if (pais == null || univ == null) return "la universidad o pais dados no existen";
 
 
                 user = new UsuarioDAO
@@ -331,6 +334,7 @@ namespace DigiTutorService.DataAccessLayer
                     numero_seguidores = 0,
                     participacion = 0,
                     reputacion = 0
+                    
                 
                 };
 
@@ -351,20 +355,20 @@ namespace DigiTutorService.DataAccessLayer
                                 id_estudiante = estudiante.Id,
                                 id_tecnologia = tec.id,
                                 cantidadApoyos = 0
-                            })) return false;//error al crear la tecnologia x estudiante
+                            })) return "Hubo un error al agregar las tecnologias del estudiante";//error al crear la tecnologia x estudiante
                         }
-                        return true;
+                        return SUCCESS;
                     }
                 }
 
                 //fallo al ingresar a la base de datos
 
             }
-            return false;
+            return "Ya existe un estudiante con ese Carne";
         }
 
         //===============================================================================================================================================================
-        public bool CrearAdministrador(string password, Administrador administrador)
+        public string CrearAdministrador(string password, Administrador administrador)
         {
             //primero buscamos a ver si existe esl administrador
             UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(administrador.Id)).FirstOrDefault();
@@ -381,12 +385,12 @@ namespace DigiTutorService.DataAccessLayer
                     is_admin = true,
                     nombre = administrador.Nombre
                 };
-                if (RepositoryDAL1.Create(user)) return true; //se creo administrador
+                if (RepositoryDAL1.Create(user)) return SUCCESS; //se creo administrador
 
                 //no se logro crear fallo en BD
 
             }
-            return false;//ya existe un administrador asi
+            return "Ya existe un Administrador con esa identificacion";//ya existe un administrador asi
         }
 
         //===============================================================================================================================================================
