@@ -9,9 +9,17 @@ namespace DigiTutorService.DataAccessLayer
 {
     public class FachadaCatalogoDAL
     {
+
+        public RepositoryDAL RepositoryDAL1;
+
+        public FachadaCatalogoDAL()
+        {
+            RepositoryDAL1 = new RepositoryDAL();
+        }
+
         public List<T> GetAll<T, TDAO>() where T : new() where TDAO : class
         {
-            List<TDAO> listObjetos = RepositoryDAL.Read<TDAO>();
+            List<TDAO> listObjetos = RepositoryDAL1.Read<TDAO>();
             List<T> returnList = new List<T>();
             foreach (TDAO item in listObjetos)
             {
@@ -41,8 +49,8 @@ namespace DigiTutorService.DataAccessLayer
         }
         public List<Tecnologia> GetTecnologias()
         {
-            List<TecnologiaDAO> listaTecnologias = RepositoryDAL.Read<TecnologiaDAO>();
-            List<CategoriaDAO> listaCategorias = RepositoryDAL.Read<CategoriaDAO>();
+            List<TecnologiaDAO> listaTecnologias = RepositoryDAL1.Read<TecnologiaDAO>();
+            List<CategoriaDAO> listaCategorias = RepositoryDAL1.Read<CategoriaDAO>();
             List<Tecnologia> listaARetornar = new List<Tecnologia>();
             foreach (var tecnologia in listaTecnologias)
             {
@@ -65,29 +73,29 @@ namespace DigiTutorService.DataAccessLayer
         }
         public bool AddTecnologia(Tecnologia tecnologia)
         {
-            CategoriaDAO categoriacategoriaExistente = RepositoryDAL.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Nombre)).FirstOrDefault();
+            CategoriaDAO categoriacategoriaExistente = RepositoryDAL1.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Nombre)).FirstOrDefault();
             if (categoriacategoriaExistente == null)
             {
                 CategoriaDAO nuevaCat = new CategoriaDAO { nombre = tecnologia.Nombre };
-                RepositoryDAL.Create(nuevaCat);
+                RepositoryDAL1.Create(nuevaCat);
             }
-            CategoriaDAO categoriaActual = RepositoryDAL.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Nombre)).FirstOrDefault();
+            CategoriaDAO categoriaActual = RepositoryDAL1.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Nombre)).FirstOrDefault();
             TecnologiaDAO nuevaTec = new TecnologiaDAO { nombre = tecnologia.Nombre, id_categoria = categoriaActual.id};
-            return RepositoryDAL.Create(nuevaTec);
+            return RepositoryDAL1.Create(nuevaTec);
         }
         public bool AddUniversidad(Universidad universidad)
         {
-            return RepositoryDAL.Create(Switch<UniversidadDAO>(universidad));
+            return RepositoryDAL1.Create(Switch<UniversidadDAO>(universidad));
         }
 		public bool DeleteUniversidad(int UniversidadId)
 		{
             UniversidadDAO universidadABorrar = new UniversidadDAO { id = UniversidadId };
-            return RepositoryDAL.Delete(universidadABorrar);
+            return RepositoryDAL1.Delete(universidadABorrar);
 		}
 		public bool DeleteTecnologia(int TecnologiaId)
 		{
             TecnologiaDAO tecnologiaABorrar = new TecnologiaDAO { id = TecnologiaId };
-            return RepositoryDAL.Delete(tecnologiaABorrar);
+            return RepositoryDAL1.Delete(tecnologiaABorrar);
         }
     }
 }

@@ -7,12 +7,16 @@ using System.Web;
 
 namespace DigiTutorService.DataAccessLayer.Repository
 {
-    public static class RepositoryDAL
+    public class RepositoryDAL
     {
-        public static List<T> Read<T>() where T : class
+        DigiTutorDBEntities dbContext;
+
+        public RepositoryDAL()
         {
-            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
-            {
+            dbContext = new DigiTutorDBEntities();
+        }
+        public List<T> Read<T>() where T : class
+        {
                 try
                 {
                     return dbContext.Set<T>().ToList();
@@ -21,13 +25,9 @@ namespace DigiTutorService.DataAccessLayer.Repository
                 {
                     return null;
                 }
-
-            }
         }
-        public static List<T> Read<T>(Expression<Func<T, bool>> predicate) where T:class
+        public List<T> Read<T>(Expression<Func<T, bool>> predicate) where T:class
         {
-            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
-            {
                 try
                 {
                     return dbContext.Set<T>().Where(predicate).ToList();
@@ -36,13 +36,9 @@ namespace DigiTutorService.DataAccessLayer.Repository
                 {
                     return null;
                 }
-
-            }
         }
-        public static List<T> Read<T, TKey>(Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderingKey) where T: class
+        public List<T> Read<T, TKey>(Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderingKey) where T: class
         {
-            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
-            {
                 try
                 {
                     return dbContext.Set<T>().Where(predicate).OrderByDescending(orderingKey).ToList();
@@ -51,13 +47,9 @@ namespace DigiTutorService.DataAccessLayer.Repository
                 {
                     return null;
                 }
-
-            }
         }
-        public static bool Create<T>(T newObject) where T : class
+        public  bool Create<T>(T newObject) where T : class
         {
-            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
-            {
                 try
                 {
                     dbContext.Set<T>().Add(newObject);
@@ -66,15 +58,27 @@ namespace DigiTutorService.DataAccessLayer.Repository
                 }
                 catch (Exception)
                 {
+                    return false;
+                }
+        }
+        public bool Create<T>(List<T> listofObjects) where T : class
+        {
+                try
+                {
+                    foreach(T obj in listofObjects)
+                    {
+                        dbContext.Set<T>().Add(obj);
+                    }
+                    dbContext.SaveChanges();
                     return true;
                 }
-                    
-            }
+                catch (Exception)
+                {
+                    return false;
+                }
         }
-        public static bool Delete<T>(T objectToDelete) where T : class
+        public bool Delete<T>(T objectToDelete) where T : class
         {
-            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
-            {
                 try
                 {
                     dbContext.Set<T>().Attach(objectToDelete);
@@ -86,13 +90,9 @@ namespace DigiTutorService.DataAccessLayer.Repository
                 {
                     return false;
                 }
-
-            }
         }
-        public static int Update<T>(T modifiedObject) where T : class
+        public int Update<T>(T modifiedObject) where T : class
         {
-            using (DigiTutorDBEntities dbContext = new DigiTutorDBEntities())
-            {
                 try
                 {
                     var entry = dbContext.Entry(modifiedObject);
@@ -105,8 +105,6 @@ namespace DigiTutorService.DataAccessLayer.Repository
                 {
                     return 0;
                 }
-
-            }
         }
 
     }

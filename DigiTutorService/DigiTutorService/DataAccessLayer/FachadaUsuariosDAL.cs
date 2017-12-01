@@ -12,7 +12,12 @@ namespace DigiTutorService.DataAccessLayer
         static int WEEK = 7;
         static int APOYOS_SEMANA = 5;
 
+        public RepositoryDAL RepositoryDAL1;
 
+        public FachadaUsuariosDAL()
+        {
+            RepositoryDAL1 = new RepositoryDAL();
+        }
 
         //metodos
         //===============================================================================================================================================================
@@ -21,20 +26,24 @@ namespace DigiTutorService.DataAccessLayer
         public Estudiante GetEstudiantePropio(string EstudianteId)
         {
             //obtner la informacion de usuario y de estudiante de la base de datos
-            EstudianteDAO estudiante = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(EstudianteId)).FirstOrDefault();
-            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(EstudianteId)).FirstOrDefault();
+            EstudianteDAO estudiante = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(EstudianteId)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(EstudianteId)).FirstOrDefault();
             if (estudiante == null && user == null)   //si no existen         
                 return null;
 
             //obtener la informacion de tecnologias del estudiante
-            List<Tecnologia_x_EstudianteDAO> tecEstudiante = RepositoryDAL.Read<Tecnologia_x_EstudianteDAO>(x => x.id_estudiante.Equals(EstudianteId));
+            List<Tecnologia_x_EstudianteDAO> tecEstudiante = RepositoryDAL1.Read<Tecnologia_x_EstudianteDAO>(x => x.id_estudiante.Equals(EstudianteId));
 
             //creamos la lista de tecnolgias con sus respectivos apoyos
             List<Estudiante.TecnologiaPerfil> tecApoyo = new List<Estudiante.TecnologiaPerfil>();
+            IEnumerable<int> listaIdTecnologias = tecEstudiante.Select(x => x.id);
+
+            List<TecnologiaDAO> listaTecnologias = RepositoryDAL1.Read<TecnologiaDAO>(x => listaIdTecnologias.Contains(x.id));
             foreach (Tecnologia_x_EstudianteDAO tec in tecEstudiante)
             {
+                string nombreTecnologia = listaTecnologias.Where(x => x.id.Equals(tec.id_tecnologia)).Select(x => x.nombre).FirstOrDefault();
                 //se pone el apyo como "fijo" para que no salga el botoncito de "+" puesto que yo no me puedo apoyar a mi mismo
-                tecApoyo.Add(new Estudiante.TecnologiaPerfil { Apoyos = tec.cantidadApoyos, MiApoyo = "fijo", Nombre = tec.Tecnologia.nombre });
+                tecApoyo.Add(new Estudiante.TecnologiaPerfil { Apoyos = tec.cantidadApoyos, MiApoyo = "fijo", Nombre = nombreTecnologia});
             }
 
             //crear el estudiante
@@ -65,7 +74,7 @@ namespace DigiTutorService.DataAccessLayer
 
         public bool CheckLogin(Login login)
         {
-            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(login.id_estudiante)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(login.id_estudiante)).FirstOrDefault();
             if (user == null)
             {
                 //no existe ese nombre de usuario
@@ -88,20 +97,20 @@ namespace DigiTutorService.DataAccessLayer
         public Estudiante GetEstudianteAjeno(string estudiante1, string EstudianteaBuscar)
         {
             //obtner el la informacion de usuario y de estudiante de la base de datos
-            EstudianteDAO estudiante = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(EstudianteaBuscar)).FirstOrDefault();
-            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(EstudianteaBuscar)).FirstOrDefault();
+            EstudianteDAO estudiante = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(EstudianteaBuscar)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(EstudianteaBuscar)).FirstOrDefault();
             if (estudiante == null && user == null)
                 return null;
 
             //obtener la informacion de tecnologias del estudiante
-            List<Tecnologia_x_EstudianteDAO> tecEstudiante = RepositoryDAL.Read<Tecnologia_x_EstudianteDAO>(x => x.id_estudiante.Equals(EstudianteaBuscar));
+            List<Tecnologia_x_EstudianteDAO> tecEstudiante = RepositoryDAL1.Read<Tecnologia_x_EstudianteDAO>(x => x.id_estudiante.Equals(EstudianteaBuscar));
 
             //creamos la lista de tecnolgias con sus respectivos apoyos
             List<Estudiante.TecnologiaPerfil> tecApoyo = new List<Estudiante.TecnologiaPerfil>();
             foreach (Tecnologia_x_EstudianteDAO tec in tecEstudiante)
             {
                 //buscamos si la persona ha sido apoyada por el estudiante que lo busca
-                ApoyoDAO apoyo = RepositoryDAL.Read<ApoyoDAO>(x => x.id_estudianteDaApoyo.Equals(estudiante1) && x.id_estudianteApoyado.Equals(EstudianteaBuscar) &&
+                ApoyoDAO apoyo = RepositoryDAL1.Read<ApoyoDAO>(x => x.id_estudianteDaApoyo.Equals(estudiante1) && x.id_estudianteApoyado.Equals(EstudianteaBuscar) &&
                         x.id_tecnologia.Equals(tec.id_tecnologia)).FirstOrDefault();
                 if (apoyo != null)
                 {
@@ -150,7 +159,7 @@ namespace DigiTutorService.DataAccessLayer
         public Administrador GetAdministrador(string AdminId)
         {
             //buscamos al usuario en la tabla
-            UsuarioDAO admin = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(AdminId)).FirstOrDefault();
+            UsuarioDAO admin = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(AdminId)).FirstOrDefault();
             if (admin != null)
             {
                 return new Administrador
@@ -172,7 +181,7 @@ namespace DigiTutorService.DataAccessLayer
         public IEnumerable<Estudiante> GetEstudiantes(string nombreEstudiante, int id_universidad, int id_pais, int id_tecnologia, int pag)
         {
             //seleccionamos a los usuarios que cumplen con los  filtros 
-            var res = RepositoryDAL.Read<UsuarioDAO>(x => (nombreEstudiante != "" ? x.nombre.Equals(nombreEstudiante) : true) &&
+            var res = RepositoryDAL1.Read<UsuarioDAO>(x => (nombreEstudiante != "" ? x.nombre.Equals(nombreEstudiante) : true) &&
             (id_universidad > 0 ? x.Estudiante.id_universidad == id_universidad : true) &&
             (id_pais > 0 ? x.Estudiante.id_pais == id_pais : true) &&
             (id_tecnologia > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(id_tecnologia) : true));
@@ -226,7 +235,7 @@ namespace DigiTutorService.DataAccessLayer
                          int tec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4, int pag)
         {
             //seleccionamos a los usuarios que cumplen con los  filtros 
-            var usuarios = RepositoryDAL.Read<UsuarioDAO>(x =>
+            var usuarios = RepositoryDAL1.Read<UsuarioDAO>(x =>
             (id_un > 0 ? x.Estudiante.id_universidad == id_un : true) &&
             (id_pais > 0 ? x.Estudiante.id_pais == id_pais : true) &&
             (tec1 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec1) : true) &&
@@ -244,13 +253,13 @@ namespace DigiTutorService.DataAccessLayer
         public bool CrearEstudiante(string password, Estudiante estudiante)
         {
             //primero buscamos a ver si existe ese estudiante
-            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(estudiante.Id)).FirstOrDefault();
-            EstudianteDAO existente = RepositoryDAL.Read<EstudianteDAO>(x => x.Usuario.id.Equals(estudiante.Id)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(estudiante.Id)).FirstOrDefault();
+            EstudianteDAO existente = RepositoryDAL1.Read<EstudianteDAO>(x => x.Usuario.id.Equals(estudiante.Id)).FirstOrDefault();
             //si no existe el estudiante
             if (user == null && existente == null)
             {
-                PaisDAO pais = RepositoryDAL.Read<PaisDAO>(x => x.nombre.Equals(estudiante.Pais)).FirstOrDefault();
-                UniversidadDAO univ = RepositoryDAL.Read<UniversidadDAO>(x => x.nombre.Equals(estudiante.Universidad)).FirstOrDefault();
+                PaisDAO pais = RepositoryDAL1.Read<PaisDAO>(x => x.nombre.Equals(estudiante.Pais)).FirstOrDefault();
+                UniversidadDAO univ = RepositoryDAL1.Read<UniversidadDAO>(x => x.nombre.Equals(estudiante.Universidad)).FirstOrDefault();
 
 
                 //fallo al crear el pais y universidad
@@ -286,18 +295,18 @@ namespace DigiTutorService.DataAccessLayer
                 };
 
                 //agregar los DAO a la base de Datos
-                if (RepositoryDAL.Create(user))
+                if (RepositoryDAL1.Create(user))
                 {
-                    if (RepositoryDAL.Create(existente))
+                    if (RepositoryDAL1.Create(existente))
                     {
                         //una vez creados el usuario y estudiante, agregamos las tecnologias
                         //se obtiene la lista de tecnologias que el estudiante selecciono
-                        List<TecnologiaDAO> tecnologiasEstudiante = RepositoryDAL.Read<TecnologiaDAO>(x =>
-                             estudiante.Tecnologias.Select(t=>t.Nombre).Contains(x.nombre));
+                        IEnumerable<string> listaNombreTecnologias = estudiante.Tecnologias.Select(t => t.Nombre);
+                        List<TecnologiaDAO> tecnologiasEstudiante = RepositoryDAL1.Read<TecnologiaDAO>(x => listaNombreTecnologias.Contains(x.nombre));
                         //por cada una de las tecnologías se agrega la nueva tecnologia
                         foreach (TecnologiaDAO tec in tecnologiasEstudiante)
                         {
-                            if (!RepositoryDAL.Create(new Tecnologia_x_EstudianteDAO
+                            if (!RepositoryDAL1.Create(new Tecnologia_x_EstudianteDAO
                             {
                                 id_estudiante = estudiante.Id,
                                 id_tecnologia = tec.id,
@@ -318,7 +327,7 @@ namespace DigiTutorService.DataAccessLayer
         public bool CrearAdministrador(string password, Administrador administrador)
         {
             //primero buscamos a ver si existe esl administrador
-            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(administrador.Id)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(administrador.Id)).FirstOrDefault();
             if (user == null)
             {
                 user = new UsuarioDAO
@@ -332,7 +341,7 @@ namespace DigiTutorService.DataAccessLayer
                     is_admin = true,
                     nombre = administrador.Nombre
                 };
-                if (RepositoryDAL.Create(user)) return true; //se creo administrador
+                if (RepositoryDAL1.Create(user)) return true; //se creo administrador
 
                 //no se logro crear fallo en BD
 
@@ -344,18 +353,18 @@ namespace DigiTutorService.DataAccessLayer
         public bool AddSeguimiento(Seguimiento seguimiento)
         {
             //buscamos si ya existe un seguimiento (es decir si el estudiante "seguidor" sigue al estudiante "seguido")
-            Estudiante_sigue_EstudianteDAO seg = RepositoryDAL.Read<Estudiante_sigue_EstudianteDAO>(x => x.id_estudianteSeguido.Equals(seguimiento.id_estudianteSeguido) && x.id_estudianteSeguidor.Equals(seguimiento.id_estudianteSigue)).FirstOrDefault();
+            Estudiante_sigue_EstudianteDAO seg = RepositoryDAL1.Read<Estudiante_sigue_EstudianteDAO>(x => x.id_estudianteSeguido.Equals(seguimiento.id_estudianteSeguido) && x.id_estudianteSeguidor.Equals(seguimiento.id_estudianteSigue)).FirstOrDefault();
             //si no existe
             if (seg == null)
             {
                 seg = new Estudiante_sigue_EstudianteDAO { id_estudianteSeguidor = seguimiento.id_estudianteSigue, id_estudianteSeguido = seguimiento.id_estudianteSeguido };
-                if (RepositoryDAL.Create(seg))
+                if (RepositoryDAL1.Create(seg))
                 {
-                    EstudianteDAO estSeguido = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(seguimiento.id_estudianteSeguido)).FirstOrDefault();
+                    EstudianteDAO estSeguido = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(seguimiento.id_estudianteSeguido)).FirstOrDefault();
                     if (estSeguido == null) return false; //error, no existe el estudiante q usted quiere seguir
                     //sumamos la cantidad de seguidores 
                     estSeguido.numero_seguidores += 1;
-                    if (RepositoryDAL.Update(estSeguido) == 1) return true; //se creo el seguimiento correctamente y se sumo los seguidores al seguido
+                    if (RepositoryDAL1.Update(estSeguido) == 1) return true; //se creo el seguimiento correctamente y se sumo los seguidores al seguido
 
                 }
 
@@ -370,14 +379,14 @@ namespace DigiTutorService.DataAccessLayer
         public bool ModificarEstudiante(string estudianteId, Estudiante estudiante)
         {
             //primero intentamos obtener el estudiante correcto
-            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(estudianteId)).FirstOrDefault();
-            EstudianteDAO existente = RepositoryDAL.Read<EstudianteDAO>(x => x.Usuario.id.Equals(estudianteId)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(estudianteId)).FirstOrDefault();
+            EstudianteDAO existente = RepositoryDAL1.Read<EstudianteDAO>(x => x.Usuario.id.Equals(estudianteId)).FirstOrDefault();
             //si no existe el estudiante
             if (user == null && existente == null) return false; //error, no existe el estudiante, no deberia suceder
             else
             {
-                PaisDAO pais = RepositoryDAL.Read<PaisDAO>(x => x.nombre.Equals(estudiante.Pais)).FirstOrDefault();
-                UniversidadDAO univ = RepositoryDAL.Read<UniversidadDAO>(x => x.nombre.Equals(estudiante.Universidad)).FirstOrDefault();
+                PaisDAO pais = RepositoryDAL1.Read<PaisDAO>(x => x.nombre.Equals(estudiante.Pais)).FirstOrDefault();
+                UniversidadDAO univ = RepositoryDAL1.Read<UniversidadDAO>(x => x.nombre.Equals(estudiante.Universidad)).FirstOrDefault();
                 //fallo al crear el pais y universidad
                 if (pais == null || univ == null) return false;
 
@@ -397,9 +406,9 @@ namespace DigiTutorService.DataAccessLayer
                 existente.telefono_fijo = estudiante.Telefono2;
                 existente.foto = estudiante.Foto;
                 //actualizar informacion
-                if (RepositoryDAL.Update<UsuarioDAO>(user) == 1)
+                if (RepositoryDAL1.Update<UsuarioDAO>(user) == 1)
                 {
-                    if (RepositoryDAL.Update(existente) == 1)
+                    if (RepositoryDAL1.Update(existente) == 1)
                     {
                         //actualizar las tecnolgias----------------------------------------------'por hacer
 
@@ -419,7 +428,7 @@ namespace DigiTutorService.DataAccessLayer
         public bool ModificarAdministador(string adminId, Administrador administrador)
         {
             //primero intentamos obtener el admnistrador
-            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(adminId)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(adminId)).FirstOrDefault();
             //si no existe el administrador
             if (user == null) return false; //error, no existe el administrador, no deberia suceder
             else
@@ -430,7 +439,7 @@ namespace DigiTutorService.DataAccessLayer
                 user.correo_principal = administrador.Correo;
                 user.nombre = administrador.Nombre;
 
-                if (RepositoryDAL.Update(user) == 1) return true;//se actualizo administrador
+                if (RepositoryDAL1.Update(user) == 1) return true;//se actualizo administrador
             }
 
             return false; //error al entrar en la base de datos
@@ -438,11 +447,11 @@ namespace DigiTutorService.DataAccessLayer
         //===============================================================================================================================================================
         public bool DeleteEstudiante(string estudianteId)
         {
-            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(estudianteId)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(estudianteId)).FirstOrDefault();
             if (user == null) return false; //no existe ese estudiante
 
             user.activo = false;
-            if (RepositoryDAL.Update(user) == 1) return true; //Se desactivo el usuario
+            if (RepositoryDAL1.Update(user) == 1) return true; //Se desactivo el usuario
 
             //fallo al entrar a la base de datos
             return false;
@@ -450,11 +459,11 @@ namespace DigiTutorService.DataAccessLayer
         //===============================================================================================================================================================
         public bool DeleteAdministrador(string adminId)
         {
-            UsuarioDAO user = RepositoryDAL.Read<UsuarioDAO>(x => x.id.Equals(adminId)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(adminId)).FirstOrDefault();
             if (user == null) return false; //no existe ese usuario
 
             user.activo = false;
-            if (RepositoryDAL.Update(user) == 1) return true; //Se desactivo el usuario
+            if (RepositoryDAL1.Update(user) == 1) return true; //Se desactivo el usuario
 
             //fallo al entrar a la base de datos
             return false;
@@ -463,16 +472,16 @@ namespace DigiTutorService.DataAccessLayer
         //===============================================================================================================================================================
         public bool DeleteSeguimiento(Seguimiento seguimiento)
         {
-            Estudiante_sigue_EstudianteDAO seg = RepositoryDAL.Read<Estudiante_sigue_EstudianteDAO>(x => x.id_estudianteSeguido.Equals(seguimiento.id_estudianteSeguido) && x.id_estudianteSeguidor.Equals(seguimiento.id_estudianteSigue)).FirstOrDefault();
+            Estudiante_sigue_EstudianteDAO seg = RepositoryDAL1.Read<Estudiante_sigue_EstudianteDAO>(x => x.id_estudianteSeguido.Equals(seguimiento.id_estudianteSeguido) && x.id_estudianteSeguidor.Equals(seguimiento.id_estudianteSigue)).FirstOrDefault();
             if (seg == null) return false;//no existe el seguimiento
-            if (RepositoryDAL.Delete(seg))
+            if (RepositoryDAL1.Delete(seg))
             {
 
-                EstudianteDAO estSeguido = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(seguimiento.id_estudianteSeguido)).FirstOrDefault();
+                EstudianteDAO estSeguido = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(seguimiento.id_estudianteSeguido)).FirstOrDefault();
                 if (estSeguido == null) return false; //error, no existe el estudiante q usted quiere dejar seguir
 
                 estSeguido.numero_seguidores -= 1;//restamos cantidad de seguidores
-                if (RepositoryDAL.Update(estSeguido) == 1) return true;//se actualizo y dejo de seguir estudiante
+                if (RepositoryDAL1.Update(estSeguido) == 1) return true;//se actualizo y dejo de seguir estudiante
 
                 //problema actualizando el estudiante
             }
@@ -482,17 +491,17 @@ namespace DigiTutorService.DataAccessLayer
         //===============================================================================================================================================================
         public bool AddApoyo(Apoyo apoyo)
         {
-            EstudianteDAO estudianteApoyado = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(apoyo.id_estudianteApoyado)).FirstOrDefault();
-            EstudianteDAO estudianteApoya = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(apoyo.id_estudianteQueApoya)).FirstOrDefault(); ;
-            TecnologiaDAO tecnologia = RepositoryDAL.Read<TecnologiaDAO>(x => x.nombre.Equals(apoyo.Tecnologia)).FirstOrDefault();
-            ApoyoDAO apy = RepositoryDAL.Read<ApoyoDAO>(x => x.id_estudianteApoyado.Equals(apoyo.id_estudianteApoyado) && x.id_estudianteDaApoyo.Equals(apoyo.id_estudianteQueApoya) && x.id_tecnologia.Equals(tecnologia.id)).FirstOrDefault();
+            EstudianteDAO estudianteApoyado = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(apoyo.id_estudianteApoyado)).FirstOrDefault();
+            EstudianteDAO estudianteApoya = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(apoyo.id_estudianteQueApoya)).FirstOrDefault(); ;
+            TecnologiaDAO tecnologia = RepositoryDAL1.Read<TecnologiaDAO>(x => x.nombre.Equals(apoyo.Tecnologia)).FirstOrDefault();
+            ApoyoDAO apy = RepositoryDAL1.Read<ApoyoDAO>(x => x.id_estudianteApoyado.Equals(apoyo.id_estudianteApoyado) && x.id_estudianteDaApoyo.Equals(apoyo.id_estudianteQueApoya) && x.id_tecnologia.Equals(tecnologia.id)).FirstOrDefault();
             //si no existe el apoyo
             if (apy == null)
             {
                 //si el estudiante que apoya tiene apoyos disponibles
                 if (estudianteApoya.apoyos_disponibles > 0)
                 {
-                    RepositoryDAL.Create(new ApoyoDAO
+                    RepositoryDAL1.Create(new ApoyoDAO
                     {
                         fecha = DateTime.Now,
                         id_estudianteApoyado = apoyo.id_estudianteApoyado,
@@ -502,14 +511,14 @@ namespace DigiTutorService.DataAccessLayer
 
                     //restamos la cantidad de apoyos disponibles y actualizamos
                     estudianteApoya.apoyos_disponibles -= 1;
-                    RepositoryDAL.Update(estudianteApoya);
+                    RepositoryDAL1.Update(estudianteApoya);
 
                     //se suma la cantidad de apoyos a la tabla de tecnologiasXestudiante
-                    Tecnologia_x_EstudianteDAO tecEst = RepositoryDAL.Read<Tecnologia_x_EstudianteDAO>(x => x.id_estudiante.Equals(estudianteApoyado.id_usuario) &&
+                    Tecnologia_x_EstudianteDAO tecEst = RepositoryDAL1.Read<Tecnologia_x_EstudianteDAO>(x => x.id_estudiante.Equals(estudianteApoyado.id_usuario) &&
                             x.id_tecnologia.Equals(tecnologia.id)).FirstOrDefault();
 
                     tecEst.cantidadApoyos += 1;
-                    RepositoryDAL.Update(tecEst);
+                    RepositoryDAL1.Update(tecEst);
 
                     return true; //creo el apoyo
 
@@ -525,27 +534,27 @@ namespace DigiTutorService.DataAccessLayer
         //===============================================================================================================================================================
         public bool DeleteApoyo(Apoyo apoyo)
         {
-            EstudianteDAO estudianteApoyado = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(apoyo.id_estudianteApoyado)).FirstOrDefault();
-            EstudianteDAO estudianteApoya = RepositoryDAL.Read<EstudianteDAO>(x => x.id_usuario.Equals(apoyo.id_estudianteQueApoya)).FirstOrDefault(); ;
-            TecnologiaDAO tecnologia = RepositoryDAL.Read<TecnologiaDAO>(x => x.nombre.Equals(apoyo.Tecnologia)).FirstOrDefault();
-            ApoyoDAO apy = RepositoryDAL.Read<ApoyoDAO>(x => x.id_estudianteApoyado.Equals(apoyo.id_estudianteApoyado) && x.id_estudianteDaApoyo.Equals(apoyo.id_estudianteQueApoya) && x.id_tecnologia.Equals(tecnologia.id)).FirstOrDefault();
+            EstudianteDAO estudianteApoyado = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(apoyo.id_estudianteApoyado)).FirstOrDefault();
+            EstudianteDAO estudianteApoya = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(apoyo.id_estudianteQueApoya)).FirstOrDefault(); ;
+            TecnologiaDAO tecnologia = RepositoryDAL1.Read<TecnologiaDAO>(x => x.nombre.Equals(apoyo.Tecnologia)).FirstOrDefault();
+            ApoyoDAO apy = RepositoryDAL1.Read<ApoyoDAO>(x => x.id_estudianteApoyado.Equals(apoyo.id_estudianteApoyado) && x.id_estudianteDaApoyo.Equals(apoyo.id_estudianteQueApoya) && x.id_tecnologia.Equals(tecnologia.id)).FirstOrDefault();
             //si no existe el apoyo
             if (apy == null) return false; //el apoyo no existe
             else
             {
-                if (RepositoryDAL.Delete(apy))
+                if (RepositoryDAL1.Delete(apy))
                 {
 
                     //sumamos la cantidad de apoyos disponibles y actualizamos
                     estudianteApoya.apoyos_disponibles += 1;
-                    RepositoryDAL.Update(estudianteApoya);
+                    RepositoryDAL1.Update(estudianteApoya);
 
                     //se resta la cantidad de apoyos a la tabla de tecnologiasXestudiante
-                    Tecnologia_x_EstudianteDAO tecEst = RepositoryDAL.Read<Tecnologia_x_EstudianteDAO>(x => x.id_estudiante.Equals(estudianteApoyado.id_usuario) &&
+                    Tecnologia_x_EstudianteDAO tecEst = RepositoryDAL1.Read<Tecnologia_x_EstudianteDAO>(x => x.id_estudiante.Equals(estudianteApoyado.id_usuario) &&
                             x.id_tecnologia.Equals(tecnologia.id)).FirstOrDefault();
 
                     tecEst.cantidadApoyos -= 1;
-                    RepositoryDAL.Update(tecEst);
+                    RepositoryDAL1.Update(tecEst);
 
                     return true; //borró el apoyo
 

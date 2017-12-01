@@ -46,8 +46,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             <PropertyRef Name="id_publicacion" />
           </Key>
           <Property Name="id_publicacion" Type="int" Nullable="false" />
-          <Property Name="enlace_video" Type="varchar" MaxLength="300" />
-          <Property Name="enlace_extra" Type="varchar" MaxLength="300" />
+          <Property Name="enlace_video" Type="varchar" MaxLength="300" Nullable="true" />
+          <Property Name="enlace_extra" Type="varchar" MaxLength="300" Nullable="true" />
           <Property Name="id_documento" Type="int" />
         </EntityType>
         <EntityType Name="Documento">

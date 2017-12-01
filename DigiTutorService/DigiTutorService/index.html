@@ -38,31 +38,45 @@
             };
         });
 
-        var uri = 'api/products';
-    $(document).ready(function () {
-      // Send an AJAX request
-        $.getJSON(uri)
-          .done(function (data) {
-            // On success, 'data' contains a list of products.
-            $.each(data, function (key, item) {
-              // Add a list item for the product.
-              $('<li>', { text: formatItem(item) }).appendTo($('#products'));
-            });
-            });
-            $("buttontest").click(function () {
+        var uri = 'api/estudiantes?pwd=asd123';
+        $(document).ready(function () {
+            // Send an AJAX request
+            $.getJSON(uri)
+                .done(function (data) {
+                    // On success, 'data' contains a list of products.
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        $('<li>', { text: formatItem(item) }).appendTo($('#products'));
+                    });
+                });
+            $("button").click(function () {
                 $.post(uri,
                     {
-                        Id: 4,
-                        Name: "Comida de perritos",
-                        Category: "Comida",
-                        Precio: 500.0
+                        Nombre: "Ariel",
+                        Apellido: "Mata",
+                        Id: "20150809",
+                        Universidad: "ITCR",
+                        Pais: "Costa Rica",
+                        Descripcion: "asdj asjd akd",
+                        Correo: "asd@corre.com",
+                        Telefono: "88885555",
+                        Tecnologias: [
+                            {
+                                Nombre: "Algebra",
+                                Apoyos: -1,
+                                MiApoyo: "null"
+                            }],
+                        CantSeguidores: -1,
+                        Participacion: -1,
+                        Reputacion: -1,
+                        FechaInscripcion: "2017-12-01"
                     },
                     function (data, status) {
                         alert("Data: " + data + "\nStatus: " + status);
-                  });
-        });
+                    });
+            });
 
-            $("button").click(function () {
+            $("buttont").click(function () {
                 $.put(uri,
                     {
                         Id: 1,
@@ -76,20 +90,20 @@
             });
         });
 
-    function formatItem(item) {
-      return item.Name + ': $' + item.Price;
-    }
+        function formatItem(item) {
+            return item.Name + ': $' + item.Price;
+        }
 
-    function find() {
-      var id = $('#prodId').val();
-      $.getJSON(uri + '/' + id)
-          .done(function (data) {
-            $('#produc  t').text(formatItem(data));
-          })
-          .fail(function (jqXHR, textStatus, err) {
-            $('#product').text('Error: ' + err);
-          });
-    }
+        function find() {
+            var id = $('#prodId').val();
+            $.getJSON(uri + '/' + id)
+                .done(function (data) {
+                    $('#produc  t').text(formatItem(data));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#product').text('Error: ' + err);
+                });
+        }
     </script>
 </body>
 </html>

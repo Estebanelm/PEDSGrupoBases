@@ -1,6 +1,8 @@
 using System.Web.Http;
 using DigiTutorService.Models;
 using DigiTutorService.DataAccessLayer;
+using System.Net.Http;
+using System.Net;
 
 namespace DigiTutorService.Controllers {
     public class EstudiantesController : ApiController {
@@ -14,7 +16,7 @@ namespace DigiTutorService.Controllers {
             Estudiante est = null;
             if (userid != null && id != null)
             {
-                if (userid == id)
+                if (userid.Equals(id, System.StringComparison.OrdinalIgnoreCase))
                     est = usuarios.GetEstudiantePropio(id);
                 else
                     est = usuarios.GetEstudianteAjeno(userid, id);
@@ -88,6 +90,11 @@ namespace DigiTutorService.Controllers {
             else return BadRequest();
         }
 
-        
+        [HttpOptions]
+        public HttpResponseMessage Options()
+        {
+            var resp = new HttpResponseMessage(HttpStatusCode.OK);
+            return resp;
+        }
     }
 }
