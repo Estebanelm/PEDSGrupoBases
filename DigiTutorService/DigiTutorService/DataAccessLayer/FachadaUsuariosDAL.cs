@@ -117,7 +117,7 @@ namespace DigiTutorService.DataAccessLayer
                 //no ha sido apoyado en esta tecnologia
                 else
                 {
-                    tecApoyo.Add(new Estudiante.TecnologiaPerfil { Apoyos = tec.cantidadApoyos, MiApoyo = "tnull", Nombre = tec.Tecnologia.nombre });
+                    tecApoyo.Add(new Estudiante.TecnologiaPerfil { Apoyos = tec.cantidadApoyos, MiApoyo = "null", Nombre = tec.Tecnologia.nombre });
                 }
             }
 
@@ -167,16 +167,76 @@ namespace DigiTutorService.DataAccessLayer
         }
 
         //===============================================================================================================================================================
+
+        //busqueda de estudiantes
         public IEnumerable<Estudiante> GetEstudiantes(string nombreEstudiante, int id_universidad, int id_pais, int id_tecnologia, int pag)
         {
-            return null;
+            //seleccionamos a los usuarios que cumplen con los  filtros 
+            var res = RepositoryDAL.Read<UsuarioDAO>(x => (nombreEstudiante != "" ? x.nombre.Equals(nombreEstudiante) : true) &&
+            (id_universidad > 0 ? x.Estudiante.id_universidad == id_universidad : true) &&
+            (id_pais > 0 ? x.Estudiante.id_pais == id_pais : true) &&
+            (id_tecnologia > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(id_tecnologia) : true));
+
+            //ordenamos los resultados por reputacion
+            res.OrderByDescending(x => x.Estudiante.reputacion);
+
+            //elegimos 20 segun el número de página
+            var resultado = res.Skip(20 * (pag - 1)).Take(20).ToList();
+
+            //llenamos la lista de resultado
+            List<Estudiante> result = new List<Estudiante>();
+            foreach (UsuarioDAO user in resultado)
+            {
+                //creamos la lista de tecnolgias con sus respectivos apoyos
+                List<Estudiante.TecnologiaPerfil> tecApoyo = new List<Estudiante.TecnologiaPerfil>();
+                foreach (Tecnologia_x_EstudianteDAO tec in user.Estudiante.Tecnologia_x_Estudiante)
+                {
+                    //se pone el apyo como "fijo" para que no salga el botoncito de "+" puesto que son resultados de busqueda
+                    tecApoyo.Add(new Estudiante.TecnologiaPerfil { Apoyos = tec.cantidadApoyos, MiApoyo = "fijo", Nombre = tec.Tecnologia.nombre });
+                }
+                //creamos el estudiante y lo agregamos al resultado
+                result.Add(new Estudiante
+                {
+                    Id = user.id,
+                    Apellido = user.apellido,
+                    CantSeguidores = user.Estudiante.numero_seguidores,
+                    Correo = user.correo_principal,
+                    Correo2 = user.Estudiante.correo_secundario,
+                    Descripcion = user.Estudiante.descripcion,
+                    FechaInscripcion = user.fecha_creacion,
+                    Nombre = user.nombre,
+                    Pais = user.Estudiante.Pai.nombre,
+                    Participacion = user.Estudiante.participacion,
+                    Reputacion = user.Estudiante.reputacion,
+                    Telefono = user.Estudiante.telefono_celular,
+                    Telefono2 = user.Estudiante.telefono_fijo,
+                    Universidad = user.Estudiante.Universidad.nombre,
+                    Tecnologias = tecApoyo
+                });                          
+                
+             }
+
+            return result;
+
         }
 
         //===============================================================================================================================================================
-
+        //busqueda de reclutamiento
         public IEnumerable<Estudiante> GetReporteEstudiantes(int id_un, int id_pais,
                          int tec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4, int pag)
         {
+            //seleccionamos a los usuarios que cumplen con los  filtros 
+            var usuarios = RepositoryDAL.Read<UsuarioDAO>(x =>
+            (id_un > 0 ? x.Estudiante.id_universidad == id_un : true) &&
+            (id_pais > 0 ? x.Estudiante.id_pais == id_pais : true) &&
+            (tec1 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec1) : true) &&
+            (tec2 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec2) : true) &&
+            (tec3 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec3) : true) &&
+            (tec4 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec4) : true));
+
+
+
+
             return null;
         }
 
@@ -222,6 +282,7 @@ namespace DigiTutorService.DataAccessLayer
                     numero_seguidores = 0,
                     participacion = 0,
                     reputacion = 0
+                
                 };
 
                 //agregar los DAO a la base de Datos
@@ -232,12 +293,16 @@ namespace DigiTutorService.DataAccessLayer
                         //una vez creados el usuario y estudiante, agregamos las tecnologias
                         //se obtiene la lista de tecnologias que el estudiante selecciono
                         List<TecnologiaDAO> tecnologiasEstudiante = RepositoryDAL.Read<TecnologiaDAO>(x =>
-                             estudiante.Tecnologias.Contains(new Estudiante.TecnologiaPerfil { Nombre = x.nombre }));
+                             estudiante.Tecnologias.Select(t=>t.Nombre).Contains(x.nombre));
                         //por cada una de las tecnologías se agrega la nueva tecnologia
                         foreach (TecnologiaDAO tec in tecnologiasEstudiante)
                         {
-                            if (!RepositoryDAL.Create(new Tecnologia_x_EstudianteDAO { id_estudiante = estudiante.Id,
-                                id_tecnologia = tec.id, cantidadApoyos = 0 })) return false;//error al crear la tecnologia x estudiante
+                            if (!RepositoryDAL.Create(new Tecnologia_x_EstudianteDAO
+                            {
+                                id_estudiante = estudiante.Id,
+                                id_tecnologia = tec.id,
+                                cantidadApoyos = 0
+                            })) return false;//error al crear la tecnologia x estudiante
                         }
                         return true;
                     }
@@ -341,7 +406,7 @@ namespace DigiTutorService.DataAccessLayer
 
 
                     }
-                        return true;
+                    return true;
                 }
 
 
@@ -494,5 +559,13 @@ namespace DigiTutorService.DataAccessLayer
         }
 
         //===============================================================================================================================================================
+
+
+        private int calcularAlgoritmoReclutamiento(UsuarioDAO user, int tec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4)
+        {
+            int puntajeReputacion = user.Estudiante.reputacion;
+
+            return 0;
+        }
     }
 }

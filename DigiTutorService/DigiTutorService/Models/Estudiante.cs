@@ -31,6 +31,7 @@ namespace DigiTutorService.Models
         public string Descripcion { get; set; }
         public int ApoyosDisponibles { get; set; }
         public string Foto { get; set;}
+        public int PuntuacionAlgoritmo { get; set; }
 
         public bool HasInfoCreacion()
         {
