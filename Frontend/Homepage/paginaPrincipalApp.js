@@ -1,6 +1,6 @@
 var app = angular.module("paginaPrincipalApp", []); 
 
-app.controller('paginaPrincipalCtrl', function($scope, $http,$filter,$location,$window) {
+app.controller('paginaPrincipalCtrl', function($scope, $http,$filter,$location,$window,$sce) {
 
 $scope.estudianteId="777"; //este debe venir del login
 $scope.idprueba="201270170"; 
@@ -10,6 +10,8 @@ $scope.publicacionesVisibles=[];
 $scope.contenidoVisible;
 $scope.tutoriasVisibles;
 $scope.paginaPublicacionesVisibles=1;
+$scope.comment=-1;
+$scope.ds;
 
 
 
@@ -28,6 +30,13 @@ $http.get($scope.serverURL+$scope.idprueba+"/publicaciones?pag="+$scope.paginaPu
         //Second function handles error
         $scope.publicacionesVisibles = "Error";
     });
+
+$scope.CommentButton=function(p_Id){
+	if(p_Id!=$scope.comment){
+		$scope.comment=p_Id;
+	}
+	else{$scope.comment=-1;}
+};
 
 
 
