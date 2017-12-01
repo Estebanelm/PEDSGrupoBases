@@ -17,11 +17,11 @@ namespace DigiTutorService.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PublicacionDAO()
         {
-            this.isTutoria = false;
-            this.Evaluacions = new HashSet<EvaluacionDAO>();
             this.Comentarios = new HashSet<ComentarioDAO>();
-            this.Tutorias = new HashSet<TutoriaDAO>();
+            this.Contenidoes = new HashSet<ContenidoDAO>();
+            this.Evaluacions = new HashSet<EvaluacionDAO>();
             this.Tecnologia_x_publicacion = new HashSet<Tecnologia_x_publicacionDAO>();
+            this.Tutorias = new HashSet<TutoriaDAO>();
         }
     
         public int id { get; set; }
@@ -34,15 +34,16 @@ namespace DigiTutorService.DataAccessLayer
         public bool activo { get; set; }
         public bool isTutoria { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ComentarioDAO> Comentarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContenidoDAO> Contenidoes { get; set; }
         public virtual EstudianteDAO Estudiante { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvaluacionDAO> Evaluacions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComentarioDAO> Comentarios { get; set; }
-        public virtual ContenidoDAO Contenido { get; set; }
+        public virtual ICollection<Tecnologia_x_publicacionDAO> Tecnologia_x_publicacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TutoriaDAO> Tutorias { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tecnologia_x_publicacionDAO> Tecnologia_x_publicacion { get; set; }
     }
 }

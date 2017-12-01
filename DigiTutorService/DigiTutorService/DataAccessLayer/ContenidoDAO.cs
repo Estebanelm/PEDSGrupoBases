@@ -18,6 +18,7 @@ namespace DigiTutorService.DataAccessLayer
         public string enlace_video { get; set; }
         public string enlace_extra { get; set; }
         public Nullable<int> id_documento { get; set; }
+        public int id { get; set; }
     
         public virtual DocumentoDAO Documento { get; set; }
         public virtual PublicacionDAO Publicacion { get; set; }

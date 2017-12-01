@@ -22,25 +22,6 @@ namespace DigiTutorService.Controllers
         [HttpGet]
         public IHttpActionResult GetPaises()
         {
-            /*
-            FachadaPublicacionDAL publicaciones = new FachadaPublicacionDAL();
-            Contenido pub = new Contenido
-            {
-                Descripcion = "Unos documentos con las respuestas del examen que me robé",
-                Documento = "drive.google.com/documento2.pdf",
-                FechaCreacion = new DateTime(2017, 11, 30),
-                Id_autor = "201270170",
-                Link = "wikipedia.com/calculo",
-                Nombre_autor = "Esteban Calvo",
-                Titulo = "Respuestas Calculo",
-                Tecnologias = new Contenido.Tecnologia[]
-                {
-                    new Publicacion.Tecnologia{ Nombre = "Algebra"}
-                }.ToList()
-            };
-            publicaciones.CreatePublicacion(pub);
-            return Ok();
-            */
             return Ok(catalogo.GetPaises());
         }
     }

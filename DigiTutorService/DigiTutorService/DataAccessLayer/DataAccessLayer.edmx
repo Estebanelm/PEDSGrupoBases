@@ -5,19 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DataAccessLayer.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DigiTutorDB.dbo.Apoyo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Apoyo">
           <Key>
-            <PropertyRef Name="id_estudianteApoyado" />
-            <PropertyRef Name="id_estudianteDaApoyo" />
-            <PropertyRef Name="id_tecnologia" />
-            <PropertyRef Name="fecha" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id_estudianteApoyado" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="id_estudianteDaApoyo" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="id_tecnologia" Type="int" Nullable="false" />
           <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Categoria">
           <Key>
@@ -26,8 +22,6 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Apoyo' does not have a primary key
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DigiTutorDB.dbo.Comentario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Comentario">
           <Key>
             <PropertyRef Name="id" />
@@ -39,16 +33,15 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Comentario' does not have a primar
           <Property Name="activo" Type="bit" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Contenido">
           <Key>
-            <PropertyRef Name="id_publicacion" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id_publicacion" Type="int" Nullable="false" />
-          <Property Name="enlace_video" Type="varchar" MaxLength="300" Nullable="true" />
-          <Property Name="enlace_extra" Type="varchar" MaxLength="300" Nullable="true" />
+          <Property Name="enlace_video" Type="varchar" MaxLength="300" />
+          <Property Name="enlace_extra" Type="varchar" MaxLength="300" />
           <Property Name="id_documento" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Documento">
           <Key>
@@ -240,7 +233,7 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
         </Association>
         <Association Name="FK_Contenido_Publicacion">
           <End Role="Publicacion" Type="Self.Publicacion" Multiplicity="1" />
-          <End Role="Contenido" Type="Self.Contenido" Multiplicity="0..1" />
+          <End Role="Contenido" Type="Self.Contenido" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Publicacion">
               <PropertyRef Name="id" />
@@ -455,7 +448,10 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DataAccessLayerStoreContainer">
+          <EntitySet Name="Apoyo" EntityType="Self.Apoyo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comentario" EntityType="Self.Comentario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contenido" EntityType="Self.Contenido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Documento" EntityType="Self.Documento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estudiante_sigue_Estudiante" EntityType="Self.Estudiante_sigue_Estudiante" Schema="dbo" store:Type="Tables" />
@@ -469,32 +465,6 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <EntitySet Name="Tutoria" EntityType="Self.Tutoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Universidad" EntityType="Self.Universidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Apoyo" EntityType="Self.Apoyo" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Apoyo].[id_estudianteApoyado] AS [id_estudianteApoyado], 
-    [Apoyo].[id_estudianteDaApoyo] AS [id_estudianteDaApoyo], 
-    [Apoyo].[id_tecnologia] AS [id_tecnologia], 
-    [Apoyo].[fecha] AS [fecha]
-    FROM [dbo].[Apoyo] AS [Apoyo]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Comentario" EntityType="Self.Comentario" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Comentario].[id_estudiante] AS [id_estudiante], 
-    [Comentario].[id_publicacion] AS [id_publicacion], 
-    [Comentario].[contenido] AS [contenido], 
-    [Comentario].[fecha_creacion] AS [fecha_creacion], 
-    [Comentario].[activo] AS [activo],
-    [Comentario].[id] AS [id]
-    FROM [dbo].[Comentario] AS [Comentario]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Contenido" EntityType="Self.Contenido" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Contenido].[id_publicacion] AS [id_publicacion], 
-    [Contenido].[enlace_video] AS [enlace_video], 
-    [Contenido].[enlace_extra] AS [enlace_extra], 
-    [Contenido].[id_documento] AS [id_documento]
-    FROM [dbo].[Contenido] AS [Contenido]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Apoyado" Association="Self.FK_Apoyado">
             <End Role="Estudiante" EntitySet="Estudiante" />
             <End Role="Apoyo" EntitySet="Apoyo" />
@@ -592,32 +562,181 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataAccessLayer" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DigiTutorDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApoyoDAOs" EntityType="DataAccessLayer.ApoyoDAO" />
+          <EntitySet Name="CategoriaDAOs" EntityType="DataAccessLayer.CategoriaDAO" />
+          <EntitySet Name="ComentarioDAOs" EntityType="DataAccessLayer.ComentarioDAO" />
+          <EntitySet Name="ContenidoDAOs" EntityType="DataAccessLayer.ContenidoDAO" />
+          <EntitySet Name="DocumentoDAOs" EntityType="DataAccessLayer.DocumentoDAO" />
+          <EntitySet Name="EstudianteDAOs" EntityType="DataAccessLayer.EstudianteDAO" />
+          <EntitySet Name="Estudiante_sigue_EstudianteDAO" EntityType="DataAccessLayer.Estudiante_sigue_EstudianteDAO" />
+          <EntitySet Name="EvaluacionDAOs" EntityType="DataAccessLayer.EvaluacionDAO" />
+          <EntitySet Name="PaisDAOs" EntityType="DataAccessLayer.PaisDAO" />
+          <EntitySet Name="PublicacionDAOs" EntityType="DataAccessLayer.PublicacionDAO" />
+          <EntitySet Name="RegistroTutoriaDAOs" EntityType="DataAccessLayer.RegistroTutoriaDAO" />
+          <EntitySet Name="TecnologiaDAOs" EntityType="DataAccessLayer.TecnologiaDAO" />
+          <EntitySet Name="Tecnologia_x_EstudianteDAO" EntityType="DataAccessLayer.Tecnologia_x_EstudianteDAO" />
+          <EntitySet Name="Tecnologia_x_publicacionDAO" EntityType="DataAccessLayer.Tecnologia_x_publicacionDAO" />
+          <EntitySet Name="TutoriaDAOs" EntityType="DataAccessLayer.TutoriaDAO" />
+          <EntitySet Name="UniversidadDAOs" EntityType="DataAccessLayer.UniversidadDAO" />
+          <EntitySet Name="UsuarioDAOs" EntityType="DataAccessLayer.UsuarioDAO" />
+          <AssociationSet Name="FK_Apoyado" Association="DataAccessLayer.FK_Apoyado">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Apoyo_Tecnologia" Association="DataAccessLayer.FK_Apoyo_Tecnologia">
+            <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
+            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DaApoyo" Association="DataAccessLayer.FK_DaApoyo">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_Categoria" Association="DataAccessLayer.FK_Tecnologia_Categoria">
+            <End Role="Categoria" EntitySet="CategoriaDAOs" />
+            <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Estudiante" Association="DataAccessLayer.FK_Comentario_Estudiante">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Comentario" EntitySet="ComentarioDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Publicacion" Association="DataAccessLayer.FK_Comentario_Publicacion">
+            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
+            <End Role="Comentario" EntitySet="ComentarioDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenido_Documento" Association="DataAccessLayer.FK_Contenido_Documento">
+            <End Role="Documento" EntitySet="DocumentoDAOs" />
+            <End Role="Contenido" EntitySet="ContenidoDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenido_Publicacion" Association="DataAccessLayer.FK_Contenido_Publicacion">
+            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
+            <End Role="Contenido" EntitySet="ContenidoDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Pais" Association="DataAccessLayer.FK_Estudiante_Pais">
+            <End Role="Pai" EntitySet="PaisDAOs" />
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Universidad" Association="DataAccessLayer.FK_Estudiante_Universidad">
+            <End Role="Universidad" EntitySet="UniversidadDAOs" />
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Usuario" Association="DataAccessLayer.FK_Estudiante_Usuario">
+            <End Role="Usuario" EntitySet="UsuarioDAOs" />
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evaluacion_Estudiante" Association="DataAccessLayer.FK_Evaluacion_Estudiante">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Evaluacion" EntitySet="EvaluacionDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publicacion_Estudiante" Association="DataAccessLayer.FK_Publicacion_Estudiante">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistroTutoria_Estudiante" Association="DataAccessLayer.FK_RegistroTutoria_Estudiante">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="RegistroTutoria" EntitySet="RegistroTutoriaDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguido" Association="DataAccessLayer.FK_Seguido">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Estudiante_sigue_Estudiante" EntitySet="Estudiante_sigue_EstudianteDAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguidor" Association="DataAccessLayer.FK_Seguidor">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Estudiante_sigue_Estudiante" EntitySet="Estudiante_sigue_EstudianteDAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_x_Estudiante_Estudiante" Association="DataAccessLayer.FK_Tecnologia_x_Estudiante_Estudiante">
+            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
+            <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_EstudianteDAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Evaluacion_Publicacion" Association="DataAccessLayer.FK_Evaluacion_Publicacion">
+            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
+            <End Role="Evaluacion" EntitySet="EvaluacionDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publicacion_Tecnologia" Association="DataAccessLayer.FK_Publicacion_Tecnologia">
+            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
+            <End Role="Tecnologia_x_publicacion" EntitySet="Tecnologia_x_publicacionDAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tutoria_Publicacion" Association="DataAccessLayer.FK_Tutoria_Publicacion">
+            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
+            <End Role="Tutoria" EntitySet="TutoriaDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistroTutoria_Tutoria" Association="DataAccessLayer.FK_RegistroTutoria_Tutoria">
+            <End Role="Tutoria" EntitySet="TutoriaDAOs" />
+            <End Role="RegistroTutoria" EntitySet="RegistroTutoriaDAOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_Publicacion" Association="DataAccessLayer.FK_Tecnologia_Publicacion">
+            <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
+            <End Role="Tecnologia_x_publicacion" EntitySet="Tecnologia_x_publicacionDAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tecnologia_x_Estudiante_Tecnologia" Association="DataAccessLayer.FK_Tecnologia_x_Estudiante_Tecnologia">
+            <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
+            <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_EstudianteDAO" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ApoyoDAO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_estudianteApoyado" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="id_estudianteDaApoyo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="id_tecnologia" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Estudiante" Relationship="DataAccessLayer.FK_Apoyado" FromRole="Apoyo" ToRole="Estudiante" />
+          <NavigationProperty Name="Tecnologia" Relationship="DataAccessLayer.FK_Apoyo_Tecnologia" FromRole="Apoyo" ToRole="Tecnologia" />
+          <NavigationProperty Name="Estudiante1" Relationship="DataAccessLayer.FK_DaApoyo" FromRole="Apoyo" ToRole="Estudiante" />
+        </EntityType>
         <EntityType Name="CategoriaDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Tecnologias" Relationship="Self.FK_Tecnologia_Categoria" FromRole="Categoria" ToRole="Tecnologia" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tecnologias" Relationship="DataAccessLayer.FK_Tecnologia_Categoria" FromRole="Categoria" ToRole="Tecnologia" />
+        </EntityType>
+        <EntityType Name="ComentarioDAO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_estudiante" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
+          <Property Name="contenido" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Estudiante" Relationship="DataAccessLayer.FK_Comentario_Estudiante" FromRole="Comentario" ToRole="Estudiante" />
+          <NavigationProperty Name="Publicacion" Relationship="DataAccessLayer.FK_Comentario_Publicacion" FromRole="Comentario" ToRole="Publicacion" />
+        </EntityType>
+        <EntityType Name="ContenidoDAO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
+          <Property Name="enlace_video" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="enlace_extra" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="id_documento" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Documento" Relationship="DataAccessLayer.FK_Contenido_Documento" FromRole="Contenido" ToRole="Documento" />
+          <NavigationProperty Name="Publicacion" Relationship="DataAccessLayer.FK_Contenido_Publicacion" FromRole="Contenido" ToRole="Publicacion" />
         </EntityType>
         <EntityType Name="DocumentoDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="tamano" Type="Int32" Nullable="false" />
-          <Property Name="contenido" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Contenidoes" Relationship="Self.FK_Contenido_Documento" FromRole="Documento" ToRole="Contenido" />
+          <Property Name="contenido" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Contenidoes" Relationship="DataAccessLayer.FK_Contenido_Documento" FromRole="Documento" ToRole="Contenido" />
         </EntityType>
         <EntityType Name="EstudianteDAO">
           <Key>
             <PropertyRef Name="id_usuario" />
           </Key>
-          <Property Name="id_usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_usuario" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="id_pais" Type="Int32" Nullable="false" />
           <Property Name="id_universidad" Type="Int32" Nullable="false" />
-          <Property Name="telefono_celular" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono_celular" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="telefono_fijo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="correo_secundario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="foto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -626,28 +745,28 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="participacion" Type="Int32" Nullable="false" />
           <Property Name="apoyos_disponibles" Type="Int32" Nullable="false" />
           <Property Name="numero_seguidores" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Apoyoes" Relationship="Self.FK_Apoyado" FromRole="Estudiante" ToRole="Apoyo" />
-          <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentario_Estudiante" FromRole="Estudiante" ToRole="Comentario" />
-          <NavigationProperty Name="Apoyoes1" Relationship="Self.FK_DaApoyo" FromRole="Estudiante" ToRole="Apoyo" />
-          <NavigationProperty Name="Pai" Relationship="Self.FK_Estudiante_Pais" FromRole="Estudiante" ToRole="Pais" />
-          <NavigationProperty Name="Universidad" Relationship="Self.FK_Estudiante_Universidad" FromRole="Estudiante" ToRole="Universidad" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Estudiante_Usuario" FromRole="Estudiante" ToRole="Usuario" />
-          <NavigationProperty Name="Evaluacions" Relationship="Self.FK_Evaluacion_Estudiante" FromRole="Estudiante" ToRole="Evaluacion" />
-          <NavigationProperty Name="Publicacions" Relationship="Self.FK_Publicacion_Estudiante" FromRole="Estudiante" ToRole="Publicacion" />
-          <NavigationProperty Name="RegistroTutorias" Relationship="Self.FK_RegistroTutoria_Estudiante" FromRole="Estudiante" ToRole="RegistroTutoria" />
-          <NavigationProperty Name="Estudiante_sigue_Estudiante" Relationship="Self.FK_Seguido" FromRole="Estudiante" ToRole="Estudiante_sigue_Estudiante" />
-          <NavigationProperty Name="Estudiante_sigue_Estudiante1" Relationship="Self.FK_Seguidor" FromRole="Estudiante" ToRole="Estudiante_sigue_Estudiante" />
-          <NavigationProperty Name="Tecnologia_x_Estudiante" Relationship="Self.FK_Tecnologia_x_Estudiante_Estudiante" FromRole="Estudiante" ToRole="Tecnologia_x_Estudiante" />
+          <NavigationProperty Name="Apoyoes" Relationship="DataAccessLayer.FK_Apoyado" FromRole="Estudiante" ToRole="Apoyo" />
+          <NavigationProperty Name="Apoyoes1" Relationship="DataAccessLayer.FK_DaApoyo" FromRole="Estudiante" ToRole="Apoyo" />
+          <NavigationProperty Name="Comentarios" Relationship="DataAccessLayer.FK_Comentario_Estudiante" FromRole="Estudiante" ToRole="Comentario" />
+          <NavigationProperty Name="Pai" Relationship="DataAccessLayer.FK_Estudiante_Pais" FromRole="Estudiante" ToRole="Pai" />
+          <NavigationProperty Name="Universidad" Relationship="DataAccessLayer.FK_Estudiante_Universidad" FromRole="Estudiante" ToRole="Universidad" />
+          <NavigationProperty Name="Usuario" Relationship="DataAccessLayer.FK_Estudiante_Usuario" FromRole="Estudiante" ToRole="Usuario" />
+          <NavigationProperty Name="Evaluacions" Relationship="DataAccessLayer.FK_Evaluacion_Estudiante" FromRole="Estudiante" ToRole="Evaluacion" />
+          <NavigationProperty Name="Publicacions" Relationship="DataAccessLayer.FK_Publicacion_Estudiante" FromRole="Estudiante" ToRole="Publicacion" />
+          <NavigationProperty Name="RegistroTutorias" Relationship="DataAccessLayer.FK_RegistroTutoria_Estudiante" FromRole="Estudiante" ToRole="RegistroTutoria" />
+          <NavigationProperty Name="Estudiante_sigue_Estudiante" Relationship="DataAccessLayer.FK_Seguido" FromRole="Estudiante" ToRole="Estudiante_sigue_Estudiante" />
+          <NavigationProperty Name="Estudiante_sigue_Estudiante1" Relationship="DataAccessLayer.FK_Seguidor" FromRole="Estudiante" ToRole="Estudiante_sigue_Estudiante" />
+          <NavigationProperty Name="Tecnologia_x_Estudiante" Relationship="DataAccessLayer.FK_Tecnologia_x_Estudiante_Estudiante" FromRole="Estudiante" ToRole="Tecnologia_x_Estudiante" />
         </EntityType>
         <EntityType Name="Estudiante_sigue_EstudianteDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_estudianteSeguido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_estudianteSeguidor" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Seguido" FromRole="Estudiante_sigue_Estudiante" ToRole="Estudiante" />
-          <NavigationProperty Name="Estudiante1" Relationship="Self.FK_Seguidor" FromRole="Estudiante_sigue_Estudiante" ToRole="Estudiante" />
+          <Property Name="id_estudianteSeguido" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="id_estudianteSeguidor" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estudiante" Relationship="DataAccessLayer.FK_Seguido" FromRole="Estudiante_sigue_Estudiante" ToRole="Estudiante" />
+          <NavigationProperty Name="Estudiante1" Relationship="DataAccessLayer.FK_Seguidor" FromRole="Estudiante_sigue_Estudiante" ToRole="Estudiante" />
         </EntityType>
         <EntityType Name="EvaluacionDAO">
           <Key>
@@ -655,60 +774,60 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_publicacion" Type="Int32" Nullable="false" />
-          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_estudiante" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="positiva" Type="Boolean" />
-          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Evaluacion_Estudiante" FromRole="Evaluacion" ToRole="Estudiante" />
-          <NavigationProperty Name="Publicacion" Relationship="Self.FK_Evaluacion_Publicacion" FromRole="Evaluacion" ToRole="Publicacion" />
+          <NavigationProperty Name="Estudiante" Relationship="DataAccessLayer.FK_Evaluacion_Estudiante" FromRole="Evaluacion" ToRole="Estudiante" />
+          <NavigationProperty Name="Publicacion" Relationship="DataAccessLayer.FK_Evaluacion_Publicacion" FromRole="Evaluacion" ToRole="Publicacion" />
         </EntityType>
         <EntityType Name="PaisDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Estudiante_Pais" FromRole="Pais" ToRole="Estudiante" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estudiantes" Relationship="DataAccessLayer.FK_Estudiante_Pais" FromRole="Pai" ToRole="Estudiante" />
         </EntityType>
         <EntityType Name="PublicacionDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="titulo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_estudiante" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="titulo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="evaluaciones_negativas" Type="Int32" Nullable="false" />
           <Property Name="evaluaciones_positivas" Type="Int32" Nullable="false" />
           <Property Name="fecha_publicacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="activo" Type="Boolean" Nullable="false" />
-          <Property Name="isTutoria" Type="Boolean" Nullable="false" DefaultValue="false" />
-          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Publicacion_Estudiante" FromRole="Publicacion" ToRole="Estudiante" />
-          <NavigationProperty Name="Evaluacions" Relationship="Self.FK_Evaluacion_Publicacion" FromRole="Publicacion" ToRole="Evaluacion" />
-          <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentario_Publicacion" FromRole="Publicacion" ToRole="Comentario" />
-          <NavigationProperty Name="Contenido" Relationship="Self.FK_Contenido_Publicacion" FromRole="Publicacion" ToRole="Contenido" />
-          <NavigationProperty Name="Tutorias" Relationship="Self.FK_Tutoria_Publicacion" FromRole="Publicacion" ToRole="Tutoria" />
-          <NavigationProperty Name="Tecnologia_x_publicacion" Relationship="DataAccessLayer.FK_Publicacion_Tecnologia" FromRole="PublicacionDAO" ToRole="Tecnologia_x_publicacion" />
+          <Property Name="isTutoria" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Comentarios" Relationship="DataAccessLayer.FK_Comentario_Publicacion" FromRole="Publicacion" ToRole="Comentario" />
+          <NavigationProperty Name="Contenidoes" Relationship="DataAccessLayer.FK_Contenido_Publicacion" FromRole="Publicacion" ToRole="Contenido" />
+          <NavigationProperty Name="Estudiante" Relationship="DataAccessLayer.FK_Publicacion_Estudiante" FromRole="Publicacion" ToRole="Estudiante" />
+          <NavigationProperty Name="Evaluacions" Relationship="DataAccessLayer.FK_Evaluacion_Publicacion" FromRole="Publicacion" ToRole="Evaluacion" />
+          <NavigationProperty Name="Tecnologia_x_publicacion" Relationship="DataAccessLayer.FK_Publicacion_Tecnologia" FromRole="Publicacion" ToRole="Tecnologia_x_publicacion" />
+          <NavigationProperty Name="Tutorias" Relationship="DataAccessLayer.FK_Tutoria_Publicacion" FromRole="Publicacion" ToRole="Tutoria" />
         </EntityType>
         <EntityType Name="RegistroTutoriaDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_estudiante" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="id_tutoria" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Estudiante" Relationship="Self.FK_RegistroTutoria_Estudiante" FromRole="RegistroTutoria" ToRole="Estudiante" />
-          <NavigationProperty Name="Tutoria" Relationship="Self.FK_RegistroTutoria_Tutoria" FromRole="RegistroTutoria" ToRole="Tutoria" />
+          <NavigationProperty Name="Estudiante" Relationship="DataAccessLayer.FK_RegistroTutoria_Estudiante" FromRole="RegistroTutoria" ToRole="Estudiante" />
+          <NavigationProperty Name="Tutoria" Relationship="DataAccessLayer.FK_RegistroTutoria_Tutoria" FromRole="RegistroTutoria" ToRole="Tutoria" />
         </EntityType>
         <EntityType Name="TecnologiaDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="id_categoria" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Categoria" Relationship="Self.FK_Tecnologia_Categoria" FromRole="Tecnologia" ToRole="Categoria" />
-          <NavigationProperty Name="Apoyoes" Relationship="Self.FK_Apoyo_Tecnologia" FromRole="Tecnologia" ToRole="Apoyo" />
-          <NavigationProperty Name="Tecnologia_x_Estudiante" Relationship="Self.FK_Tecnologia_x_Estudiante_Tecnologia" FromRole="Tecnologia" ToRole="Tecnologia_x_Estudiante" />
-          <NavigationProperty Name="Tecnologia_x_publicacion" Relationship="DataAccessLayer.FK_Tecnologia_Publicacion" FromRole="TecnologiaDAO" ToRole="Tecnologia_x_publicacion" />
+          <NavigationProperty Name="Apoyoes" Relationship="DataAccessLayer.FK_Apoyo_Tecnologia" FromRole="Tecnologia" ToRole="Apoyo" />
+          <NavigationProperty Name="Categoria" Relationship="DataAccessLayer.FK_Tecnologia_Categoria" FromRole="Tecnologia" ToRole="Categoria" />
+          <NavigationProperty Name="Tecnologia_x_publicacion" Relationship="DataAccessLayer.FK_Tecnologia_Publicacion" FromRole="Tecnologia" ToRole="Tecnologia_x_publicacion" />
+          <NavigationProperty Name="Tecnologia_x_Estudiante" Relationship="DataAccessLayer.FK_Tecnologia_x_Estudiante_Tecnologia" FromRole="Tecnologia" ToRole="Tecnologia_x_Estudiante" />
         </EntityType>
         <EntityType Name="Tecnologia_x_EstudianteDAO">
           <Key>
@@ -716,10 +835,20 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_tecnologia" Type="Int32" Nullable="false" />
-          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cantidadApoyos" Type="Int32" Nullable="false" DefaultValue="0" />
-          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Tecnologia_x_Estudiante_Estudiante" FromRole="Tecnologia_x_Estudiante" ToRole="Estudiante" />
-          <NavigationProperty Name="Tecnologia" Relationship="Self.FK_Tecnologia_x_Estudiante_Tecnologia" FromRole="Tecnologia_x_Estudiante" ToRole="Tecnologia" />
+          <Property Name="id_estudiante" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="cantidadApoyos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estudiante" Relationship="DataAccessLayer.FK_Tecnologia_x_Estudiante_Estudiante" FromRole="Tecnologia_x_Estudiante" ToRole="Estudiante" />
+          <NavigationProperty Name="Tecnologia" Relationship="DataAccessLayer.FK_Tecnologia_x_Estudiante_Tecnologia" FromRole="Tecnologia_x_Estudiante" ToRole="Tecnologia" />
+        </EntityType>
+        <EntityType Name="Tecnologia_x_publicacionDAO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_tecnologia" Type="Int32" Nullable="false" />
+          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Publicacion" Relationship="DataAccessLayer.FK_Publicacion_Tecnologia" FromRole="Tecnologia_x_publicacion" ToRole="Publicacion" />
+          <NavigationProperty Name="Tecnologia" Relationship="DataAccessLayer.FK_Tecnologia_Publicacion" FromRole="Tecnologia_x_publicacion" ToRole="Tecnologia" />
         </EntityType>
         <EntityType Name="TutoriaDAO">
           <Key>
@@ -728,100 +857,37 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           <Property Name="id_publicacion" Type="Int32" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fecha_tutoria" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="lugar" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lugar" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="costo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Publicacion" Relationship="Self.FK_Tutoria_Publicacion" FromRole="Tutoria" ToRole="Publicacion" />
-          <NavigationProperty Name="RegistroTutorias" Relationship="Self.FK_RegistroTutoria_Tutoria" FromRole="Tutoria" ToRole="RegistroTutoria" />
+          <NavigationProperty Name="Publicacion" Relationship="DataAccessLayer.FK_Tutoria_Publicacion" FromRole="Tutoria" ToRole="Publicacion" />
+          <NavigationProperty Name="RegistroTutorias" Relationship="DataAccessLayer.FK_RegistroTutoria_Tutoria" FromRole="Tutoria" ToRole="RegistroTutoria" />
         </EntityType>
         <EntityType Name="UniversidadDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Estudiante_Universidad" FromRole="Universidad" ToRole="Estudiante" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estudiantes" Relationship="DataAccessLayer.FK_Estudiante_Universidad" FromRole="Universidad" ToRole="Estudiante" />
         </EntityType>
         <EntityType Name="UsuarioDAO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="contrasena" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="contrasena" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="apellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="correo_principal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="correo_principal" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="activo" Type="Boolean" Nullable="false" />
           <Property Name="is_admin" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Estudiante_Usuario" FromRole="Usuario" ToRole="Estudiante" />
           <Property Name="id_generado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Estudiante" Relationship="DataAccessLayer.FK_Estudiante_Usuario" FromRole="Usuario" ToRole="Estudiante" />
         </EntityType>
-        <EntityType Name="ApoyoDAO">
-          <Key>
-            <PropertyRef Name="id_estudianteApoyado" />
-            <PropertyRef Name="id_estudianteDaApoyo" />
-            <PropertyRef Name="id_tecnologia" />
-            <PropertyRef Name="fecha" />
-          </Key>
-          <Property Name="id_estudianteApoyado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_estudianteDaApoyo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_tecnologia" Type="Int32" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Apoyado" FromRole="Apoyo" ToRole="Estudiante" />
-          <NavigationProperty Name="Estudiante1" Relationship="Self.FK_DaApoyo" FromRole="Apoyo" ToRole="Estudiante" />
-          <NavigationProperty Name="Tecnologia" Relationship="Self.FK_Apoyo_Tecnologia" FromRole="Apoyo" ToRole="Tecnologia" />
-        </EntityType>
-        <EntityType Name="ComentarioDAO">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id_estudiante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
-          <Property Name="contenido" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Comentario_Estudiante" FromRole="Comentario" ToRole="Estudiante" />
-          <NavigationProperty Name="Publicacion" Relationship="Self.FK_Comentario_Publicacion" FromRole="Comentario" ToRole="Publicacion" />
-        </EntityType>
-        <EntityType Name="ContenidoDAO">
-          <Key>
-            <PropertyRef Name="id_publicacion" />
-          </Key>
-          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
-          <Property Name="enlace_video" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="enlace_extra" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="id_documento" Type="Int32" />
-          <NavigationProperty Name="Documento" Relationship="Self.FK_Contenido_Documento" FromRole="Contenido" ToRole="Documento" />
-          <NavigationProperty Name="Publicacion" Relationship="Self.FK_Contenido_Publicacion" FromRole="Contenido" ToRole="Publicacion" />
-        </EntityType>
-        <Association Name="FK_Tecnologia_Categoria">
-          <End Role="Categoria" Type="DataAccessLayer.CategoriaDAO" Multiplicity="1" />
-          <End Role="Tecnologia" Type="DataAccessLayer.TecnologiaDAO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categoria">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Tecnologia">
-              <PropertyRef Name="id_categoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Contenido_Documento">
-          <End Role="Documento" Type="DataAccessLayer.DocumentoDAO" Multiplicity="0..1" />
-          <End Role="Contenido" Type="DataAccessLayer.ContenidoDAO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Documento">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Contenido">
-              <PropertyRef Name="id_documento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Apoyado">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Apoyo" Type="DataAccessLayer.ApoyoDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="1" />
+          <End Type="DataAccessLayer.ApoyoDAO" Role="Apoyo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -831,21 +897,21 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Comentario_Estudiante">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Comentario" Type="DataAccessLayer.ComentarioDAO" Multiplicity="*" />
+        <Association Name="FK_Apoyo_Tecnologia">
+          <End Type="DataAccessLayer.TecnologiaDAO" Role="Tecnologia" Multiplicity="1" />
+          <End Type="DataAccessLayer.ApoyoDAO" Role="Apoyo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Estudiante">
-              <PropertyRef Name="id_usuario" />
+            <Principal Role="Tecnologia">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Comentario">
-              <PropertyRef Name="id_estudiante" />
+            <Dependent Role="Apoyo">
+              <PropertyRef Name="id_tecnologia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DaApoyo">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Apoyo" Type="DataAccessLayer.ApoyoDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="1" />
+          <End Type="DataAccessLayer.ApoyoDAO" Role="Apoyo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -855,11 +921,71 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Estudiante_Pais">
-          <End Role="Pais" Type="DataAccessLayer.PaisDAO" Multiplicity="1" />
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="*" />
+        <Association Name="FK_Tecnologia_Categoria">
+          <End Type="DataAccessLayer.CategoriaDAO" Role="Categoria" Multiplicity="1" />
+          <End Type="DataAccessLayer.TecnologiaDAO" Role="Tecnologia" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Pais">
+            <Principal Role="Categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tecnologia">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Estudiante">
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="1" />
+          <End Type="DataAccessLayer.ComentarioDAO" Role="Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="id_estudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Publicacion">
+          <End Type="DataAccessLayer.PublicacionDAO" Role="Publicacion" Multiplicity="1" />
+          <End Type="DataAccessLayer.ComentarioDAO" Role="Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenido_Documento">
+          <End Type="DataAccessLayer.DocumentoDAO" Role="Documento" Multiplicity="0..1" />
+          <End Type="DataAccessLayer.ContenidoDAO" Role="Contenido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contenido">
+              <PropertyRef Name="id_documento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenido_Publicacion">
+          <End Type="DataAccessLayer.PublicacionDAO" Role="Publicacion" Multiplicity="1" />
+          <End Type="DataAccessLayer.ContenidoDAO" Role="Contenido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publicacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contenido">
+              <PropertyRef Name="id_publicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Pais">
+          <End Type="DataAccessLayer.PaisDAO" Role="Pai" Multiplicity="1" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pai">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Estudiante">
@@ -868,8 +994,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Estudiante_Universidad">
-          <End Role="Universidad" Type="DataAccessLayer.UniversidadDAO" Multiplicity="1" />
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.UniversidadDAO" Role="Universidad" Multiplicity="1" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Universidad">
               <PropertyRef Name="id" />
@@ -880,8 +1006,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Estudiante_Usuario">
-          <End Role="Usuario" Type="DataAccessLayer.UsuarioDAO" Multiplicity="1" />
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="0..1" />
+          <End Type="DataAccessLayer.UsuarioDAO" Role="Usuario" Multiplicity="1" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="id" />
@@ -892,8 +1018,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Evaluacion_Estudiante">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Evaluacion" Type="DataAccessLayer.EvaluacionDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="1" />
+          <End Type="DataAccessLayer.EvaluacionDAO" Role="Evaluacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -904,8 +1030,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Publicacion_Estudiante">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Publicacion" Type="DataAccessLayer.PublicacionDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="1" />
+          <End Type="DataAccessLayer.PublicacionDAO" Role="Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -916,8 +1042,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RegistroTutoria_Estudiante">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="RegistroTutoria" Type="DataAccessLayer.RegistroTutoriaDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="1" />
+          <End Type="DataAccessLayer.RegistroTutoriaDAO" Role="RegistroTutoria" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -928,8 +1054,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Seguido">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Estudiante_sigue_Estudiante" Type="DataAccessLayer.Estudiante_sigue_EstudianteDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="1" />
+          <End Type="DataAccessLayer.Estudiante_sigue_EstudianteDAO" Role="Estudiante_sigue_Estudiante" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -940,8 +1066,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Seguidor">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Estudiante_sigue_Estudiante" Type="DataAccessLayer.Estudiante_sigue_EstudianteDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="1" />
+          <End Type="DataAccessLayer.Estudiante_sigue_EstudianteDAO" Role="Estudiante_sigue_Estudiante" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -952,8 +1078,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tecnologia_x_Estudiante_Estudiante">
-          <End Role="Estudiante" Type="DataAccessLayer.EstudianteDAO" Multiplicity="1" />
-          <End Role="Tecnologia_x_Estudiante" Type="DataAccessLayer.Tecnologia_x_EstudianteDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.EstudianteDAO" Role="Estudiante" Multiplicity="1" />
+          <End Type="DataAccessLayer.Tecnologia_x_EstudianteDAO" Role="Tecnologia_x_Estudiante" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="id_usuario" />
@@ -964,8 +1090,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Evaluacion_Publicacion">
-          <End Role="Publicacion" Type="DataAccessLayer.PublicacionDAO" Multiplicity="1" />
-          <End Role="Evaluacion" Type="DataAccessLayer.EvaluacionDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.PublicacionDAO" Role="Publicacion" Multiplicity="1" />
+          <End Type="DataAccessLayer.EvaluacionDAO" Role="Evaluacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Publicacion">
               <PropertyRef Name="id" />
@@ -975,33 +1101,21 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Comentario_Publicacion">
-          <End Role="Publicacion" Type="DataAccessLayer.PublicacionDAO" Multiplicity="1" />
-          <End Role="Comentario" Type="DataAccessLayer.ComentarioDAO" Multiplicity="*" />
+        <Association Name="FK_Publicacion_Tecnologia">
+          <End Type="DataAccessLayer.PublicacionDAO" Role="Publicacion" Multiplicity="1" />
+          <End Type="DataAccessLayer.Tecnologia_x_publicacionDAO" Role="Tecnologia_x_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Publicacion">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Comentario">
-              <PropertyRef Name="id_publicacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Contenido_Publicacion">
-          <End Role="Publicacion" Type="DataAccessLayer.PublicacionDAO" Multiplicity="1" />
-          <End Role="Contenido" Type="DataAccessLayer.ContenidoDAO" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Publicacion">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Contenido">
+            <Dependent Role="Tecnologia_x_publicacion">
               <PropertyRef Name="id_publicacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tutoria_Publicacion">
-          <End Role="Publicacion" Type="DataAccessLayer.PublicacionDAO" Multiplicity="1" />
-          <End Role="Tutoria" Type="DataAccessLayer.TutoriaDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.PublicacionDAO" Role="Publicacion" Multiplicity="1" />
+          <End Type="DataAccessLayer.TutoriaDAO" Role="Tutoria" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Publicacion">
               <PropertyRef Name="id" />
@@ -1012,8 +1126,8 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RegistroTutoria_Tutoria">
-          <End Role="Tutoria" Type="DataAccessLayer.TutoriaDAO" Multiplicity="1" />
-          <End Role="RegistroTutoria" Type="DataAccessLayer.RegistroTutoriaDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.TutoriaDAO" Role="Tutoria" Multiplicity="1" />
+          <End Type="DataAccessLayer.RegistroTutoriaDAO" Role="RegistroTutoria" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tutoria">
               <PropertyRef Name="id" />
@@ -1023,21 +1137,21 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Apoyo_Tecnologia">
-          <End Role="Tecnologia" Type="DataAccessLayer.TecnologiaDAO" Multiplicity="1" />
-          <End Role="Apoyo" Type="DataAccessLayer.ApoyoDAO" Multiplicity="*" />
+        <Association Name="FK_Tecnologia_Publicacion">
+          <End Type="DataAccessLayer.TecnologiaDAO" Role="Tecnologia" Multiplicity="1" />
+          <End Type="DataAccessLayer.Tecnologia_x_publicacionDAO" Role="Tecnologia_x_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tecnologia">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Apoyo">
+            <Dependent Role="Tecnologia_x_publicacion">
               <PropertyRef Name="id_tecnologia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tecnologia_x_Estudiante_Tecnologia">
-          <End Role="Tecnologia" Type="DataAccessLayer.TecnologiaDAO" Multiplicity="1" />
-          <End Role="Tecnologia_x_Estudiante" Type="DataAccessLayer.Tecnologia_x_EstudianteDAO" Multiplicity="*" />
+          <End Type="DataAccessLayer.TecnologiaDAO" Role="Tecnologia" Multiplicity="1" />
+          <End Type="DataAccessLayer.Tecnologia_x_EstudianteDAO" Role="Tecnologia_x_Estudiante" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tecnologia">
               <PropertyRef Name="id" />
@@ -1047,326 +1161,149 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DigiTutorDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CategoriaDAOs" EntityType="DataAccessLayer.CategoriaDAO" />
-          <EntitySet Name="DocumentoDAOs" EntityType="DataAccessLayer.DocumentoDAO" />
-          <EntitySet Name="EstudianteDAOs" EntityType="DataAccessLayer.EstudianteDAO" />
-          <EntitySet Name="Estudiante_sigue_EstudianteDAO" EntityType="DataAccessLayer.Estudiante_sigue_EstudianteDAO" />
-          <EntitySet Name="EvaluacionDAOs" EntityType="DataAccessLayer.EvaluacionDAO" />
-          <EntitySet Name="PaisDAOs" EntityType="DataAccessLayer.PaisDAO" />
-          <EntitySet Name="PublicacionDAOs" EntityType="DataAccessLayer.PublicacionDAO" />
-          <EntitySet Name="RegistroTutoriaDAOs" EntityType="DataAccessLayer.RegistroTutoriaDAO" />
-          <EntitySet Name="TecnologiaDAOs" EntityType="DataAccessLayer.TecnologiaDAO" />
-          <EntitySet Name="Tecnologia_x_EstudianteDAO" EntityType="DataAccessLayer.Tecnologia_x_EstudianteDAO" />
-          <EntitySet Name="TutoriaDAOs" EntityType="DataAccessLayer.TutoriaDAO" />
-          <EntitySet Name="UniversidadDAOs" EntityType="DataAccessLayer.UniversidadDAO" />
-          <EntitySet Name="UsuarioDAOs" EntityType="DataAccessLayer.UsuarioDAO" />
-          <EntitySet Name="ApoyoDAOs" EntityType="DataAccessLayer.ApoyoDAO" />
-          <EntitySet Name="ComentarioDAOs" EntityType="DataAccessLayer.ComentarioDAO" />
-          <EntitySet Name="ContenidoDAOs" EntityType="DataAccessLayer.ContenidoDAO" />
-          <AssociationSet Name="FK_Tecnologia_Categoria" Association="Self.FK_Tecnologia_Categoria">
-            <End Role="Categoria" EntitySet="CategoriaDAOs" />
-            <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contenido_Documento" Association="Self.FK_Contenido_Documento">
-            <End Role="Documento" EntitySet="DocumentoDAOs" />
-            <End Role="Contenido" EntitySet="ContenidoDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Apoyado" Association="Self.FK_Apoyado">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comentario_Estudiante" Association="Self.FK_Comentario_Estudiante">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Comentario" EntitySet="ComentarioDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DaApoyo" Association="Self.FK_DaApoyo">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Estudiante_Pais" Association="Self.FK_Estudiante_Pais">
-            <End Role="Pais" EntitySet="PaisDAOs" />
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Estudiante_Universidad" Association="Self.FK_Estudiante_Universidad">
-            <End Role="Universidad" EntitySet="UniversidadDAOs" />
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Estudiante_Usuario" Association="Self.FK_Estudiante_Usuario">
-            <End Role="Usuario" EntitySet="UsuarioDAOs" />
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Evaluacion_Estudiante" Association="Self.FK_Evaluacion_Estudiante">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Evaluacion" EntitySet="EvaluacionDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Publicacion_Estudiante" Association="Self.FK_Publicacion_Estudiante">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RegistroTutoria_Estudiante" Association="Self.FK_RegistroTutoria_Estudiante">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="RegistroTutoria" EntitySet="RegistroTutoriaDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Seguido" Association="Self.FK_Seguido">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Estudiante_sigue_Estudiante" EntitySet="Estudiante_sigue_EstudianteDAO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Seguidor" Association="Self.FK_Seguidor">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Estudiante_sigue_Estudiante" EntitySet="Estudiante_sigue_EstudianteDAO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tecnologia_x_Estudiante_Estudiante" Association="Self.FK_Tecnologia_x_Estudiante_Estudiante">
-            <End Role="Estudiante" EntitySet="EstudianteDAOs" />
-            <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_EstudianteDAO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Evaluacion_Publicacion" Association="Self.FK_Evaluacion_Publicacion">
-            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
-            <End Role="Evaluacion" EntitySet="EvaluacionDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comentario_Publicacion" Association="Self.FK_Comentario_Publicacion">
-            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
-            <End Role="Comentario" EntitySet="ComentarioDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contenido_Publicacion" Association="Self.FK_Contenido_Publicacion">
-            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
-            <End Role="Contenido" EntitySet="ContenidoDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tutoria_Publicacion" Association="Self.FK_Tutoria_Publicacion">
-            <End Role="Publicacion" EntitySet="PublicacionDAOs" />
-            <End Role="Tutoria" EntitySet="TutoriaDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RegistroTutoria_Tutoria" Association="Self.FK_RegistroTutoria_Tutoria">
-            <End Role="Tutoria" EntitySet="TutoriaDAOs" />
-            <End Role="RegistroTutoria" EntitySet="RegistroTutoriaDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Apoyo_Tecnologia" Association="Self.FK_Apoyo_Tecnologia">
-            <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
-            <End Role="Apoyo" EntitySet="ApoyoDAOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tecnologia_x_Estudiante_Tecnologia" Association="Self.FK_Tecnologia_x_Estudiante_Tecnologia">
-            <End Role="Tecnologia" EntitySet="TecnologiaDAOs" />
-            <End Role="Tecnologia_x_Estudiante" EntitySet="Tecnologia_x_EstudianteDAO" />
-          </AssociationSet>
-          <EntitySet Name="Tecnologia_x_publicacionDAO" EntityType="DataAccessLayer.Tecnologia_x_publicacionDAO" />
-          <AssociationSet Name="FK_Publicacion_Tecnologia" Association="DataAccessLayer.FK_Publicacion_Tecnologia">
-            <End Role="PublicacionDAO" EntitySet="PublicacionDAOs" />
-            <End Role="Tecnologia_x_publicacion" EntitySet="Tecnologia_x_publicacionDAO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tecnologia_Publicacion" Association="DataAccessLayer.FK_Tecnologia_Publicacion">
-            <End Role="TecnologiaDAO" EntitySet="TecnologiaDAOs" />
-            <End Role="Tecnologia_x_publicacion" EntitySet="Tecnologia_x_publicacionDAO" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Tecnologia_x_publicacionDAO">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_tecnologia" Type="Int32" Nullable="false" />
-          <Property Name="id_publicacion" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Publicacion" Relationship="DataAccessLayer.FK_Publicacion_Tecnologia" FromRole="Tecnologia_x_publicacion" ToRole="PublicacionDAO" />
-          <NavigationProperty Name="Tecnologia" Relationship="DataAccessLayer.FK_Tecnologia_Publicacion" FromRole="Tecnologia_x_publicacion" ToRole="TecnologiaDAO" />
-        </EntityType>
-        <Association Name="FK_Publicacion_Tecnologia">
-          <End Type="DataAccessLayer.PublicacionDAO" Role="PublicacionDAO" Multiplicity="1" />
-          <End Type="DataAccessLayer.Tecnologia_x_publicacionDAO" Role="Tecnologia_x_publicacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PublicacionDAO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Tecnologia_x_publicacion">
-              <PropertyRef Name="id_publicacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tecnologia_Publicacion">
-          <End Type="DataAccessLayer.TecnologiaDAO" Role="TecnologiaDAO" Multiplicity="1" />
-          <End Type="DataAccessLayer.Tecnologia_x_publicacionDAO" Role="Tecnologia_x_publicacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TecnologiaDAO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Tecnologia_x_publicacion">
-              <PropertyRef Name="id_tecnologia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DataAccessLayerStoreContainer" CdmEntityContainer="DigiTutorDBEntities">
-          <EntitySetMapping Name="CategoriaDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.CategoriaDAO">
-              <MappingFragment StoreEntitySet="Categoria">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DocumentoDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.DocumentoDAO">
-              <MappingFragment StoreEntitySet="Documento">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="tipo" ColumnName="tipo" />
-                <ScalarProperty Name="tamano" ColumnName="tamano" />
-                <ScalarProperty Name="contenido" ColumnName="contenido" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EstudianteDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.EstudianteDAO">
-              <MappingFragment StoreEntitySet="Estudiante">
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="id_pais" ColumnName="id_pais" />
-                <ScalarProperty Name="id_universidad" ColumnName="id_universidad" />
-                <ScalarProperty Name="telefono_celular" ColumnName="telefono_celular" />
-                <ScalarProperty Name="telefono_fijo" ColumnName="telefono_fijo" />
-                <ScalarProperty Name="correo_secundario" ColumnName="correo_secundario" />
-                <ScalarProperty Name="foto" ColumnName="foto" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="reputacion" ColumnName="reputacion" />
-                <ScalarProperty Name="participacion" ColumnName="participacion" />
-                <ScalarProperty Name="apoyos_disponibles" ColumnName="apoyos_disponibles" />
-                <ScalarProperty Name="numero_seguidores" ColumnName="numero_seguidores" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Estudiante_sigue_EstudianteDAO">
-            <EntityTypeMapping TypeName="DataAccessLayer.Estudiante_sigue_EstudianteDAO">
-              <MappingFragment StoreEntitySet="Estudiante_sigue_Estudiante">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_estudianteSeguido" ColumnName="id_estudianteSeguido" />
-                <ScalarProperty Name="id_estudianteSeguidor" ColumnName="id_estudianteSeguidor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EvaluacionDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.EvaluacionDAO">
-              <MappingFragment StoreEntitySet="Evaluacion">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
-                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
-                <ScalarProperty Name="positiva" ColumnName="positiva" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaisDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.PaisDAO">
-              <MappingFragment StoreEntitySet="Pais">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PublicacionDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.PublicacionDAO">
-              <MappingFragment StoreEntitySet="Publicacion">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
-                <ScalarProperty Name="titulo" ColumnName="titulo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="evaluaciones_negativas" ColumnName="evaluaciones_negativas" />
-                <ScalarProperty Name="evaluaciones_positivas" ColumnName="evaluaciones_positivas" />
-                <ScalarProperty Name="fecha_publicacion" ColumnName="fecha_publicacion" />
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="isTutoria" ColumnName="isTutoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RegistroTutoriaDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.RegistroTutoriaDAO">
-              <MappingFragment StoreEntitySet="RegistroTutoria">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
-                <ScalarProperty Name="id_tutoria" ColumnName="id_tutoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TecnologiaDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.TecnologiaDAO">
-              <MappingFragment StoreEntitySet="Tecnologia">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tecnologia_x_EstudianteDAO">
-            <EntityTypeMapping TypeName="DataAccessLayer.Tecnologia_x_EstudianteDAO">
-              <MappingFragment StoreEntitySet="Tecnologia_x_Estudiante">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_tecnologia" ColumnName="id_tecnologia" />
-                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
-                <ScalarProperty Name="cantidadApoyos" ColumnName="cantidadApoyos" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TutoriaDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.TutoriaDAO">
-              <MappingFragment StoreEntitySet="Tutoria">
-                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="fecha_tutoria" ColumnName="fecha_tutoria" />
-                <ScalarProperty Name="lugar" ColumnName="lugar" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UniversidadDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.UniversidadDAO">
-              <MappingFragment StoreEntitySet="Universidad">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UsuarioDAOs">
-            <EntityTypeMapping TypeName="DataAccessLayer.UsuarioDAO">
-              <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido" ColumnName="apellido" />
-                <ScalarProperty Name="correo_principal" ColumnName="correo_principal" />
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="is_admin" ColumnName="is_admin" />
-				<ScalarProperty Name="id_generado" ColumnName="id_generado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ApoyoDAOs">
             <EntityTypeMapping TypeName="DataAccessLayer.ApoyoDAO">
               <MappingFragment StoreEntitySet="Apoyo">
-                <ScalarProperty Name="id_estudianteApoyado" ColumnName="id_estudianteApoyado" />
-                <ScalarProperty Name="id_estudianteDaApoyo" ColumnName="id_estudianteDaApoyo" />
-                <ScalarProperty Name="id_tecnologia" ColumnName="id_tecnologia" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id_tecnologia" ColumnName="id_tecnologia" />
+                <ScalarProperty Name="id_estudianteDaApoyo" ColumnName="id_estudianteDaApoyo" />
+                <ScalarProperty Name="id_estudianteApoyado" ColumnName="id_estudianteApoyado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoriaDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.CategoriaDAO">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ComentarioDAOs">
             <EntityTypeMapping TypeName="DataAccessLayer.ComentarioDAO">
               <MappingFragment StoreEntitySet="Comentario">
-                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
-                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
-                <ScalarProperty Name="contenido" ColumnName="contenido" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="activo" ColumnName="activo" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="contenido" ColumnName="contenido" />
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ContenidoDAOs">
             <EntityTypeMapping TypeName="DataAccessLayer.ContenidoDAO">
               <MappingFragment StoreEntitySet="Contenido">
-                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
-                <ScalarProperty Name="enlace_video" ColumnName="enlace_video" />
-                <ScalarProperty Name="enlace_extra" ColumnName="enlace_extra" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_documento" ColumnName="id_documento" />
+                <ScalarProperty Name="enlace_extra" ColumnName="enlace_extra" />
+                <ScalarProperty Name="enlace_video" ColumnName="enlace_video" />
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentoDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.DocumentoDAO">
+              <MappingFragment StoreEntitySet="Documento">
+                <ScalarProperty Name="contenido" ColumnName="contenido" />
+                <ScalarProperty Name="tamano" ColumnName="tamano" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstudianteDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.EstudianteDAO">
+              <MappingFragment StoreEntitySet="Estudiante">
+                <ScalarProperty Name="numero_seguidores" ColumnName="numero_seguidores" />
+                <ScalarProperty Name="apoyos_disponibles" ColumnName="apoyos_disponibles" />
+                <ScalarProperty Name="participacion" ColumnName="participacion" />
+                <ScalarProperty Name="reputacion" ColumnName="reputacion" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="correo_secundario" ColumnName="correo_secundario" />
+                <ScalarProperty Name="telefono_fijo" ColumnName="telefono_fijo" />
+                <ScalarProperty Name="telefono_celular" ColumnName="telefono_celular" />
+                <ScalarProperty Name="id_universidad" ColumnName="id_universidad" />
+                <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estudiante_sigue_EstudianteDAO">
+            <EntityTypeMapping TypeName="DataAccessLayer.Estudiante_sigue_EstudianteDAO">
+              <MappingFragment StoreEntitySet="Estudiante_sigue_Estudiante">
+                <ScalarProperty Name="id_estudianteSeguidor" ColumnName="id_estudianteSeguidor" />
+                <ScalarProperty Name="id_estudianteSeguido" ColumnName="id_estudianteSeguido" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EvaluacionDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.EvaluacionDAO">
+              <MappingFragment StoreEntitySet="Evaluacion">
+                <ScalarProperty Name="positiva" ColumnName="positiva" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaisDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.PaisDAO">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PublicacionDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.PublicacionDAO">
+              <MappingFragment StoreEntitySet="Publicacion">
+                <ScalarProperty Name="isTutoria" ColumnName="isTutoria" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="fecha_publicacion" ColumnName="fecha_publicacion" />
+                <ScalarProperty Name="evaluaciones_positivas" ColumnName="evaluaciones_positivas" />
+                <ScalarProperty Name="evaluaciones_negativas" ColumnName="evaluaciones_negativas" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroTutoriaDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.RegistroTutoriaDAO">
+              <MappingFragment StoreEntitySet="RegistroTutoria">
+                <ScalarProperty Name="id_tutoria" ColumnName="id_tutoria" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TecnologiaDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.TecnologiaDAO">
+              <MappingFragment StoreEntitySet="Tecnologia">
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tecnologia_x_EstudianteDAO">
+            <EntityTypeMapping TypeName="DataAccessLayer.Tecnologia_x_EstudianteDAO">
+              <MappingFragment StoreEntitySet="Tecnologia_x_Estudiante">
+                <ScalarProperty Name="cantidadApoyos" ColumnName="cantidadApoyos" />
+                <ScalarProperty Name="id_estudiante" ColumnName="id_estudiante" />
+                <ScalarProperty Name="id_tecnologia" ColumnName="id_tecnologia" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1376,6 +1313,40 @@ warning 6002: The table/view 'DigiTutorDB.dbo.Contenido' does not have a primary
                 <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
                 <ScalarProperty Name="id_tecnologia" ColumnName="id_tecnologia" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TutoriaDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.TutoriaDAO">
+              <MappingFragment StoreEntitySet="Tutoria">
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="lugar" ColumnName="lugar" />
+                <ScalarProperty Name="fecha_tutoria" ColumnName="fecha_tutoria" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UniversidadDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.UniversidadDAO">
+              <MappingFragment StoreEntitySet="Universidad">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioDAOs">
+            <EntityTypeMapping TypeName="DataAccessLayer.UsuarioDAO">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id_generado" ColumnName="id_generado" />
+                <ScalarProperty Name="is_admin" ColumnName="is_admin" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="correo_principal" ColumnName="correo_principal" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

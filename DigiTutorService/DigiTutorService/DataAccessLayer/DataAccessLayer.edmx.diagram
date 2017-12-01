@@ -5,46 +5,46 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="db2323f43db44a15b18ba676e67b4370" Name="Diagram1">
-        <EntityTypeShape EntityType="DataAccessLayer.CategoriaDAO" Width="1.5" PointX="3.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.DocumentoDAO" Width="1.5" PointX="5.25" PointY="19.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.EstudianteDAO" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Estudiante_sigue_EstudianteDAO" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.EvaluacionDAO" Width="1.5" PointX="7.5" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.PaisDAO" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.PublicacionDAO" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.RegistroTutoriaDAO" Width="1.5" PointX="9.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.TecnologiaDAO" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.Tecnologia_x_EstudianteDAO" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.TutoriaDAO" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.UniversidadDAO" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.UsuarioDAO" Width="1.5" PointX="0.75" PointY="13.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.ApoyoDAO" Width="1.5" PointX="10.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.ComentarioDAO" Width="1.5" PointX="10.5" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataAccessLayer.ContenidoDAO" Width="1.5" PointX="7.625" PointY="19.125" IsExpanded="true" />
-        <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_Categoria" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Contenido_Documento" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Apoyado" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Comentario_Estudiante" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_DaApoyo" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Estudiante_Pais" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Estudiante_Universidad" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Estudiante_Usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Evaluacion_Estudiante" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Publicacion_Estudiante" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_RegistroTutoria_Estudiante" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Seguido" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Seguidor" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_x_Estudiante_Estudiante" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Evaluacion_Publicacion" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Comentario_Publicacion" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Contenido_Publicacion" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Tutoria_Publicacion" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_RegistroTutoria_Tutoria" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Apoyo_Tecnologia" ManuallyRouted="false" />
-        <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_x_Estudiante_Tecnologia" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DataAccessLayer.Tecnologia_x_publicacionDAO" Width="1.5" PointX="12.25" PointY="11.75" />
+        <EntityTypeShape EntityType="DataAccessLayer.ApoyoDAO" Width="1.5" PointX="8.25" PointY="9.375" />
+        <EntityTypeShape EntityType="DataAccessLayer.CategoriaDAO" Width="1.5" PointX="3.75" PointY="6.875" />
+        <EntityTypeShape EntityType="DataAccessLayer.ComentarioDAO" Width="1.5" PointX="7.5" PointY="13" />
+        <EntityTypeShape EntityType="DataAccessLayer.ContenidoDAO" Width="1.5" PointX="10.5" PointY="14.5" />
+        <EntityTypeShape EntityType="DataAccessLayer.DocumentoDAO" Width="1.5" PointX="8.25" PointY="6.625" />
+        <EntityTypeShape EntityType="DataAccessLayer.EstudianteDAO" Width="1.5" PointX="3" PointY="10.875" />
+        <EntityTypeShape EntityType="DataAccessLayer.Estudiante_sigue_EstudianteDAO" Width="1.5" PointX="5.25" PointY="27.5" />
+        <EntityTypeShape EntityType="DataAccessLayer.EvaluacionDAO" Width="1.5" PointX="10.5" PointY="11.125" />
+        <EntityTypeShape EntityType="DataAccessLayer.PaisDAO" Width="1.5" PointX="0.75" PointY="16.125" />
+        <EntityTypeShape EntityType="DataAccessLayer.PublicacionDAO" Width="1.5" PointX="5.25" PointY="13.625" />
+        <EntityTypeShape EntityType="DataAccessLayer.RegistroTutoriaDAO" Width="1.5" PointX="9.75" PointY="17.75" />
+        <EntityTypeShape EntityType="DataAccessLayer.TecnologiaDAO" Width="1.5" PointX="6" PointY="6.5" />
+        <EntityTypeShape EntityType="DataAccessLayer.Tecnologia_x_EstudianteDAO" Width="1.5" PointX="5.25" PointY="10.625" />
+        <EntityTypeShape EntityType="DataAccessLayer.Tecnologia_x_publicacionDAO" Width="1.5" PointX="7.5" PointY="16.625" />
+        <EntityTypeShape EntityType="DataAccessLayer.TutoriaDAO" Width="1.5" PointX="7.5" PointY="20.25" />
+        <EntityTypeShape EntityType="DataAccessLayer.UniversidadDAO" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="DataAccessLayer.UsuarioDAO" Width="1.5" PointX="0.75" PointY="12.25" />
+        <AssociationConnector Association="DataAccessLayer.FK_Apoyado" />
+        <AssociationConnector Association="DataAccessLayer.FK_Apoyo_Tecnologia" />
+        <AssociationConnector Association="DataAccessLayer.FK_DaApoyo" />
+        <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_Categoria" />
+        <AssociationConnector Association="DataAccessLayer.FK_Comentario_Estudiante" />
+        <AssociationConnector Association="DataAccessLayer.FK_Comentario_Publicacion" />
+        <AssociationConnector Association="DataAccessLayer.FK_Contenido_Documento" />
+        <AssociationConnector Association="DataAccessLayer.FK_Contenido_Publicacion" />
+        <AssociationConnector Association="DataAccessLayer.FK_Estudiante_Pais" />
+        <AssociationConnector Association="DataAccessLayer.FK_Estudiante_Universidad" />
+        <AssociationConnector Association="DataAccessLayer.FK_Estudiante_Usuario" />
+        <AssociationConnector Association="DataAccessLayer.FK_Evaluacion_Estudiante" />
+        <AssociationConnector Association="DataAccessLayer.FK_Publicacion_Estudiante" />
+        <AssociationConnector Association="DataAccessLayer.FK_RegistroTutoria_Estudiante" />
+        <AssociationConnector Association="DataAccessLayer.FK_Seguido" />
+        <AssociationConnector Association="DataAccessLayer.FK_Seguidor" />
+        <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_x_Estudiante_Estudiante" />
+        <AssociationConnector Association="DataAccessLayer.FK_Evaluacion_Publicacion" />
         <AssociationConnector Association="DataAccessLayer.FK_Publicacion_Tecnologia" />
+        <AssociationConnector Association="DataAccessLayer.FK_Tutoria_Publicacion" />
+        <AssociationConnector Association="DataAccessLayer.FK_RegistroTutoria_Tutoria" />
         <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_Publicacion" />
+        <AssociationConnector Association="DataAccessLayer.FK_Tecnologia_x_Estudiante_Tecnologia" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,20 +18,20 @@ namespace DigiTutorService.DataAccessLayer
         public TecnologiaDAO()
         {
             this.Apoyoes = new HashSet<ApoyoDAO>();
-            this.Tecnologia_x_Estudiante = new HashSet<Tecnologia_x_EstudianteDAO>();
             this.Tecnologia_x_publicacion = new HashSet<Tecnologia_x_publicacionDAO>();
+            this.Tecnologia_x_Estudiante = new HashSet<Tecnologia_x_EstudianteDAO>();
         }
     
         public int id { get; set; }
         public string nombre { get; set; }
         public int id_categoria { get; set; }
     
-        public virtual CategoriaDAO Categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApoyoDAO> Apoyoes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tecnologia_x_EstudianteDAO> Tecnologia_x_Estudiante { get; set; }
+        public virtual CategoriaDAO Categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tecnologia_x_publicacionDAO> Tecnologia_x_publicacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tecnologia_x_EstudianteDAO> Tecnologia_x_Estudiante { get; set; }
     }
 }

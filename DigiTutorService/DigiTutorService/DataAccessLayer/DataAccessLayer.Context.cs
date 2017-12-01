@@ -25,7 +25,10 @@ namespace DigiTutorService.DataAccessLayer
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ApoyoDAO> ApoyoDAOs { get; set; }
         public virtual DbSet<CategoriaDAO> CategoriaDAOs { get; set; }
+        public virtual DbSet<ComentarioDAO> ComentarioDAOs { get; set; }
+        public virtual DbSet<ContenidoDAO> ContenidoDAOs { get; set; }
         public virtual DbSet<DocumentoDAO> DocumentoDAOs { get; set; }
         public virtual DbSet<EstudianteDAO> EstudianteDAOs { get; set; }
         public virtual DbSet<Estudiante_sigue_EstudianteDAO> Estudiante_sigue_EstudianteDAO { get; set; }
@@ -35,12 +38,9 @@ namespace DigiTutorService.DataAccessLayer
         public virtual DbSet<RegistroTutoriaDAO> RegistroTutoriaDAOs { get; set; }
         public virtual DbSet<TecnologiaDAO> TecnologiaDAOs { get; set; }
         public virtual DbSet<Tecnologia_x_EstudianteDAO> Tecnologia_x_EstudianteDAO { get; set; }
+        public virtual DbSet<Tecnologia_x_publicacionDAO> Tecnologia_x_publicacionDAO { get; set; }
         public virtual DbSet<TutoriaDAO> TutoriaDAOs { get; set; }
         public virtual DbSet<UniversidadDAO> UniversidadDAOs { get; set; }
         public virtual DbSet<UsuarioDAO> UsuarioDAOs { get; set; }
-        public virtual DbSet<ApoyoDAO> ApoyoDAOs { get; set; }
-        public virtual DbSet<ComentarioDAO> ComentarioDAOs { get; set; }
-        public virtual DbSet<ContenidoDAO> ContenidoDAOs { get; set; }
-        public virtual DbSet<Tecnologia_x_publicacionDAO> Tecnologia_x_publicacionDAO { get; set; }
     }
 }

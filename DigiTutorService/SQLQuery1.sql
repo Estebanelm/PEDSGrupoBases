@@ -16,6 +16,8 @@ SELECT * FROM dbo.Comentario
 
 SELECT * FROM dbo.Contenido
 
+SELECT * FROM dbo.Tecnologia_x_publicacion
+
 DELETE FROM dbo.Contenido
 
 INSERT INTO dbo.Contenido

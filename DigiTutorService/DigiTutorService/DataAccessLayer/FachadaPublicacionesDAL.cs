@@ -178,22 +178,7 @@ namespace DigiTutorService.DataAccessLayer
             IEnumerable<string> nombresTecnologias = contenido.Tecnologias.Select(x => x.Nombre);
             List<TecnologiaDAO> listaTecnologias = RepositoryDAL1.Read<TecnologiaDAO>(x => nombresTecnologias.Contains(x.nombre));
             List<Tecnologia_x_publicacionDAO> listaTecnologiasPublicacion = new List<Tecnologia_x_publicacionDAO>();
-            ContenidoDAO nuevoContenido = new ContenidoDAO
-            {
-                enlace_extra = contenido.Link,
-                enlace_video = "",
-                id_publicacion = 7,
-                id_documento = contenido.Documento != null ? (int?)5 : null
-            };
-            if (RepositoryDAL1.Create<ContenidoDAO>(nuevoContenido))
-            {
-                foreach (var tecnologia in listaTecnologias)
-                {
-                    listaTecnologiasPublicacion.Add(new Tecnologia_x_publicacionDAO { id_tecnologia = tecnologia.id, id_publicacion = 7 });
-                }
-                return RepositoryDAL1.Create<Tecnologia_x_publicacionDAO>(listaTecnologiasPublicacion);
-            }
-            /*if (RepositoryDAL1.Create<PublicacionDAO>(new PublicacionDAO
+            if (RepositoryDAL1.Create<PublicacionDAO>(new PublicacionDAO
             {
                 descripcion = contenido.Descripcion,
                 fecha_publicacion = contenido.FechaCreacion,
@@ -224,7 +209,7 @@ namespace DigiTutorService.DataAccessLayer
                     }
                     return RepositoryDAL1.Create<Tecnologia_x_publicacionDAO>(listaTecnologiasPublicacion);
                 }
-            }*/
+            }
             return false;
             
         }

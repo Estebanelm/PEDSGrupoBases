@@ -18,9 +18,10 @@ namespace DigiTutorService.DataAccessLayer
         public string id_estudianteDaApoyo { get; set; }
         public int id_tecnologia { get; set; }
         public System.DateTime fecha { get; set; }
+        public int id { get; set; }
     
         public virtual EstudianteDAO Estudiante { get; set; }
-        public virtual EstudianteDAO Estudiante1 { get; set; }
         public virtual TecnologiaDAO Tecnologia { get; set; }
+        public virtual EstudianteDAO Estudiante1 { get; set; }
     }
 }
