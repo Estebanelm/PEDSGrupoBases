@@ -215,8 +215,38 @@ namespace DigiTutorService.DataAccessLayer
         }
 		public bool CreateTutoria(Tutoria tutoria)
 		{
-			return false;
-		}
+            IEnumerable<string> nombresTecnologias = tutoria.Tecnologias.Select(x => x.Nombre);
+            List<TecnologiaDAO> listaTecnologias = RepositoryDAL1.Read<TecnologiaDAO>(x => nombresTecnologias.Contains(x.nombre));
+            List<Tecnologia_x_publicacionDAO> listaTecnologiasPublicacion = new List<Tecnologia_x_publicacionDAO>();
+            if (RepositoryDAL1.Create<PublicacionDAO>(new PublicacionDAO
+            {
+                descripcion = tutoria.Descripcion,
+                fecha_publicacion = tutoria.FechaCreacion,
+                id_estudiante = tutoria.Id_autor,
+                isTutoria = false,
+                titulo = tutoria.Titulo,
+                Tecnologia_x_publicacion = listaTecnologiasPublicacion
+            }))
+            {
+                int id_publicacionCreada = RepositoryDAL1.Read<PublicacionDAO, int>(x => x.id > 0, x => x.id).FirstOrDefault().id;
+                TutoriaDAO nuevaTutoria = new TutoriaDAO
+                {
+                    costo = tutoria.Costo,
+                    id_publicacion = id_publicacionCreada,
+                    lugar = tutoria.Lugar,
+                    fecha_tutoria = tutoria.FechaCreacion
+                };
+                if (RepositoryDAL1.Create<TutoriaDAO>(nuevaTutoria))
+                {
+                    foreach (var tecnologia in listaTecnologias)
+                    {
+                        listaTecnologiasPublicacion.Add(new Tecnologia_x_publicacionDAO { id_tecnologia = tecnologia.id, id_publicacion = id_publicacionCreada });
+                    }
+                    return RepositoryDAL1.Create<Tecnologia_x_publicacionDAO>(listaTecnologiasPublicacion);
+                }
+            }
+            return false;
+        }
         public bool AddDocumento<T>(T documento) where T : class
         {
             return false;
@@ -224,19 +254,44 @@ namespace DigiTutorService.DataAccessLayer
 
         public bool AddComentario(Comentario comentario)
         {
-            return false;
+            ComentarioDAO nuevoDocumento = new ComentarioDAO
+            {
+                contenido = comentario.Contenido,
+                fecha_creacion = comentario.Fecha_comentario,
+                id_estudiante = comentario.Id_Autor,
+                id_publicacion = comentario.id_publicacion
+            };
+            return RepositoryDAL1.Create(nuevoDocumento);
         }
         public bool AddOrModifyEvaluacion(Evaluacion evaluacion)
         {
-            return false;
+            if (evaluacion.Tipo_evaluacion.Equals("null"))
+            {
+                EvaluacionDAO evaluacionABorrar = RepositoryDAL1.Read<EvaluacionDAO>(x => 
+                                                x.id_estudiante.Equals(evaluacion.Id_estudiante) && 
+                                                x.id_publicacion == evaluacion.id_publicacion)
+                                                .FirstOrDefault();
+                return RepositoryDAL1.Delete(evaluacionABorrar);
+            }
+            EvaluacionDAO evaluacionAAgregar = new EvaluacionDAO
+            {
+                id_publicacion = evaluacion.id_publicacion,
+                positiva = evaluacion.Tipo_evaluacion.Equals("positiva") ? true : false,
+                id_estudiante = evaluacion.Id_estudiante
+            };
+            return RepositoryDAL1.Create(evaluacionAAgregar);
         }
         public bool DeletePublicacion(int pubId)
         {
-            return false;
+            PublicacionDAO publicacionAModificar = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == pubId).FirstOrDefault();
+            publicacionAModificar.activo = false;
+            return RepositoryDAL1.Update<PublicacionDAO>(publicacionAModificar);
         }
         public bool DeleteComentario(int IdComentario)
         {
-            return false;
+            ComentarioDAO comentarioAModificar = RepositoryDAL1.Read<ComentarioDAO>(x => x.id == IdComentario).FirstOrDefault();
+            comentarioAModificar.activo = false;
+            return RepositoryDAL1.Update<ComentarioDAO>(comentarioAModificar);
         }
     }
 }

@@ -404,7 +404,7 @@ namespace DigiTutorService.DataAccessLayer
                     if (estSeguido == null) return false; //error, no existe el estudiante q usted quiere seguir
                     //sumamos la cantidad de seguidores 
                     estSeguido.numero_seguidores += 1;
-                    if (RepositoryDAL1.Update(estSeguido) == 1) return true; //se creo el seguimiento correctamente y se sumo los seguidores al seguido
+                    return RepositoryDAL1.Update(estSeguido); //se creo el seguimiento correctamente y se sumo los seguidores al seguido
 
                 }
 
@@ -446,9 +446,9 @@ namespace DigiTutorService.DataAccessLayer
                 existente.telefono_fijo = estudiante.Telefono2;
                 existente.foto = estudiante.Foto;
                 //actualizar informacion
-                if (RepositoryDAL1.Update<UsuarioDAO>(user) == 1)
+                if (RepositoryDAL1.Update<UsuarioDAO>(user))
                 {
-                    if (RepositoryDAL1.Update(existente) == 1)
+                    if (RepositoryDAL1.Update(existente))
                     {
                         //actualizar las tecnolgias----------------------------------------------'por hacer
 
@@ -479,10 +479,10 @@ namespace DigiTutorService.DataAccessLayer
                 user.correo_principal = administrador.Correo;
                 user.nombre = administrador.Nombre;
 
-                if (RepositoryDAL1.Update(user) == 1) return true;//se actualizo administrador
+                return RepositoryDAL1.Update(user);//se actualizo administrador
             }
 
-            return false; //error al entrar en la base de datos
+            //error al entrar en la base de datos
         }
         //===============================================================================================================================================================
         public bool DeleteEstudiante(string estudianteId)
@@ -491,10 +491,9 @@ namespace DigiTutorService.DataAccessLayer
             if (user == null) return false; //no existe ese estudiante
 
             user.activo = false;
-            if (RepositoryDAL1.Update(user) == 1) return true; //Se desactivo el usuario
+            return RepositoryDAL1.Update(user); //Se desactivo el usuario
 
             //fallo al entrar a la base de datos
-            return false;
         }
         //===============================================================================================================================================================
         public bool DeleteAdministrador(string adminId)
@@ -503,10 +502,9 @@ namespace DigiTutorService.DataAccessLayer
             if (user == null) return false; //no existe ese usuario
 
             user.activo = false;
-            if (RepositoryDAL1.Update(user) == 1) return true; //Se desactivo el usuario
+            return RepositoryDAL1.Update(user); //Se desactivo el usuario
 
             //fallo al entrar a la base de datos
-            return false;
         }
 
         //===============================================================================================================================================================
@@ -521,7 +519,7 @@ namespace DigiTutorService.DataAccessLayer
                 if (estSeguido == null) return false; //error, no existe el estudiante q usted quiere dejar seguir
 
                 estSeguido.numero_seguidores -= 1;//restamos cantidad de seguidores
-                if (RepositoryDAL1.Update(estSeguido) == 1) return true;//se actualizo y dejo de seguir estudiante
+                return RepositoryDAL1.Update(estSeguido);//se actualizo y dejo de seguir estudiante
 
                 //problema actualizando el estudiante
             }
