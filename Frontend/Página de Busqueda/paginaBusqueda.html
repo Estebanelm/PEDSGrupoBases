@@ -1,0 +1,328 @@
+﻿<!DOCTYPE html>
+<html ng-app=""> 
+<head>
+    <title>DigiTutor - Home</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="estilosHome.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+</head>
+<body ng-controller="">
+    
+    <!-- Navigation Bar -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar fixed-top" style="background:#0c486c;">
+
+                <!-- Logo (boton de inicio) -->
+                <a class="navbar-default" href="#">
+                    <img src="Recursos/logo.png" class="img-responsive" style="position:relative;">
+                    <img src="Recursos/logotexto.png" class="img-responsive" style="position:relative;">
+                </a>
+                
+                <!-- Buscador -->
+                <form class="form-inline nav-justified" role="search">
+                    <div class="form-group form-inline"> 
+                        <p class="navbar-text mt-2" style="color:white; font-size:large"> Buscar por:</p> 
+                        <select class="btn selectpicker" >
+                            <option>Nombre</option>
+                            <option>Carné</option>
+                            <option>Tecnología</option>
+                        </select>
+                        <input class="form-control mr-sm-2 ml-1" type="text" style="font-size:medium;" placeholder="Nombre y Apellido"/>
+                    </div>
+                </form>
+
+                <!-- Engranaje -->
+                <div class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size:28px; color:#ffffff">
+                        &#x2699; <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" style="right: 0; left: auto;">
+                        <li><a class="dropdown-item" href="#">Ayuda</a></li>
+                        <li><a class="dropdown-item" href="#">Cambiar Idioma</a></li>
+                        <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+   
+    <!-- Barra de Acción -->
+    <div class="container-fluid" style="background:#388787">
+        <div class="row">
+            <nav class="col-sm-12 ml-sm-auto col-lg-12 mt-3 pt-3">
+                <ul class="nav nav-justified">
+                    <li class="col-lg-12">
+                        <form class="form-inline nav-justified">
+                            <div class="form-group form-inline col-lg-4">
+                                <p1 class="navbar-text mt-1" style="color:white; font-size:large"> Universidad</p1>
+                                <select class="btn selectpicker ml-1">
+                                    <option>Todas</option>
+                                    <option>Universidad de Costa Rica</option>
+                                </select>
+                            </div>
+                            <div class="form-group form-inline col-lg-4">
+                                <p class="navbar-text mt-2 mr-1" style="color:white; font-size:large">Tecnología(s)</p>
+                                <div class="btn-group">
+                                    <button class="btn btn-reponsive dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background:white">Escoger tecnologia(s)</button>
+                                    <div class="dropdown-menu" style="overflow-y:scroll; height:20vh">
+                                        <h6 class="dropdown-header">Programación</h6>
+                                        <button class="dropdown-item" type="button">Java</button>
+                                        <button class="dropdown-item" type="button">Python</button>
+                                        <h6 class="dropdown-header">Agrícola</h6>
+                                        <button class="dropdown-item" type="button">Suelos</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-inline col-lg-4">
+                                <p class="navbar-text mt-2" style="color:white; font-size:large">País</p>
+                                <select class="btn selectpicker ml-1">
+                                    <option>Costa Rica</option>
+                                </select>
+                            </div>
+                        </form>
+                    </li>
+                </ul>         
+            </nav>
+        </div>
+    </div>
+
+    <!-- Resultados de búsqueda -->
+    <div class="container-fluid">
+
+        <div class="row">
+            <!-- Sección de publicaciones -->
+            <main role="main" class="col-sm-12 ml-sm-auto col-md-12 col-lg-12 pt-3 mb-0" style="background:#cff09f;">
+
+                <!-- Tabla de resultados -->
+                <label>Mostrando 1-20 de 200 resultados</label> <br />
+                <div class="row">
+                    <p1 class="col-lg-12" style="font-size:x-large; text-align:center">Resultados de Búsqueda</p1>
+                </div>
+                
+                <table class="col-lg-12 table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                            <td width="25%">
+                                <img class="col-lg-4" src="Recursos/perfil.png" height="60" width="60" />
+                                <button class="btn btn-reponsive" type="button" style="background:#79be9a; color:white">Ver Perfil</button>
+                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                <label><strong>Reputación: </strong>98%</label> <br />
+                                <label><strong>Seguidores: </strong>2000</label> <br />
+                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                <label><strong>Tecnología(s): </strong>Java, Python, Cálculo</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Botones para pasar de publicaciones -->
+                <div class="mb-4 col-lg-12">
+                    <form class="form-inline">
+                        <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;">Anterior</button>
+                        <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;">Siguiente</button>
+                    </form>
+                </div>
+                
+            </main>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+
+</body>
+</html>
