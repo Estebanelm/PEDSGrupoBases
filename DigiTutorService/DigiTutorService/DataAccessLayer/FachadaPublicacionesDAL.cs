@@ -18,7 +18,7 @@ namespace DigiTutorService.DataAccessLayer
         //para el estudiante que se logueó
         public void AddDatosPublicacion<T>(PublicacionDAO publicacion, List<ComentarioDAO> comentarios, List<EvaluacionDAO> evaluaciones, List<UsuarioDAO> listaUsuarios, List<Tecnologia_x_publicacionDAO> listaTecnologiasxPublicacion, List<TecnologiaDAO> listaTecnologias, string userid, ref T publicacionAAgregar) where T : Publicacion
         {
-            publicacionAAgregar.CantidadComentarios = comentarios.Where(x => x.id_publicacion == publicacion.id).Count();
+            publicacionAAgregar.CantidadComentarios = comentarios.Where(x => x.id_publicacion == publicacion.id && x.activo).Count();
             publicacionAAgregar.CantidadEvaluaciones = evaluaciones.Where(x => x.id_publicacion == publicacion.id).Count();
             publicacionAAgregar.Descripcion = publicacion.descripcion;
             publicacionAAgregar.FechaCreacion = publicacion.fecha_publicacion;
