@@ -11,7 +11,8 @@ $scope.contenidoVisible;
 $scope.tutoriasVisibles;
 $scope.paginaPublicacionesVisibles=1;
 $scope.comment=-1;
-$scope.ds;
+$scope.listaComentarios=[];
+$scope.paginaComentarios=1;
 
 
 
@@ -31,11 +32,38 @@ $http.get($scope.serverURL+$scope.idprueba+"/publicaciones?pag="+$scope.paginaPu
         $scope.publicacionesVisibles = "Error";
     });
 
+$scope.ObtenerComentarios=function(p_Id){
+	$http.get($scope.serverURL+"comentarios/"+p_Id.toString()+"?pag="+$scope.paginaComentarios).then(function (response) {$scope.listaComentarios = response.data;}
+    , function(response) {
+        //Second function handles error
+        $scope.listaComentarios = "Error";
+    });
+
+};
+
 $scope.CommentButton=function(p_Id){
 	if(p_Id!=$scope.comment){
 		$scope.comment=p_Id;
+		$scope.ObtenerComentarios(p_Id);
 	}
-	else{$scope.comment=-1;}
+	else{
+		$scope.comment=-1;
+		$scope.paginaComentarios=1;
+	}
+};
+
+$scope.addCommentPage=function(p_Id){
+	$scope.paginaComentarios+=1;
+	$scope.ObtenerComentarios(p_Id);
+
+};
+
+$scope.subsCommentPage=function(p_Id){
+	if($scope.paginaComentarios>=2){$scope.paginaComentarios-=1;
+	$scope.ObtenerComentarios(p_Id);}
+	
+	
+
 };
 
 

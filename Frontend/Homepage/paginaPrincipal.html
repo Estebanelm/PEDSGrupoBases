@@ -64,7 +64,7 @@
                         <!-- Foto y nombre -->
                         <a>
                             <img src="Recursos/perfil.png" class="img-responsive" style="position:relative; background:black; padding:2px" width="100" height="100">
-                            <label style="font-size:x-large; color:white">Nombre Apellido</label>
+                            <label style="font-size:x-large; color:white">{{usuario.Nombre }} {{usuario.Apellido}}</label>
                         </a>
                     </li>
                     <li class="col-lg-6">
@@ -406,33 +406,21 @@
                                         <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url(Recursos/like-off.png); background-repeat:no-repeat; background-position:center"></button>
                                         <button class="btn btn-reponsive" type="button" style="background:none; background-image:url(Recursos/dislike-off.png); background-repeat:no-repeat; background-position:center"></button>
                                     </div>
-                                    <div class="form-group col-lg-12" style="border-top:1px solid">
-                                        <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(c.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
-                                        <div id="demo" ng-show="comment==c.Id">
-                                            <ul class="list-group" style="overflow-y:scroll; height:10em">
-                                                <li class="list-group-item" >
-                                                    <a href="#">{{c.Nombre_autor}}</a>
-                                                    <p1>escribiste hace:</p1>
-                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">tiempo</a>
-                                                    <label class="col-lg-12"> Donde puedo compar un cuaderno de examen? </label>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <a href="#">Jose Herrera</a>
+                                    <div class="form-group col-lg-12" style="border-top:1px solid;">
+                                        <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(tut.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
+                                        <div id="comTuto" ng-show="comment==tut.Id"  style="overflow-y:scroll;">
+                                            <ul class="list-group" style="height:10em" >
+                                                <li class="list-group-item" ng-repeat="com in listaComentarios">
+                                                    <a href="#">{{com.Nombre_Autor}}</a>
                                                     <p1>escribió hace:</p1>
-                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">tiempo</a>
-                                                    <label class="col-lg-12"> En asetec. <br /> Por la biblioteca</label>
+                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario}}</a>
+                                                    <label class="col-lg-12">{{com.Contenido}}</label> 
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <a href="#">Tú</a>
-                                                    <p1>escribiste hace:</p1>
-                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">tiempo</a>
-                                                    <label class="col-lg-12"> Ok. Gracias.</label>
-                                                </li>
-                                            </ul>
+                                            </ul> <br />
                                             <!--Botones de paginación de comentarios-->
                                             <ul class="pagination justify-content-end">
-                                                <li class="page-item"><a class="page-link" href="#"><</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">></a></li>
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="subsCommentPage(tut.Id)"><</a></li>
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="addCommentPage(tut.Id)" >></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -449,23 +437,21 @@
                     </li>
 
                     <!-- Ejemplo de tutoría -->
-                    <li class="list-group-item">
+                    <li class="list-group-item" ng-repeat="tut in tutoriasVisibles ">
                         <div>
                             <form style="background:#cff09f; padding-bottom:2em">
                                 <fieldset class="ml-3">
-                                    <label style="font-size:x-large">Nombre Apellido</label>
+                                    <label style="font-size:x-large">{{tut.Nombre_autor}}</label>
                                     <p1>publicó hace</p1>
-                                    <a href="#" data-toggle="tooltip" title="fecha exacta">tiempo</a>
+                                    <a href="#" data-toggle="tooltip" title="fecha exacta">{{tut.FechaCreacion}}</a>
                                 </fieldset>
                                 <fieldset>
-                                    <label class="col-lg-12" style="font-size:x-large; text-align:center"><strong>Aquí va el título</strong></label>
+                                    <label class="col-lg-12" style="font-size:x-large; text-align:center"><strong>{{tut.Titulo}}</strong></label>
                                 </fieldset>
                                 <div class="row">
                                     <div class="form-group col-lg-3 ml-3">
                                         <strong><label>Tecnología(s):</label></strong><br />
-                                        <label>- Calculo</label> <br />
-                                        <label>- Java</label> <br />
-                                        <label>- Química</label>
+                                        <label class="col-lg-12" ng-repeat="tc in tut.Tecnologias">-{{tc.Nombre}}</label> <br />
                                     </div>
                                     
                                     <div class="form-group col-lg-2">
@@ -483,17 +469,17 @@
                                             <div class="col-lg-12 input-group">
                                                 <label class="form-control-label">Lugar: </label>
                                                 
-                                                <input type="text" class="form-control" readonly placeholder="Biblioteca José Figueres Ferrer" style="width:auto;">
+                                                <input type="text" class="form-control" readonly placeholder="{{tut.Lugar}}" style="width:auto;">
                                                 <p1>&#128205;</p1>
                                             </div>
                                             <div class="col-lg-12 input-group">
                                                 <label class="form-control-label">Fecha:</label>
-                                                <input type="text" class="form-control" readonly placeholder="30/11/2017" style="width:auto;">
+                                                <input type="text" class="form-control" readonly placeholder="{{tut.FechaTutoria}}" style="width:auto;">
                                                 <p1>&#128197;</p1>
                                             </div>
                                             <div class="col-lg-12 input-group">
                                                 <label class="form-control-label">Costo: </label>
-                                                <input type="text" class="form-control" readonly placeholder="3000 colones" style="width:auto">
+                                                <input type="text" class="form-control" readonly placeholder="{{tut.Costo}}" style="width:auto">
                                             </div>
                                         </fieldset>
                                         <!---->
@@ -502,44 +488,32 @@
                                 <fieldset>
                                     <div class="form-group col-lg-12">
                                         <label for="descripcionPub" class="control-label">Descripción</label>
-                                        <textarea id="descripcionPub" class="form-control" rows="4" readonly></textarea>
+                                        <textarea id="descripcionPub" class="form-control" rows="4" readonly>{{tut.Descripcion}}</textarea>
                                     </div>
                                 </fieldset>
                                 <fieldset class="bg-light ml-3 mr-3">
                                     <div class="form-group col-lg-12 row ml-3">
-                                        <label class="control-label"># Comentarios</label>
-                                        <label class="control-label pl-3"># Evaluaciones</label>
+                                        <label class="control-label">{{tut.CantidadComentarios}} Comentarios</label>
+                                        <label class="control-label pl-3">{{tut.CantidadEvaluaciones}} Evaluaciones</label>
 
                                         <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url(Recursos/like-off.png); background-repeat:no-repeat; background-position:center"></button>
                                         <button class="btn btn-reponsive" type="button" style="background:none; background-image:url(Recursos/dislike-off.png); background-repeat:no-repeat; background-position:center"></button>
                                     </div>
-                                    <div class="form-group col-lg-12" style="border-top:1px solid">
-                                        <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" data-target="#comTuto" style="background:none; color:blue" type="button"> Ver Comentarios</button>
-                                        <div id="comTuto" class="collapse">
-                                            <ul class="list-group" style="overflow-y:scroll; height:10em">
-                                                <li class="list-group-item">
-                                                    <a href="#">Tú</a>
-                                                    <p1>escribiste hace:</p1>
-                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">tiempo</a>
-                                                    <label class="col-lg-12"> Donde puedo compar un cuaderno de examen?</label>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <a href="#">Jose Herrera</a>
+                                    <div class="form-group col-lg-12" style="border-top:1px solid;">
+                                        <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(tut.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
+                                        <div id="comTuto" ng-show="comment==tut.Id"  style="overflow-y:scroll;">
+                                            <ul class="list-group" style="height:10em" >
+                                                <li class="list-group-item" ng-repeat="com in listaComentarios">
+                                                    <a href="#">{{com.Nombre_Autor}}</a>
                                                     <p1>escribió hace:</p1>
-                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">tiempo</a>
-                                                    <label class="col-lg-12"> En asetec. <br /> Por la biblioteca</label>
+                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario}}</a>
+                                                    <label class="col-lg-12">{{com.Contenido}}</label> 
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <a href="#">Tú</a>
-                                                    <p1>escribiste hace:</p1>
-                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">tiempo</a>
-                                                    <label class="col-lg-12"> Ok. Gracias.</label>
-                                                </li>
-                                            </ul>
+                                            </ul> <br />
                                             <!--Botones de paginación de comentarios-->
                                             <ul class="pagination justify-content-end">
-                                                <li class="page-item"><a class="page-link" href="#"><</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">></a></li>
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="subsCommentPage(tut.Id)"><</a></li>
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="addCommentPage(tut.Id)" >></a></li>
                                             </ul>
                                         </div>
                                     </div>
