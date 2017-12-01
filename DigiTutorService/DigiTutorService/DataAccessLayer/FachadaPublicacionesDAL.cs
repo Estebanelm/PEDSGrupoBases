@@ -140,7 +140,8 @@ namespace DigiTutorService.DataAccessLayer
                     Contenido publicacionAAgregar = new Contenido();
                     AddDatosPublicacion(publicacion, comentarios, evaluaciones, listaUsuarios, listaTecnologiasxPublicacion, listaTecnologias, userid, ref publicacionAAgregar);
                     ContenidoDAO contenido = listaContenidos.Where(x => x.id_publicacion == publicacion.id).FirstOrDefault();
-                    publicacionAAgregar.Documento = listaDocumentos.Where(x => x.id == contenido.id_documento).FirstOrDefault().contenido;
+                    DocumentoDAO documento = listaDocumentos.Where(x => x.id == contenido.id_documento).FirstOrDefault();
+                    publicacionAAgregar.Documento = documento == null ? "" : documento.contenido;
                     publicacionAAgregar.Link = contenido.enlace_extra;
                     publicacionAAgregar.Video = contenido.enlace_video;
                     listaAEnviar.Add(publicacionAAgregar);
