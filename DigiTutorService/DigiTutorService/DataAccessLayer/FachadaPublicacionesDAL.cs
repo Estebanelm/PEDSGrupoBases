@@ -169,7 +169,8 @@ namespace DigiTutorService.DataAccessLayer
                     Id_Comentario = comentario.id,
                     Contenido = comentario.contenido,
                     Fecha_comentario = comentario.fecha_creacion,
-                    Nombre_Autor = usuario.nombre + " " + usuario.apellido
+                    Nombre_Autor = usuario.nombre + " " + usuario.apellido,
+                    id_publicacion = comentario.id_publicacion
                 };
                 listaComentariosRetorno.Add(nuevoComentario);
             }
@@ -278,7 +279,8 @@ namespace DigiTutorService.DataAccessLayer
                 contenido = comentario.Contenido,
                 fecha_creacion = DateTime.Now,
                 id_estudiante = comentario.Id_Autor,
-                id_publicacion = comentario.id_publicacion
+                id_publicacion = comentario.id_publicacion,
+                activo = true
             };
             return RepositoryDAL1.Create(nuevoComentario);
         }
