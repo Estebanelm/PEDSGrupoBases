@@ -140,7 +140,8 @@ namespace DigiTutorService.DataAccessLayer
                     Contenido publicacionAAgregar = new Contenido();
                     AddDatosPublicacion(publicacion, comentarios, evaluaciones, listaUsuarios, listaTecnologiasxPublicacion, listaTecnologias, userid, ref publicacionAAgregar);
                     ContenidoDAO contenido = listaContenidos.Where(x => x.id_publicacion == publicacion.id).FirstOrDefault();
-                    publicacionAAgregar.Documento = listaDocumentos.Where(x => x.id == contenido.id_documento).FirstOrDefault().contenido;
+                    DocumentoDAO documento = listaDocumentos.Where(x => x.id == contenido.id_documento).FirstOrDefault();
+                    publicacionAAgregar.Documento = documento == null ? "" : documento.contenido;
                     publicacionAAgregar.Link = contenido.enlace_extra;
                     publicacionAAgregar.Video = contenido.enlace_video;
                     listaAEnviar.Add(publicacionAAgregar);
@@ -168,7 +169,8 @@ namespace DigiTutorService.DataAccessLayer
                     Id_Comentario = comentario.id,
                     Contenido = comentario.contenido,
                     Fecha_comentario = comentario.fecha_creacion,
-                    Nombre_Autor = usuario.nombre + " " + usuario.apellido
+                    Nombre_Autor = usuario.nombre + " " + usuario.apellido,
+                    id_publicacion = comentario.id_publicacion
                 };
                 listaComentariosRetorno.Add(nuevoComentario);
             }
@@ -277,12 +279,14 @@ namespace DigiTutorService.DataAccessLayer
                 contenido = comentario.Contenido,
                 fecha_creacion = DateTime.Now,
                 id_estudiante = comentario.Id_Autor,
-                id_publicacion = comentario.id_publicacion
+                id_publicacion = comentario.id_publicacion,
+                activo = true
             };
             return RepositoryDAL1.Create(nuevoComentario);
         }
         public bool AddOrModifyEvaluacion(Evaluacion evaluacion)
         {
+            /////NO SE PUEDE EVALUAR SI NO ESTA REGISTRADO, CHEQUEAR ESO
             PublicacionDAO publicacionEvaluada = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == evaluacion.id_publicacion).FirstOrDefault();
             EstudianteDAO estudianteEvaluado = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(publicacionEvaluada.id_estudiante)).FirstOrDefault();
             List<PublicacionDAO> publicacionesDelUsuario = RepositoryDAL1.Read<PublicacionDAO>(x => x.id_estudiante.Equals(estudianteEvaluado.id_usuario));
@@ -298,6 +302,17 @@ namespace DigiTutorService.DataAccessLayer
                 totalEvaluacionesNegativas++;
                 reputacion = (totalEvaluacionesPositivas / (totalEvaluacionesPositivas + totalEvaluacionesNegativas)) * 100;
                 return RepositoryDAL1.Delete(evaluacionABorrar);
+            }
+            PublicacionDAO publicacionAEvaluar = RepositoryDAL1.Read<PublicacionDAO>(x => x.id == evaluacion.id_publicacion).FirstOrDefault();
+            if (publicacionAEvaluar.isTutoria)
+            {
+                EstudianteDAO estudianteQueEvalua = RepositoryDAL1.Read<EstudianteDAO>(x => x.id_usuario.Equals(evaluacion.Id_estudiante)).FirstOrDefault();
+                TutoriaDAO tutoriaEvaluada = publicacionAEvaluar.Tutorias.Where(x => x.id_publicacion == evaluacion.id_publicacion).FirstOrDefault();
+                IEnumerable<int> listaIdTutoriasRegistradas = estudianteQueEvalua.RegistroTutorias.Select(x => x.id_tutoria);
+                if (!listaIdTutoriasRegistradas.Contains(tutoriaEvaluada.id) || tutoriaEvaluada.fecha_tutoria > DateTime.Now)
+                {
+                    return false; //no se puede evaluar porque no está registrado o la tutoría no ha terminado
+                }
             }
             EvaluacionDAO evaluacionAAgregar = new EvaluacionDAO
             {

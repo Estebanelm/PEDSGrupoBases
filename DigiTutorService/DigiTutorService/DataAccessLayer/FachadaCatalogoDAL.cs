@@ -73,13 +73,13 @@ namespace DigiTutorService.DataAccessLayer
         }
         public bool AddTecnologia(Tecnologia tecnologia)
         {
-            CategoriaDAO categoriacategoriaExistente = RepositoryDAL1.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Nombre)).FirstOrDefault();
+            CategoriaDAO categoriacategoriaExistente = RepositoryDAL1.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Categoria)).FirstOrDefault();
             if (categoriacategoriaExistente == null)
             {
-                CategoriaDAO nuevaCat = new CategoriaDAO { nombre = tecnologia.Nombre };
+                CategoriaDAO nuevaCat = new CategoriaDAO { nombre = tecnologia.Categoria };
                 RepositoryDAL1.Create(nuevaCat);
             }
-            CategoriaDAO categoriaActual = RepositoryDAL1.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Nombre)).FirstOrDefault();
+            CategoriaDAO categoriaActual = RepositoryDAL1.Read<CategoriaDAO>(x => x.nombre.Equals(tecnologia.Categoria)).FirstOrDefault();
             TecnologiaDAO nuevaTec = new TecnologiaDAO { nombre = tecnologia.Nombre, id_categoria = categoriaActual.id};
             return RepositoryDAL1.Create(nuevaTec);
         }
