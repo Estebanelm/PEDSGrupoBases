@@ -4,15 +4,14 @@
 var app = angular.module("crearPerfilEstudianteApp", []); 
 
 app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$location,$window) {
-	$scope.tecnologiasDisponibles=[];
-	$scope.tecnologiasDisponibles.push({"Nombre":"c++","Categoria":"progra"},{"Nombre":"c--","Categoria":"progra"},{"Nombre":"calculo","Categoria":"mate"},
-	{"Nombre":"animales","Categoria":"biolo"});
-	$scope.tecnologiasDisponibles = $filter('orderBy')($scope.tecnologiasDisponibles, 'Nombre');
-
-	$scope.aCategorias=[];
+	//$scope.tecnologiasDisponibles=[];
+	//$scope.tecnologiasDisponibles.push({"Nombre":"c++","Categoria":"progra"},{"Nombre":"c--","Categoria":"progra"},{"Nombre":"calculo","Categoria":"mate"},
+	//{"Nombre":"animales","Categoria":"biolo"});
+	
 	$scope.myTec=[];
-	$scope.aUniversidades=[{"Nombre":"TEC"},{"Nombre":"UCR"},{"Nombre":"UNA"}];
-	//$scope.aPaises=[{"Nombre":"Costa Rica"},{"Nombre":"USA"},{"Nombre":"España"}];
+	//$scope.aUniversidades=[{"Nombre":"TEC"},{"Nombre":"UCR"},{"Nombre":"UNA"}];
+	//$scope.aPaises= [];     //[{"Nombre":"Costa Rica"},{"Nombre":"USA"},{"Nombre":"España"}];
+	$scope.serverURL="http://186.176.172.50/DigiTutor/api/"
 	$scope.formulario={};
 	$scope.estudiante={};
 	$scope.sSelCategoria="";
@@ -84,12 +83,12 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 		}
 		else{
 			$scope.estudiante=$scope.BuildStudent($scope.formulario);
-			url="api/estudiantes?pwd="+$scope.sPassword;
+			url=$scope.serverURL+"estudiantes?pwd="+$scope.sPassword+"/";
 			jsonStudent=angular.toJson($scope.estudiante);
 			 
 			//post
 			$http.post(url,jsonStudent).then(function (response) {
-				if(response.data=="200 ok"){
+				if(response.status ==200){
 					swal({
 			 			  position: 'center',
 						  type: 'success',
@@ -97,13 +96,13 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 						  showConfirmButton: false,
 						  timer: 2000
 					})
-					window.location="http://www.grupobases.hol.es/";
+					window.location="http://186.176.172.50/DigiTutor/";
 				}
-				if(response.data=="401 datos invalidos"){
+				if(response.status==400){
 					swal({
 					  position: 'center',
 					  type: 'error',
-					  title: "Datos Inválidos",
+					  title: response.data.Message,
 					  showConfirmButton: false,
 					  timer: 2000
 					})
@@ -125,7 +124,7 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 					swal({
 					  position: 'center',
 					  type: 'error',
-					  title: "ERROR DE CONEXIÓN",
+					  title: response.status,
 					  showConfirmButton: false,
 					  timer: 12000
 					})
@@ -187,15 +186,17 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
         return output;
    };
 
-	$scope.GetCategorias=function(p_tecnologias){
+   $scope.GetCategorias=function(p_tecnologias){
 		aHelper=["todas"];
 		aHelper2= $scope.GetUnique(p_tecnologias,"Categoria");
-		for (var i = aHelper2.length - 1; i >= 0; i--) {
+
+		for (var i = 0; i<aHelper2.length; i++) {
 			aHelper.push(aHelper2[i].Categoria);
 		}  
 		return aHelper;
 
-	};   
+	}; 
+	  
 	
 	$scope.uploadImage = function() {
       var fd = new FormData();
@@ -219,7 +220,7 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
     }
 
 
-    
+    //you need this function to convert the dataURI
     function dataURItoBlob(dataURI) {
       var binary = atob(dataURI.split(',')[1]);
       var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
@@ -233,27 +234,29 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
     }
 
    // get para obtener toda la lista de tecnologias server/tecnologias
-   /*$http.get("https://www.w3schools.com/angular/customers_sql.aspx").then(function (response) {$scope.tecnologiasDisponibles = response.data.records;}
+   $http.get($scope.serverURL+"tecnologias/").then(function (response) {$scope.tecnologiasDisponibles = response.data; 
+   	$scope.tecnologiasDisponibles = $filter('orderBy')($scope.tecnologiasDisponibles, 'Nombre');
+    $scope.aCategorias=$scope.GetCategorias($scope.tecnologiasDisponibles);}
     , function(response) {
         //Second function handles error
         $scope.tecnologiasDisponibles = "Error";
-    });*/
+    });
 
     // get para obtener toda la lista de paises server/paises
-   $http.get("http://186.176.172.50/DigiTutor/api/paises/").then(function (response) {$scope.aPaises = response.data;}
+   $http.get($scope.serverURL+"paises/").then(function (response) {$scope.aPaises = response.data}
     , function(response) {
         //Second function handles error
         $scope.aPaises = "Error";
     });
 
     // get para obtener toda la lista de universidades server/universidades
-   /*$http.get("https://www.w3schools.com/angular/customers_sql.aspx").then(function (response) {$scope.aUniversidades = response.data.records;}
+   $http.get($scope.serverURL+"universidades/").then(function (response) {$scope.aUniversidades = response.data;}
     , function(response) {
         //Second function handles error
-        $scope.tecnologiasDisponibles = "Error";
-    });*/
+        $scope.aUniversidades = "Error";
+    });
 
-    $scope.aCategorias=$scope.GetCategorias($scope.tecnologiasDisponibles);
+   
 
     
 });
