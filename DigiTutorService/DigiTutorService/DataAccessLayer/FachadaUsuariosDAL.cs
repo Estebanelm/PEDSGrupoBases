@@ -287,7 +287,7 @@ namespace DigiTutorService.DataAccessLayer
                                
             }
             //ordenar por puntuacion de algoritmo
-            resultado.OrderByDescending(x => x.PuntuacionAlgoritmo);
+            resultado = resultado.OrderByDescending(x => x.PuntuacionAlgoritmo).ToList();
 
             //sacar los 20 que necesitamos
             var res = resultado.Skip(20 * (pag - 1)).Take(20).ToList();
