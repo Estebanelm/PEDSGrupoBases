@@ -63,6 +63,9 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 		newObj.Participacion=-1;
 		newObj.Reputacion=-1;
 		newObj.FechaInscripcion=new Date();
+		newObj.ApoyosDisponibles=-1;
+		newObj.PuntajeReputacion=-1;
+		newObj.PuntajeAlgoritmo=-1;
 
 		return newObj;
 
