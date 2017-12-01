@@ -190,8 +190,7 @@ namespace DigiTutorService.DataAccessLayer
             var res = RepositoryDAL1.Read<UsuarioDAO>(x => (nombreEstudiante != null ? x.nombre.Equals(nombreEstudiante) : true) &&
             (id_universidad > 0 ? x.Estudiante.id_universidad == id_universidad : true) &&
             (id_pais > 0 ? x.Estudiante.id_pais == id_pais : true) &&
-            (id_tecnologia > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(id_tecnologia) : true)&&
-            x.activo==true);
+            (id_tecnologia > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(id_tecnologia) : true));
 
             //ordenamos los resultados por reputacion
             res.OrderByDescending(x => x.Estudiante.reputacion);
@@ -249,8 +248,8 @@ namespace DigiTutorService.DataAccessLayer
             (tec1 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec1) : true) &&
             (tec2 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec2) : true) &&
             (tec3 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec3) : true) &&
-            (tec4 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec4) : true)&&
-            x.activo==true);
+            (tec4 > 0 ? x.Estudiante.Tecnologia_x_Estudiante.Select(tec => tec.id_tecnologia).Contains(tec4) : true) &&
+            !x.is_admin && x.activo);
 
             List<Estudiante> resultado = new List<Estudiante>();
           
@@ -560,8 +559,7 @@ namespace DigiTutorService.DataAccessLayer
                     RepositoryDAL1.Update(estudianteApoya);
 
                     //se suma la cantidad de apoyos a la tabla de tecnologiasXestudiante
-                    Tecnologia_x_EstudianteDAO tecEst = RepositoryDAL1.Read<Tecnologia_x_EstudianteDAO>(
-                        x => x.id_estudiante.Equals(estudianteApoyado.id_usuario) &&
+                    Tecnologia_x_EstudianteDAO tecEst = RepositoryDAL1.Read<Tecnologia_x_EstudianteDAO>(x => x.id_estudiante.Equals(estudianteApoyado.id_usuario) &&
                             x.id_tecnologia.Equals(tecnologia.id)).FirstOrDefault();
 
                     tecEst.cantidadApoyos += 1;
