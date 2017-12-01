@@ -372,7 +372,7 @@ namespace DigiTutorService.DataAccessLayer
         public string CrearAdministrador(string password, Administrador administrador)
         {
             //primero buscamos a ver si existe esl administrador
-            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(administrador.Id)).FirstOrDefault();
+            UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(administrador.NombreUsuario)).FirstOrDefault();
             if (user == null)
             {
                 user = new UsuarioDAO

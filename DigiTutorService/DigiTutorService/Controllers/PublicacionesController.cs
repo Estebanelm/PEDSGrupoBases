@@ -29,7 +29,7 @@ namespace DigiTutorService.Controllers {
 
 
         //===========================================================================================================
-        [Route("api/tutorias/")]
+        [Route("api/tutorias")]
         [HttpPost]
         public IHttpActionResult PostTutoria ([FromBody] Tutoria tut) {
             // crear una tutoria

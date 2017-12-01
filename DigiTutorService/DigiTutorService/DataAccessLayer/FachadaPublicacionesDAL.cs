@@ -181,11 +181,12 @@ namespace DigiTutorService.DataAccessLayer
             if (RepositoryDAL1.Create<PublicacionDAO>(new PublicacionDAO
             {
                 descripcion = contenido.Descripcion,
-                fecha_publicacion = contenido.FechaCreacion,
+                fecha_publicacion = DateTime.Now,
                 id_estudiante = contenido.Id_autor,
                 isTutoria = false,
                 titulo = contenido.Titulo,
-                Tecnologia_x_publicacion = listaTecnologiasPublicacion
+                Tecnologia_x_publicacion = listaTecnologiasPublicacion,
+                activo = true
             }))
             {
                 int id_publicacionCreada = RepositoryDAL1.Read<PublicacionDAO, int>(x => x.id > 0, x => x.id).FirstOrDefault().id;
@@ -224,11 +225,12 @@ namespace DigiTutorService.DataAccessLayer
             if (RepositoryDAL1.Create<PublicacionDAO>(new PublicacionDAO
             {
                 descripcion = tutoria.Descripcion,
-                fecha_publicacion = tutoria.FechaCreacion,
+                fecha_publicacion = DateTime.Now,
                 id_estudiante = tutoria.Id_autor,
-                isTutoria = false,
+                isTutoria = true,
                 titulo = tutoria.Titulo,
-                Tecnologia_x_publicacion = listaTecnologiasPublicacion
+                Tecnologia_x_publicacion = listaTecnologiasPublicacion,
+                activo = true
             }))
             {
                 int id_publicacionCreada = RepositoryDAL1.Read<PublicacionDAO, int>(x => x.id > 0, x => x.id).FirstOrDefault().id;
@@ -237,7 +239,7 @@ namespace DigiTutorService.DataAccessLayer
                     costo = tutoria.Costo,
                     id_publicacion = id_publicacionCreada,
                     lugar = tutoria.Lugar,
-                    fecha_tutoria = tutoria.FechaCreacion
+                    fecha_tutoria = tutoria.FechaTutoria
                 };
                 if (RepositoryDAL1.Create<TutoriaDAO>(nuevaTutoria))
                 {
@@ -272,7 +274,7 @@ namespace DigiTutorService.DataAccessLayer
             ComentarioDAO nuevoComentario = new ComentarioDAO
             {
                 contenido = comentario.Contenido,
-                fecha_creacion = comentario.Fecha_comentario,
+                fecha_creacion = DateTime.Now,
                 id_estudiante = comentario.Id_Autor,
                 id_publicacion = comentario.id_publicacion
             };
