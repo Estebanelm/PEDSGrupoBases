@@ -83,40 +83,28 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 		}
 		else{
 			$scope.estudiante=$scope.BuildStudent($scope.formulario);
-			url=$scope.serverURL+"estudiantes?pwd="+$scope.sPassword;
+			url=$scope.serverURL+"estudiantes?pwd="+$scope.sPassword+"/";
 			jsonStudent=JSON.stringify($scope.estudiante);
 			 
 			//post
 			$http.post(url,jsonStudent).then(function (response) {
-				if(response.status ==200){
+				
 					swal({
 			 			  position: 'center',
 						  type: 'success',
 						  title: "Perfil creado con éxito",
 						  showConfirmButton: false,
-						  timer: 2000
-					})
-					window.location="http://186.176.172.50/DigiTutor/";
-				}
-				if(response.status==400){
-					swal({
-					  position: 'center',
-					  type: 'error',
-					  title: response.data.Message,
-					  showConfirmButton: false,
-					  timer: 2000
-					})
-				}	
-				else{
-					swal({
-					  position: 'center',
-					  type: 'error',
-					  title: "ERROR DE SERVIDOR",
-					  showConfirmButton: false,
-					  timer: 2000
-					})
+						  timer: 2000});
+					
+					window.setTimeout(function(){
 
-				}
+       						 // Move to a new location or you can do something else
+        					 window.location="http://186.176.172.50/DigiTutor/";
+
+    				}, 2000);
+					
+				
+				
 
 
 			}, 
@@ -124,7 +112,7 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 					swal({
 					  position: 'center',
 					  type: 'error',
-					  title: response.status,
+					  title: "Carné o correo ya en uso",
 					  showConfirmButton: false,
 					  timer: 12000
 					})
