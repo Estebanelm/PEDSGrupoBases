@@ -40,11 +40,12 @@ namespace DigiTutorService.DataAccessLayer
             IEnumerable<int> listaIdTecnologias = tecEstudiante.Select(x => x.id);
 
             List<TecnologiaDAO> listaTecnologias = RepositoryDAL1.Read<TecnologiaDAO>(x => listaIdTecnologias.Contains(x.id));
+
             foreach (Tecnologia_x_EstudianteDAO tec in tecEstudiante)
             {
-                string nombreTecnologia = listaTecnologias.Where(x => x.id.Equals(tec.id_tecnologia)).Select(x => x.nombre).FirstOrDefault();
+           
                 //se pone el apyo como "fijo" para que no salga el botoncito de "+" puesto que yo no me puedo apoyar a mi mismo
-                tecApoyo.Add(new Estudiante.TecnologiaPerfil { Apoyos = tec.cantidadApoyos, MiApoyo = "fijo", Nombre = nombreTecnologia});
+                tecApoyo.Add(new Estudiante.TecnologiaPerfil { Apoyos = tec.cantidadApoyos, MiApoyo = "fijo", Nombre = tec.Tecnologia.nombre});
             }
 
             //crear el estudiante
