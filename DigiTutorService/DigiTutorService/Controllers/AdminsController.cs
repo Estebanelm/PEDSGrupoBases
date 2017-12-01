@@ -1,6 +1,8 @@
 using System.Web.Http;
 using DigiTutorService.Models;
 using DigiTutorService.DataAccessLayer;
+using System.Net.Http;
+using System.Net;
 
 namespace DigiTutorService.Controllers {
     public class AdminsController : ApiController {
@@ -52,6 +54,13 @@ namespace DigiTutorService.Controllers {
             if (usuarios.DeleteAdministrador(id)) 
             return Ok ();
             else return BadRequest();
+        }
+
+        [HttpOptions]
+        public HttpResponseMessage Options()
+        {
+            var resp = new HttpResponseMessage(HttpStatusCode.OK);
+            return resp;
         }
     }
 }

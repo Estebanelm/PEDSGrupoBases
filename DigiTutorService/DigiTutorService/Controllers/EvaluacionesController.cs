@@ -1,6 +1,7 @@
 using DigiTutorService.DataAccessLayer;
 using DigiTutorService.Models;
-
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace DigiTutorService.Controllers
@@ -18,19 +19,26 @@ namespace DigiTutorService.Controllers
             else return BadRequest();
             
         }
-    
-    
-    //no lo tenemos definido, pero puede ser importante para evitar que 
-    //la base de datos se llene de apoyos que fueron removidos        
-         /* 
-        [HttpDelete]
-        public IHttpActionResult RemoverEvaluacion([FromBody] Apoyo apoyo)
-        {
-            //dejar de dar apoyo
-            
-            return Ok();
-        }
 
-        */
+
+        //no lo tenemos definido, pero puede ser importante para evitar que 
+        //la base de datos se llene de apoyos que fueron removidos        
+        /* 
+       [HttpDelete]
+       public IHttpActionResult RemoverEvaluacion([FromBody] Apoyo apoyo)
+       {
+           //dejar de dar apoyo
+
+           return Ok();
+       }
+
+       */
+
+        [HttpOptions]
+        public HttpResponseMessage Options()
+        {
+            var resp = new HttpResponseMessage(HttpStatusCode.OK);
+            return resp;
+        }
     }
 }

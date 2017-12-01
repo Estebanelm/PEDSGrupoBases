@@ -1,5 +1,7 @@
 using DigiTutorService.DataAccessLayer;
 using DigiTutorService.Models;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace DigiTutorService.Controllers
@@ -32,6 +34,12 @@ namespace DigiTutorService.Controllers
             }
             else
                 return BadRequest();
+        }
+        [HttpOptions]
+        public HttpResponseMessage Options()
+        {
+            var resp = new HttpResponseMessage(HttpStatusCode.OK);
+            return resp;
         }
     }
 }

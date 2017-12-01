@@ -53,5 +53,11 @@ namespace DigiTutorService.Controllers
             }
             return Ok();
         }
+        [HttpOptions]
+        public HttpResponseMessage Options()
+        {
+            var resp = new HttpResponseMessage(HttpStatusCode.OK);
+            return resp;
+        }
     }
 }

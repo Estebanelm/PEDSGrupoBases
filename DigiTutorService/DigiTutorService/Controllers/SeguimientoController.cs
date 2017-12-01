@@ -1,6 +1,9 @@
 using DigiTutorService.Models;
 using System.Web.Http;
 using DigiTutorService.DataAccessLayer;
+using System.Net.Http;
+using System.Net;
+
 namespace DigiTutorService.Controllers
 {
     public class SeguimientoController : ApiController
@@ -44,6 +47,13 @@ namespace DigiTutorService.Controllers
                 return BadRequest();
             }
             
+        }
+
+        [HttpOptions]
+        public HttpResponseMessage Options()
+        {
+            var resp = new HttpResponseMessage(HttpStatusCode.OK);
+            return resp;
         }
     }
 }
