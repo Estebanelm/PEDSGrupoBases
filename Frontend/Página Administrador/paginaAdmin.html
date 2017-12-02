@@ -1,0 +1,440 @@
+﻿<!DOCTYPE html>
+<html ng-app=""> 
+<head>
+    <title>DigiTutor - Admin</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="estilosHome.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</head>
+<body ng-controller="">
+    
+    <!-- Navigation Bar -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar fixed-top" style="background:#0c486c;">
+
+                <!-- Logo (boton de inicio) -->
+                <a class="navbar-default" href="#">
+                    <img src="Recursos/logo.png" class="img-responsive" style="position:relative;">
+                    <img src="Recursos/logotexto.png" class="img-responsive" style="position:relative;">
+                </a>
+
+                <!-- Engranaje -->
+                <div class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size:28px; color:#ffffff">
+                        &#x2699; <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" style="right: 0; left: auto;">
+                        <li><a class="dropdown-item" href="#">Ayuda</a></li>
+                        <li><a class="dropdown-item" href="#">Cambiar Idioma</a></li>
+                        <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+   
+    <!-- Barra de Accion -->
+    <div class="container-fluid" style="background:#388787">
+        <div class="row">
+            <nav class="col-sm-12 ml-sm-auto col-md-12 mt-2 ">
+                <ul class="nav nav-justified">
+                    <li class="col-lg-6">
+
+                        <!-- Nombre -->
+                        <a>
+                            <label class="pt-2" style="font-size:x-large; color:white">Nombre Apellido</label>
+                        </a>
+                    </li>
+                    
+                </ul>         
+            </nav>
+        </div>
+    </div>
+
+    <!-- Informacion y Publicaciones -->
+    <div class="container-fluid">
+
+        <div class="row">
+            <!-- Sección de informacion Personal -->
+            <nav class="col-sm-4 col-md-4 d-none d-sm-block bg-light mt-3">
+                <form class="form-horizontal">
+                    <h1 style="font-size:x-large">Mi Información</h1>
+                    <fieldset>
+                        <div class="form-group">
+                            <strong><label>Usuario:</label></strong>
+                            <label >Juanito96</label>
+                        </div>
+                        <div class="form-group">
+                            <strong><label>Email:</label></strong>
+                            <label>juanito96@holamail.com</label>
+                        </div>
+                        <div class="form-group">
+                            <strong><label>Miembro desde:</label></strong>
+                            <label>dd/mm/aaaa</label>
+                        </div>
+                        <div class="form-group">
+                            <strong><label>Id:</label></strong>
+                            <label>A3F056</label>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </nav>
+
+            <!-- Sección de publicaciones -->
+            <main role="main" class="col-sm-8 ml-sm-auto col-md-8 pt-3 mb-0">
+
+                <!-- Tabs de publicaciones -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#" onclick="document.getElementById('tabReportes').style.display = 'block';document.getElementById('tabTecnologias').style.display = 'none';document.getElementById('tabUniversidades').style.display = 'none';">Reclutamiento</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#" onclick="document.getElementById('tabReportes').style.display = 'none';document.getElementById('tabTecnologias').style.display = 'block';document.getElementById('tabUniversidades').style.display = 'none';">Tecnologías</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#" onclick="document.getElementById('tabReportes').style.display = 'none';document.getElementById('tabTecnologias').style.display = 'none';document.getElementById('tabUniversidades').style.display = 'block';">Universidades</a></li>
+                </ul>
+
+                <!-- Lista de publicaciones -->
+                <ul class="list-group" style="overflow-y:scroll; height:90vh;">
+                    <!-- Ejemplo de publicación -->
+                    <li class="list-group-item" style="background:#cff09f;" id="tabReportes">
+                        <div>
+                            <div class="row mb-2">
+                                <form class="form-inline nav-justified col-lg-12">
+                                    <fieldset class="col-md-4">
+                                        <label for="sltUniversidad">Universidad</label>
+                                        <select class="btn selectpicker ml-1" id="sltUniversidad">
+                                            <option>Todas</option>
+                                            <option>Universidad de Costa Rica</option>
+                                        </select>
+                                    </fieldset>
+                                    <fieldset class="col-md-4">
+                                        <label for="sltPais">País</label>
+                                        <select class="btn selectpicker ml-1" id="sltPais">
+                                            <option>Todas</option>
+                                            <option>Universidad de Costa Rica</option>
+                                        </select>
+                                    </fieldset>
+                                    <fieldset class="col-md-4">
+                                        <label for="dpnTecnologias">Tecnología(s)</label>
+                                        <div class="btn-group" id="dpnTecnologias">
+                                            <button class="btn btn-reponsive dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background:white">Escoger tecnología(s)</button>
+                                            <div class="dropdown-menu" id="dropTecnologias" style="overflow-y:scroll; height:20vh">
+                                                <h6 class="dropdown-header">Programación</h6>
+                                                <button class="dropdown-item" type="button" onclick="copiar('Java');">Java</button>
+                                                <button class="dropdown-item" type="button" onclick="copiar('Python');">Python</button>
+                                                <h6 class="dropdown-header">Agrícola</h6>
+                                                <button class="dropdown-item" type="button" onclick="copiar('Suelos');">Suelos</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="col-md-4">
+                                        <label for="dPesos">Indique los pesos de la(s) tecnología(s)</label>
+                                        <ul class="list-group" style="overflow-y:scroll; height:20vh" id="dPesos">
+
+                                        </ul>
+                                    </fieldset>
+                                    <fieldset class="col-md-4">
+                                        <button class="btn btn-reponsive" style="background:#79be9a; color:white">Generar reporte</button>
+                                    </fieldset>
+                                    <fieldset class="col-md-4">
+                                        <button class="btn btn-reponsive" id="btnExport" style="background:#79be9a; color:white">Exportar a excel</button>
+                                    </fieldset>
+                                </form>
+                            </div>
+                            <div id="tblReporte">
+                                <table class="col-lg-12 table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                            <td width="25%">
+                                                <img class="col-lg-6" src="Recursos/perfil.png" height="60" width="60" />
+                                                <label style="font-size:large">Nombre Apellido</label> <br />
+                                                <label><strong>País: </strong>Costa Rica</label> <br />
+                                                <label><strong>Universidad: </strong>ITCR</label> <br />
+                                                <label><strong>Reputación: </strong>98%</label> <br />
+                                                <label><strong>Participación: </strong>60%</label> <br />
+                                                <label><strong>Puntaje del algoritmo: </strong>Puntos</label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+
+                            <div class="mb-4 col-lg-12">
+                                <form class="form-inline">
+                                    <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;">Anterior</button>
+                                    <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;">Siguiente</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="list-group-item" style="background:#cff09f; display:none" id="tabTecnologias">
+                        <div class="row">
+                            <form class="form-group col-lg-6">
+                                <p1>Catálogo</p1>
+                                <ul class="list-group bg-light" style="overflow-y:scroll; height:30vh;">
+                                    <li class="list-group-item">Java <button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button">x</button></li>
+                                    <li class="list-group-item">Álgebra <button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button">x</button></li>
+                                </ul>
+                            </form>
+                            <form class="form-group col-lg-6">
+                                <p1>Nueva Tecnología</p1>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">Categoría</span>
+                                    <input class="form-control" type="text"/>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-reponsive dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background:white"></button>
+                                        <div class="dropdown-menu" style="overflow-y:scroll; height:20vh">
+                                            <button class="dropdown-item" type="button">Programación</button>
+                                            <button class="dropdown-item" type="button">Matemática</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mt-2">
+                                    <span class="input-group-addon" id="basic-addon1">Nombre</span>
+                                    <input type="text" class="form-control" />
+                                    <button class="btn btn-reponsive" style="background:#79be9a; color:white">Agregar</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </li>
+                    <li class="list-group-item" style="background:#cff09f; display:none" id="tabUniversidades">
+                        <div class="row">
+                            <form class="form-group col-lg-6">
+                                <p1>Catálogo</p1>
+                                <ul class="list-group bg-light" style="overflow-y:scroll; height:30vh;">
+                                    <li class="list-group-item">Instituto tecnológico de Costa Rica <button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button">x</button></li>
+                                    <li class="list-group-item">Universidad de Costa Rica <button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button">x</button></li>
+                                </ul>
+                            </form>
+                            <form class="form-group col-lg-6">
+                                <p1>Nueva Universidad</p1>
+                                <div class="input-group mt-2">
+                                    <span class="input-group-addon" id="basic-addon1">Nombre</span>
+                                    <input type="text" class="form-control" />
+                                    <button class="btn btn-reponsive" style="background:#79be9a; color:white">Agregar</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+
+    
+   
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $("#btnExport").click(function (e) {
+            window.open('data:application/vnd.ms-excel,' + escape($('#tblReporte').html()));
+            e.preventDefault();
+        });
+
+        function copiar(valor) {
+            $('#dPesos').append('<li class="list-group-item"><div class="input-group"><span class="input-group-addon" id="sizing-addon2">' + valor + '</span>' + '<input type="number" class="form-control" placeholder="Peso" aria-describedby="sizing-addon2"><button class="btn btn-responsive" onclick="remover(this);" style="background:#79be9a; color:white" >x</button></div></li>');
+            
+        }
+
+        function remover(valor) {
+            valor.parentNode.parentNode.parentNode.removeChild(valor.parentNode.parentNode);
+        }
+    </script>
+
+</body>
+</html>
