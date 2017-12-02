@@ -59,6 +59,7 @@ $scope.ObtenerPublicaciones=function(){
 
 };
 
+// obtienen los comentarios del servidor para una publicacion dada
 $scope.CommentButton=function(p_Id){
 	if(p_Id!=$scope.comment){
 		$scope.comment=p_Id;
@@ -69,31 +70,31 @@ $scope.CommentButton=function(p_Id){
 		$scope.paginaComentarios=1;
 	}
 };
-
+//cambia de página de comentarios hacia arriba 
 $scope.addCommentPage=function(p_Id){
 	$scope.paginaComentarios+=1;
 	$scope.ObtenerComentarios(p_Id);
 
 };
-
+//cambia de página de comentarios hacia abajo
 $scope.subsCommentPage=function(p_Id){
 	if($scope.paginaComentarios>=2){$scope.paginaComentarios-=1;
 	$scope.ObtenerComentarios(p_Id);}
 	
 };
-
+//cambia de página de publiacciones hacia arriba
 $scope.addPublicacionesPage=function(){
 	$scope.paginaPublicacionesVisibles+=1;
 	$scope.ObtenerPublicaciones();
 
 };
-
+//cambia de página de publicaciones hacia abajo
 $scope.subsPublicacionesPage=function(){
 	if($scope.paginaPublicacionesVisibles>=2){$scope.paginaPublicacionesVisibles-=1;
 	$scope.ObtenerPublicaciones();}
 	
 };
-
+//hace un put al servidor de una evaluacion hecha 
 $scope.Evaluar=function(p_eval,p_Id){
 	jsonEval=JSON.stringify({"Id_estudiante":$scope.idusuario,"Tipo_evaluacion":p_eval,"Id_publicacion":p_Id});
 	$http.put($scope.serverURL+"evaluaciones/"+p_Id.toString(),jsonEval).then(function (response) { }, 
@@ -105,37 +106,84 @@ $scope.Evaluar=function(p_eval,p_Id){
 
 
 
-$scope.darLike=function(p_Id){
+$scope.darLike=function(p_Id,p_esTuto){
 	x="null";
+	fechaACtual= new Date();
+	fechatuto=0;
+	registrado=false;
+	aprovacion=true;
 	for (var i = 0; i<$scope.publicacionesVisibles.length; i++) {
 		if($scope.publicacionesVisibles[i].Id==p_Id){
-			x=$scope.publicacionesVisibles[i].MiEvaluacion;
-			if(x=="pos"){$scope.publicacionesVisibles[i].MiEvaluacion="null"; $scope.Evaluar("null",p_Id);}
-			else{
-				$scope.publicacionesVisibles[i].MiEvaluacion="pos";
-				$scope.Evaluar("pos",p_Id);
+			if(p_esTuto==true){
+
+					fechatuto=$scope.publicacionesVisibles[i].FechaTutoria;
+					registrado=$scope.publicacionesVisibles[i].EstoyRegistrado;
+					if(fechatuto>fechaACtual&&registrado){aprovacion=true;}
+					else{aprovacion=false;}	
+					
+			}
+			if(aprovacion){
+				x=$scope.publicacionesVisibles[i].MiEvaluacion;
+				if(x=="pos"){
+					$scope.publicacionesVisibles[i].MiEvaluacion="null"; 
+					$scope.Evaluar("null",p_Id);
+					$scope.publicacionesVisibles[i].CantidadEvaluaciones-=1;}
+
+				else{
+					
+					$scope.publicacionesVisibles[i].MiEvaluacion="pos";
+					$scope.Evaluar("pos",p_Id);
+					if(x=="null"){ $scope.publicacionesVisibles[i].CantidadEvaluaciones+=1;}
+					
+					
+				}
+
 			}
 		}
 		
+		
 	}
+	$scope.tutoriasVisibles=$filter('filter')($scope.publicacionesVisibles, {"Costo" :""});
+	$scope.contenidoVisible=$filter('filter')($scope.publicacionesVisibles, {"Costo" :"!"});
 };
 
-$scope.darDislike=function(p_Id){
+$scope.darDislike=function(p_Id,p_esTuto){
 	x="null";
+	fechaACtual= new Date();
+	fechatuto=0;
+	registrado=false;
+	aprovacion=true;
 	for (var i = 0; i<$scope.publicacionesVisibles.length; i++) {
 		if($scope.publicacionesVisibles[i].Id==p_Id){
-			x=$scope.publicacionesVisibles[i].MiEvaluacion;
-			if(x=="neg"){$scope.publicacionesVisibles[i].MiEvaluacion="null"; $scope.Evaluar("null",p_Id);}
-			else{
-				$scope.publicacionesVisibles[i].MiEvaluacion="neg";
-				$scope.Evaluar("neg",p_Id);
+			if(p_esTuto==true){
+
+					fechatuto=$scope.publicacionesVisibles[i].FechaTutoria;
+					registrado=$scope.publicacionesVisibles[i].EstoyRegistrado;
+					if(fechatuto>fechaACtual&&registrado){aprovacion=true;}
+					else{aprovacion=false;}	
+					
+			}
+			if(aprovacion){
+				x=$scope.publicacionesVisibles[i].MiEvaluacion;
+				if(x=="neg"){
+					$scope.publicacionesVisibles[i].MiEvaluacion="null"; 
+					$scope.Evaluar("null",p_Id); 
+					$scope.publicacionesVisibles[i].CantidadEvaluaciones-=1;}
+				else{
+					$scope.publicacionesVisibles[i].MiEvaluacion="neg";
+					$scope.Evaluar("neg",p_Id);
+					if(x=="null"){$scope.publicacionesVisibles[i].CantidadEvaluaciones+=1;}
+					
+				}
 			}
 		}
 		
 	}	
-	
+	$scope.tutoriasVisibles=$filter('filter')($scope.publicacionesVisibles, {"Costo" :""});
+	$scope.contenidoVisible=$filter('filter')($scope.publicacionesVisibles, {"Costo" :"!"});
 
 };
+// decide si poner el icono de evaluado o sin evaluar positivo
 $scope.myPosEval=function(p_Id){
 	$scope.helper= $scope.publicacionesVisibles.filter(function(item){return item.Id == p_Id;});
 	if($scope.helper[0].MiEvaluacion=="pos"){
@@ -144,7 +192,7 @@ $scope.myPosEval=function(p_Id){
 	else{return 0;}
 
 };	
-
+//decide si poner el icono de evaluado o sin evaluar negativo
 $scope.myNegEval=function(p_Id){
 	$scope.helper= $scope.publicacionesVisibles.filter(function(item){return item.Id == p_Id;});
 	if($scope.helper[0].MiEvaluacion=="neg"){

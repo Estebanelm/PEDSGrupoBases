@@ -404,8 +404,8 @@
                                         <label class="control-label pl-3">{{c.CantidadEvaluaciones}} Evaluaciones</label>
 
 
-                                        <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url({{rutaLikeArray[myPosEval(c.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darLike(c.Id)"></button>
-                                        <button class="btn btn-reponsive" type="button" style="background:none; background-image:url({{rutaDislikeArray[myNegEval(c.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darDislike(c.Id)"></button>
+                                        <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url({{rutaLikeArray[myPosEval(c.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darLike(c.Id,false)"></button>
+                                        <button class="btn btn-reponsive" type="button" style="background:none; background-image:url({{rutaDislikeArray[myNegEval(c.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darDislike(c.Id,false)"></button>
                                     </div>
                                     <div class="form-group col-lg-12" style="border-top:1px solid;">
                                         <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(c.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
@@ -497,8 +497,8 @@
                                         <label class="control-label">{{tut.CantidadComentarios}} Comentarios</label>
                                         <label class="control-label pl-3">{{tut.CantidadEvaluaciones}} Evaluaciones</label>
 
-                                        <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url(Recursos/like-off.png); background-repeat:no-repeat; background-position:center"></button>
-                                        <button class="btn btn-reponsive" type="button" style="background:none; background-image:url(Recursos/dislike-off.png); background-repeat:no-repeat; background-position:center"></button>
+                                        <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url({{rutaLikeArray[myPosEval(tut.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darLike(tut.Id,true)"></button>
+                                        <button class="btn btn-reponsive" type="button" style="background:none; background-image:url({{rutaDislikeArray[myNegEval(tut.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darDislike(tut.Id,true)"></button>
                                     </div>
                                     <div class="form-group col-lg-12" style="border-top:1px solid;">
                                         <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(tut.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>

@@ -52,7 +52,7 @@ app.controller('AdminCtrl', function($scope, $http,$filter,$location,$window) {
 		}
 		else{
 			$scope.administrador=$scope.BuildAdmin($scope.formulario);
-			url=$scope.serverURL+"admins?pwd="+$scope.sPassword+"/";
+			url=$scope.serverURL+"admins?pwd="+$scope.sPassword;
 			jsonAdmin=JSON.stringify($scope.administrador);
 			 
 			//post
