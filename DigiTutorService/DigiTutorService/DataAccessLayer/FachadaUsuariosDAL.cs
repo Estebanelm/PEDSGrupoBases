@@ -547,13 +547,14 @@ namespace DigiTutorService.DataAccessLayer
                 //si el estudiante que apoya tiene apoyos disponibles
                 if (estudianteApoya.apoyos_disponibles > 0)
                 {
-                    RepositoryDAL1.Create(new ApoyoDAO
+                    ApoyoDAO apoyoAAgregar = new ApoyoDAO
                     {
                         fecha = DateTime.Now,
                         id_estudianteApoyado = apoyo.id_estudianteApoyado,
                         id_estudianteDaApoyo = apoyo.id_estudianteQueApoya,
                         id_tecnologia = tecnologia.id
-                    });
+                    };
+                    RepositoryDAL1.Create(apoyoAAgregar);
 
                     //restamos la cantidad de apoyos disponibles y actualizamos
                     estudianteApoya.apoyos_disponibles -= 1;
@@ -565,6 +566,11 @@ namespace DigiTutorService.DataAccessLayer
 
                     tecEst.cantidadApoyos += 1;
                     RepositoryDAL1.Update(tecEst);
+
+                    string nombreCompletoEstudianteQueApoya = estudianteApoya.Usuario.nombre + " " + estudianteApoya.Usuario.apellido;
+                    string nombreCompletoEstudianteApoyado = estudianteApoyado.Usuario.nombre + " " + estudianteApoyado.Usuario.apellido;
+
+                    Twitter.TwitterConnection.sendTweet(nombreCompletoEstudianteQueApoya, nombreCompletoEstudianteApoyado, tecnologia.nombre);
 
                     return true; //creo el apoyo
 

@@ -270,6 +270,7 @@
     <Compile Include="Models\Tutoria.cs" />
     <Compile Include="Models\Universidad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Twitter\TwitterConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DataAccessLayer\DataAccessLayer.edmx">
