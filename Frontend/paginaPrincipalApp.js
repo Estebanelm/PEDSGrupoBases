@@ -17,7 +17,9 @@ $scope.rutaLikeArray=["Recursos/like-off.png","Recursos/like.png"];
 $scope.rutaDislikeArray=["Recursos/dislike-off.png","Recursos/dislike.png"];
 $scope.rutaLikeIndex=0;
 $scope.fechaServidor=new Date();
-
+$scope.formuContenido={};
+$scope.tecnologiasDisponibles=[];
+$scope.myTec=[];
 
 
 
@@ -26,6 +28,13 @@ $http.get($scope.serverURL+$scope.estudianteId+"/estudiantes/"+$scope.estudiante
     , function(response) {
         //Second function handles error
         $scope.usuario = "Error";
+    });
+
+$http.get($scope.serverURL+"tecnologias/").then(function (response) {$scope.tecnologiasDisponibles = response.data; 
+   	$scope.tecnologiasDisponibles = $filter('orderBy')($scope.tecnologiasDisponibles, 'Categoria');}
+    , function(response) {
+        //Second function handles error
+        $scope.tecnologiasDisponibles = "Error";
     });
 
 $http.get($scope.serverURL+$scope.estudianteId+"/publicaciones?pag="+$scope.paginaPublicacionesVisibles).then(function (response) {
@@ -38,6 +47,64 @@ $http.get($scope.serverURL+$scope.estudianteId+"/publicaciones?pag="+$scope.pagi
         $scope.publicacionesVisibles = "Error";
     });
 
+$scope.BuildTecs=function(p_myTec){
+		aTecs=[];
+		for (var i = 0; i<p_myTec.length ; i++) {
+			  
+			  aTecs.push({"Nombre": p_myTec[i].Nombre , "Apoyos": -1, "MiApoyo":"null"});
+		}
+		return aTecs;
+	};
+
+$scope.Publicar=function(){
+
+	newPub={}
+	newPub.Id=0;
+	newPub.Titulo=$scope.formuContenido.Titulo;
+	newPub.Id_autor=$scope.estudianteId;
+	newPub.Nombre_autor=$scope.usuario.Nombre;
+	newPub.Tecnologias=$scope.BuildTecs($scope.myTec);
+	newPub.Descripcion=$scope.formuContenido.Descripcion;
+	newPub.CantidadComentarios=0;
+	newPub.CantidadEvaluaciones=0;
+	newPub.FechaCreacion=new Date();
+	newPub.Link=$scope.formuContenido.Link;
+	newPub.Documento=$scope.formuContenido.Doc;
+	newPub.Video=$scope.formuContenido.Video;
+	newPub.MiEvaluacion="null";
+	jsonPub=JSON.stringify(newPub);
+	$http.post($scope.serverURL+"publicaciones",jsonPub).then(function (response) { }, 
+				function(response) { });
+
+};
+
+
+$scope.AddMyTec=function(p_nombre){
+		if($scope.myTec.length<3){
+
+			$scope.myTec.push($filter('filter')($scope.tecnologiasDisponibles, {"Nombre" :p_nombre})[0]);
+			p_nombre="!"+p_nombre;
+			$scope.tecnologiasDisponibles = $filter('filter')($scope.tecnologiasDisponibles, {"Nombre" :p_nombre});
+
+		}
+		else{
+			swal({
+			  position: 'center',
+			  type: 'error',
+			  title: 'Sólo se pueden elegir 10 tecnologías',
+			  showConfirmButton: false,
+			  timer: 1500
+				})
+		}
+	 };
+$scope.ErraseMyTec=function(p_index){
+		
+			
+			$scope.tecnologiasDisponibles.push($scope.myTec[p_index]);
+			$scope.tecnologiasDisponibles = $filter('orderBy')($scope.tecnologiasDisponibles, 'Categoria');
+			$scope.myTec.splice(p_index,1);
+			
+	};
 $scope.HacerComentario=function(p_Id,p_contenido){
 	newObj={};
 	newObj.Id_Comentario=0;

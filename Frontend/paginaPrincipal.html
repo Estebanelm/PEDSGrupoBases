@@ -99,14 +99,14 @@
                                             <div class="form-group row">
                                                 <label for="titulo" class="col-lg-2 form-control-label">Título de la publicación</label>
                                                 <div class="col-lg-10">
-                                                    <input id="titulo" class="form-control" name="titulo" type="text" placeholder="Título" required="">
+                                                    <input id="titulo" class="form-control" name="titulo" type="text" placeholder="Título" required="" ng-model="formuContenido.Titulo">
                                                 </div>
                                             </div>
                                             <!-- Video -->
                                             <div class="form-group row">
                                                 <label for="video" class="col-lg-2 form-control-label">Video de YouTube</label>
                                                 <div class="col-lg-8">
-                                                    <input id="video" class="form-control" name="video" type="text" placeholder="URL del video" />
+                                                    <input id="video" class="form-control" name="video" type="text" placeholder="URL del video" ng-model="formuContenido.Video"/>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <p1>* opcional</p1>
@@ -117,7 +117,7 @@
 
                                                 <label for="documento" class="col-lg-2 form-control-label">Cargar un documento</label>
                                                 <div class="col-lg-8">
-                                                    <input id="documento" name="documento" class="form-control" type="file" multiple>
+                                                    <input id="documento" name="documento" class="form-control" type="file" multiple ng-model="formuContenido.Doc">
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <p1>* opcional</p1>
@@ -127,7 +127,7 @@
                                             <div class="form-group row">
                                                 <label for="link" class="col-lg-2 control-label">Link externo</label>
                                                 <div class="col-lg-8">
-                                                    <input id="link" class="form-control" name="link" type="text" placeholder="URL externo" />
+                                                    <input id="link" class="form-control" name="link" type="text" placeholder="URL externo" ng-model="formuContenido.Link"/>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <p1>* opcional</p1>
@@ -138,28 +138,16 @@
                                                 <!-- Descripción -->
                                                 <div class="form-group col-lg-4 mr-1">
                                                     <label for="descripcion" class="control-label">Descripción</label>
-                                                    <textarea id="descripcion" class="form-control" rows="5" required=""></textarea>
+                                                    <textarea id="descripcion" class="form-control" rows="5" required="" ng-model="formuContenido.Descripcion"></textarea>
                                                 </div>
                                                 <!-- Menu Tecnologías -->
                                                 <div class="form-group row col-lg-4 bg-light" style="height:40vh">
                                                     <label for="menuTec" class="control-label">Tecnologías relacionadas</label>
-                                                    <div id="menuTec">
-                                                        <input type="search" placeholder="Buscar tecnología" />
+                                                    <div id="menuTec" style="height: 290%">
+                                                        <input type="search" placeholder="Buscar tecnología" ng-model="search" />
                                                         <div style="overflow-y:scroll; height:40%">
-                                                            <ul class="list-group">
-                                                                <p1>Agronomía</p1>
-                                                                <li class="list-group-item">Suelos</li>
-                                                                <li class="list-group-item">Arboles</li>
-                                                            </ul>
-                                                            <ul class="list-group">
-                                                                <p1>Programación</p1>
-                                                                <li class="list-group-item">Java</li>
-                                                                <li class="list-group-item">Python</li>
-                                                            </ul>
-                                                            <ul class="list-group">
-                                                                <p1>Programación</p1>
-                                                                <li class="list-group-item">Java</li>
-                                                                <li class="list-group-item">Python</li>
+                                                            <ul class="list-group" ng-repeat="t in tecnologiasDisponibles| filter:search">
+                                                                <li class="list-group-item" ng-click="AddMyTec(t.Nombre)">{{t.Nombre}}</li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -167,10 +155,10 @@
 
                                                 <!-- Tecnologías añadidas -->
                                                 <div class="form-group col-lg-4 bg-light">
-                                                    <label for="tecA" class="control-label">Tecnologías añadidas (1/3)</label>
+                                                    <label for="tecA" class="control-label">Tecnologías añadidas (solo 3 permitidas)</label>
                                                     <div class="form-group" id="tecA">
-                                                        <ul class="list-group">
-                                                            <li class="list-group-item">Arboles <button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button">x</button></li>
+                                                        <ul class="list-group" ng-repeat="m in myTec">
+                                                            <li class="list-group-item">{{m.Nombre}}<button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button" ng-click="ErraseMyTec($index)">x</button></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -179,7 +167,7 @@
 
                                             <!-- Botones (Footer) -->
                                             <div class="modal-footer form-group row">
-                                                <button class="btn btn-reponsive mr-auto" style="background:#79be9a; color:#ffffff" type="submit">Publicar</button>
+                                                <button class="btn btn-reponsive mr-auto" style="background:#79be9a; color:#ffffff" type="submit" ng-click="Publicar()">Publicar</button>
                                                 <button type="reset" class="btn btn-reponsive" style="background:#79be9a; color:#ffffff" data-dismiss="modal">Cancelar</button>
                                             </div>
                                         </form>
@@ -327,7 +315,7 @@
                             </table>
                         </div>
                         <div class="form-group">
-                            <div class="col-lg-12" ng-repeat="t in usuario.Tecnologias"><label class="col-lg-8">{{t.Nombre}}</label><label class="col-lg-4">{{t.Apoyos}}</label><br /></div>
+                            <div class="col-lg-12" ng-repeat="t in usuario.Tecnologias"><label class="col-lg-8">{{t.Nombre.substring(0,25)}}</label><label class="col-lg-4">{{t.Apoyos}}</label><br /></div>
                             <strong><label>Estadísticas</label></strong><br />
                             <label>Seguidores: </label><label>{{usuario.CantSeguidores}}</label> <br />
                             <label>Participación: </label><label>{{usuario.Participacion}}</label>  <br />
@@ -360,7 +348,7 @@
                 <!-- Lista de publicaciones -->
                 <ul class="list-group" style="overflow-y:scroll; height:90vh">
                     <!-- Ejemplo de publicación -->
-                    <li class="list-group-item" ng-repeat="c in contenidoVisible">
+                    <li class="list-group-item" ng-repeat="c in contenidoVisible | orderBy: 'FechaCreacion':true">
                         <div>
                             <form style="background:#cff09f; padding-bottom:2em">
                                 <fieldset class="ml-3">
@@ -411,7 +399,7 @@
                                         <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(c.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
                                         <div id="comCont" ng-show="comment==c.Id"  style="overflow-y:scroll;">
                                             <ul class="list-group" style="height:10em" >
-                                                <li class="list-group-item" ng-repeat="com in listaComentarios">
+                                                <li class="list-group-item" ng-repeat="com in listaComentarios| orderBy: 'Fecha_comentario'">
                                                     <a href="#">{{com.Nombre_Autor}}</a>
                                                     <p1>escrito el:</p1>
                                                     <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario.substring(0,10)}}</a>
@@ -504,9 +492,9 @@
                                         <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(tut.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
                                         <div id="comTuto" ng-show="comment==tut.Id"  style="overflow-y:scroll;">
                                             <ul class="list-group" style="height:10em" >
-                                                <li class="list-group-item" ng-repeat="com in listaComentarios">
+                                                <li class="list-group-item" ng-repeat="com in listaComentarios| orderBy: 'Fecha_comentario'">
                                                     <a href="#">{{com.Nombre_Autor}}</a>
-                                                    <p1>escribió hace:</p1>
+                                                    <p1>escrito el:</p1>
                                                     <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario.substring(0,10)}}</a>
                                                     <label class="col-lg-12">{{com.Contenido}}</label> 
                                                 </li>
