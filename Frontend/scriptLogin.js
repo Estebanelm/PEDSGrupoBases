@@ -1,20 +1,5 @@
-﻿var app = angular.module('loginApp', ["ngRoute"]);
+﻿var app = angular.module('loginApp', []);
 
-app.config(function($routeProvider) {
-  $routeProvider
-  .when("/", {
-    templateUrl : $location.url()
-  })
-  .when("/hola", {
-    templateUrl : "file:///C:/Users/PC/Documents/PEDSGrupoBases/Frontend/Homepage/paginaPrincipal.html"
-  })
-  .when("/green", {
-    templateUrl : "green.htm"
-  })
-  .when("/blue", {
-    templateUrl : "blue.htm"
-  });
-});
 
 app.controller('loginCtrl', function ($scope, $http, $filter, $location, $window) {
 
@@ -35,26 +20,28 @@ app.controller('loginCtrl', function ($scope, $http, $filter, $location, $window
     };
 
     $scope.SubmitForm = function () {
-       /* $scope.login = $scope.BuildLogin($scope.formulario);
+        $scope.login = $scope.BuildLogin($scope.formulario);
         url = $scope.serverURL + "login";
         jsonLogin = JSON.stringify($scope.login);
 
         //post
         $http.post(url, jsonLogin).then(function (response) {
-            window.setTimeout(function () {
+           
+           if(response.data=="user"){window.location = "/paginaPrincipal.html";}
+           else{}
 
-                // Move to a new location or you can do something else
-                window.location = "http://186.176.172.50/DigiTutor/";
+                
+                
 
-            }, 2000);
+            
 
 
         },
             function (response) {
 
-            });*/
+            });
     
-    }
+    };
 
 
 
