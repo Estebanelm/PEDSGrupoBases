@@ -45,7 +45,7 @@ namespace DigiTutorService.Controllers {
 
         //busqueda de reclutamiento
         [HttpGet]
-        public IHttpActionResult BusquedaAdministrativa ( int id_un, int id_pais, 
+        public IHttpActionResult BusquedaAdministrativa ( int id_un, string id_pais, 
                          int tec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4, int pag )
         {
         //retorna una lista de Estudiantes ordenada por el

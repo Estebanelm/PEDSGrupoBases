@@ -20,9 +20,10 @@ namespace DigiTutorService.Controllers
 
             // revisar si la informacion de login matchea
             // crear el token y devolver el token de autenticacion
-            if (usuarios.CheckLogin(login))
+            string tipoUsuario = usuarios.CheckLogin(login);
+            if (tipoUsuario != null)
                 //devolver token
-                return Ok();
+                return Ok(tipoUsuario);
             else
                 return BadRequest();
         }

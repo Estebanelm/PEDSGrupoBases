@@ -79,23 +79,24 @@ namespace DigiTutorService.LogicLayer
 
         //===============================================================================================================================================================
 
-        public bool CheckLogin(Login login)
+        public string CheckLogin(Login login)
         {
             UsuarioDAO user = RepositoryDAL1.Read<UsuarioDAO>(x => x.id.Equals(login.id_estudiante)).FirstOrDefault();
             if (user == null)
             {
                 //no existe ese nombre de usuario
-                return false;
+                return null;
             }
             //si la contraseña es correcta
             if (user.contrasena.Equals(login.contrasena))
             {
                 //generar token de seguridad y asignarlo a login
                 login.tokenSeguridad = "aqui va el token de seguridad";
-                return true;
+                if (user.is_admin) return "admin";
+                else return "user";
 
             }
-            return false;
+            return null;
         }
 
 
@@ -240,9 +241,10 @@ namespace DigiTutorService.LogicLayer
 
         //===============================================================================================================================================================
         //busqueda de reclutamiento
-        public IEnumerable<Estudiante> GetReporteEstudiantes(int id_un, int id_pais,
+        public IEnumerable<Estudiante> GetReporteEstudiantes(int id_un, string nombrePais,
                          int tec1, int w1, int tec2, int w2, int tec3, int w3, int tec4, int w4, int pag)
         {
+            int id_pais = RepositoryDAL1.Read<PaisDAO>(x => x.nombre.Equals(nombrePais)).Select(x => x.id).FirstOrDefault();
             //seleccionamos a los usuarios que cumplen con los  filtros 
             var usuarios = RepositoryDAL1.Read<UsuarioDAO>(x =>
             (id_un > 0 ? x.Estudiante.id_universidad == id_un : true) &&
