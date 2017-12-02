@@ -252,9 +252,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="LogicLayer\FachadaCatalogoDAL.cs" />
-    <Compile Include="LogicLayer\FachadaPublicacionesDAL.cs" />
-    <Compile Include="LogicLayer\FachadaUsuariosDAL.cs" />
+    <Compile Include="LogicLayer\CatalogoLogic.cs" />
+    <Compile Include="LogicLayer\PublicacionesLogic.cs" />
+    <Compile Include="LogicLayer\UsuariosLogic.cs" />
     <Compile Include="Models\Administrador.cs" />
     <Compile Include="Models\Apoyo.cs" />
     <Compile Include="Models\Comentario.cs" />

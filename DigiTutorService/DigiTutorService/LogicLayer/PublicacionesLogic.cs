@@ -7,11 +7,11 @@ using DigiTutorService.DataAccessLayer;
 
 namespace DigiTutorService.LogicLayer
 {
-    public class PublicacionLogic
+    public class PublicacionesLogic
     {
         public RepositoryDAL RepositoryDAL1;
 
-        public PublicacionLogic()
+        public PublicacionesLogic()
         {
             RepositoryDAL1 = new RepositoryDAL();
         }

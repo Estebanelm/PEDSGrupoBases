@@ -9,7 +9,7 @@ namespace DigiTutorService.Controllers
 {
     public class ComentariosController : ApiController
     {
-        PublicacionLogic publicaciones = new PublicacionLogic();
+        PublicacionesLogic publicaciones = new PublicacionesLogic();
         //devuelve lista de Comentarios
         [HttpGet]
         public IHttpActionResult GetComentarios(int id, int pag)

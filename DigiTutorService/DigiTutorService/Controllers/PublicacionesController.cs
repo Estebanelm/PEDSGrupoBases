@@ -8,7 +8,7 @@ using DigiTutorService.LogicLayer;
 namespace DigiTutorService.Controllers {
     public class PublicacionesController : ApiController {
 
-        PublicacionLogic publicaciones = new PublicacionLogic();
+        PublicacionesLogic publicaciones = new PublicacionesLogic();
 
         //retorna lista de publicaciones que puede ver un estudiante
         [Route("api/{userid}/publicaciones")]

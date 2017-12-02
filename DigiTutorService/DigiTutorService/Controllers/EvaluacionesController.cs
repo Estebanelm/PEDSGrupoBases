@@ -9,7 +9,7 @@ namespace DigiTutorService.Controllers
 {
     public class EvaluacionesController : ApiController
     {
-        PublicacionLogic publicaciones = new PublicacionLogic();
+        PublicacionesLogic publicaciones = new PublicacionesLogic();
 
         [HttpPut]
         public IHttpActionResult DarEvaluacion(int id, [FromBody] Evaluacion eval)
