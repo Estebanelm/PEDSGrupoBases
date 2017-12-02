@@ -345,10 +345,10 @@ namespace DigiTutorService.LogicLayer
             EvaluacionDAO evaluacionAAgregar = new EvaluacionDAO
             {
                 id_publicacion = evaluacion.id_publicacion,
-                positiva = evaluacion.Tipo_evaluacion.Equals("positiva") ? true : false,
+                positiva = evaluacion.Tipo_evaluacion.Equals("pos") ? true : false,
                 id_estudiante = evaluacion.Id_estudiante
             };
-            if (evaluacion.Tipo_evaluacion.Equals("positiva") && evaluacionExistente != null)
+            if (evaluacion.Tipo_evaluacion.Equals("pos") && evaluacionExistente != null)
             {
                 if (!(bool)evaluacionExistente.positiva) //es negativa
                 {
@@ -363,12 +363,12 @@ namespace DigiTutorService.LogicLayer
                 }
                 RepositoryDAL1.Delete(evaluacionExistente);
             }
-            if (evaluacion.Tipo_evaluacion.Equals("positiva") && evaluacionExistente == null)
+            if (evaluacion.Tipo_evaluacion.Equals("pos") && evaluacionExistente == null)
             {
                 publicacionAEvaluar.evaluaciones_positivas++;
                 totalEvaluacionesPositivas++;
             }
-            if (evaluacion.Tipo_evaluacion.Equals("negativa") && evaluacionExistente != null)
+            if (evaluacion.Tipo_evaluacion.Equals("neg") && evaluacionExistente != null)
             {
                 if ((bool)evaluacionExistente.positiva) //es negativa
                 {
@@ -383,7 +383,7 @@ namespace DigiTutorService.LogicLayer
                 }
                 RepositoryDAL1.Delete(evaluacionExistente);
             }
-            if (evaluacion.Tipo_evaluacion.Equals("negativa") && evaluacionExistente == null)
+            if (evaluacion.Tipo_evaluacion.Equals("neg") && evaluacionExistente == null)
             {
                 publicacionAEvaluar.evaluaciones_negativas++;
                 totalEvaluacionesNegativas++;

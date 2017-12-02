@@ -571,7 +571,7 @@ namespace DigiTutorService.LogicLayer
                     string nombreCompletoEstudianteQueApoya = estudianteApoya.Usuario.nombre + " " + estudianteApoya.Usuario.apellido;
                     string nombreCompletoEstudianteApoyado = estudianteApoyado.Usuario.nombre + " " + estudianteApoyado.Usuario.apellido;
 
-                    Twitter.TwitterConnection.sendTweet(nombreCompletoEstudianteQueApoya, nombreCompletoEstudianteApoyado, tecnologia.nombre);
+                    ExternalAPIs.TwitterConnection.sendTweet(nombreCompletoEstudianteQueApoya, nombreCompletoEstudianteApoyado, tecnologia.nombre);
 
                     return true; //creo el apoyo
 

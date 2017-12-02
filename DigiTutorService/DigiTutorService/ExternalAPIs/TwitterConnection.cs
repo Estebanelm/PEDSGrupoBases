@@ -5,7 +5,7 @@ using System.Web;
 using Tweetinvi;
 using Tweetinvi.Models;
 
-namespace DigiTutorService.Twitter
+namespace DigiTutorService.ExternalAPIs
 {
     public static class TwitterConnection
     {
