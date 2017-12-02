@@ -2,8 +2,7 @@ var app = angular.module("paginaPrincipalApp", []);
 
 app.controller('paginaPrincipalCtrl', function($scope, $http,$filter,$location,$window,$sce) {
 
-$scope.estudianteId="777"; //este debe venir del login
-$scope.idusuario="201270170"; 
+$scope.estudianteId=localStorage.getItem('userId'); 
 $scope.serverURL="http://186.176.172.50/DigiTutor/api/";
 $scope.usuario={};
 $scope.publicacionesVisibles=[];
@@ -18,6 +17,7 @@ $scope.rutaLikeArray=["Recursos/like-off.png","Recursos/like.png"];
 $scope.rutaDislikeArray=["Recursos/dislike-off.png","Recursos/dislike.png"];
 $scope.rutaLikeIndex=0;
 $scope.fechaServidor=new Date();
+$scope.cokie=
 
 
 
@@ -28,7 +28,7 @@ $http.get($scope.serverURL+$scope.estudianteId+"/estudiantes/"+$scope.estudiante
         $scope.usuario = "Error";
     });
 
-$http.get($scope.serverURL+$scope.idusuario+"/publicaciones?pag="+$scope.paginaPublicacionesVisibles).then(function (response) {
+$http.get($scope.serverURL+$scope.estudianteId+"/publicaciones?pag="+$scope.paginaPublicacionesVisibles).then(function (response) {
 	$scope.publicacionesVisibles = response.data;
 	$scope.tutoriasVisibles=$filter('filter')($scope.publicacionesVisibles, {"Costo" :""});
 	$scope.contenidoVisible=$filter('filter')($scope.publicacionesVisibles, {"Costo" :"!"});
@@ -48,7 +48,7 @@ $scope.ObtenerComentarios=function(p_Id){
 };
 
 $scope.ObtenerPublicaciones=function(){
-	$http.get($scope.serverURL+$scope.idusuario+"/publicaciones?pag="+$scope.paginaPublicacionesVisibles).then(function (response) {
+	$http.get($scope.serverURL+$scope.estudianteId+"/publicaciones?pag="+$scope.paginaPublicacionesVisibles).then(function (response) {
 	$scope.publicacionesVisibles = response.data;
 	$scope.tutoriasVisibles=$filter('filter')($scope.publicacionesVisibles, {"Costo" :""});
 	$scope.contenidoVisible=$filter('filter')($scope.publicacionesVisibles, {"Costo" :"!"});
@@ -97,7 +97,7 @@ $scope.subsPublicacionesPage=function(){
 };
 //hace un put al servidor de una evaluacion hecha 
 $scope.Evaluar=function(p_eval,p_Id){
-	jsonEval=JSON.stringify({"Id_estudiante":$scope.idusuario,"Tipo_evaluacion":p_eval,"Id_publicacion":p_Id});
+	jsonEval=JSON.stringify({"Id_estudiante":$scope.estudianteId,"Tipo_evaluacion":p_eval,"Id_publicacion":p_Id});
 	$http.put($scope.serverURL+"evaluaciones/"+p_Id.toString(),jsonEval).then(function (response) { }, 
 				function(response) { });
 

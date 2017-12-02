@@ -10,13 +10,22 @@ app.controller('loginCtrl', function ($scope, $http, $filter, $location, $window
     $scope.ID;
     $scope.Password;
 
+
     $scope.BuildLogin = function (p_formulario) {
         newObj = {};
         newObj.id_estudiante = $scope.formulario.ID;
         newObj.contrasena = $scope.formulario.Password;
+        localStorage.setItem('userId',$scope.formulario.ID);
         return newObj;
 
 
+    };
+
+    $scope.irCrearEstudiante=function(){
+      window.location="crearPerfilEstudiante.html";
+    };
+    $scope.irCrearAdmin=function(){
+      window.location="crearPerfilAdmin.html";
     };
 
     $scope.SubmitForm = function () {
@@ -27,8 +36,8 @@ app.controller('loginCtrl', function ($scope, $http, $filter, $location, $window
         //post
         $http.post(url, jsonLogin).then(function (response) {
            
-           if(response.data=="user"){window.location = "/paginaPrincipal.html";}
-           else{}
+           if(response.data=="user"){window.location = "paginaPrincipal.html";}
+           else{window.location = "paginaAdmin.html";}
 
                 
                 
@@ -38,6 +47,15 @@ app.controller('loginCtrl', function ($scope, $http, $filter, $location, $window
 
         },
             function (response) {
+              swal({
+            position: 'center',
+            type: 'error',
+            title: "Datos incorrectos",
+            showConfirmButton: false,
+            timer: 12000
+          })
+            
+
 
             });
     

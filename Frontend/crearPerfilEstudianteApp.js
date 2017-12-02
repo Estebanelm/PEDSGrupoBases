@@ -102,7 +102,7 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 					window.setTimeout(function(){
 
        						 // Move to a new location or you can do something else
-        					 window.location="http://186.176.172.50/DigiTutor/";
+        					 window.location="index.html";
 
     				}, 2000);
 					
@@ -132,7 +132,7 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 			$scope.myTec.push($filter('filter')($scope.tecnologiasDisponibles, {"Nombre" :p_nombre})[0]);
 			p_nombre="!"+p_nombre;
 			$scope.tecnologiasDisponibles = $filter('filter')($scope.tecnologiasDisponibles, {"Nombre" :p_nombre});
-	
+
 		}
 		else{
 			swal({
