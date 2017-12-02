@@ -132,7 +132,7 @@ app.controller('tecnologiasDisponiblesCtrl', function($scope, $http,$filter,$loc
 			$scope.myTec.push($filter('filter')($scope.tecnologiasDisponibles, {"Nombre" :p_nombre})[0]);
 			p_nombre="!"+p_nombre;
 			$scope.tecnologiasDisponibles = $filter('filter')($scope.tecnologiasDisponibles, {"Nombre" :p_nombre});
-
+	
 		}
 		else{
 			swal({

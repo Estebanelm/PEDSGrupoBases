@@ -403,15 +403,16 @@
                                         <label class="control-label">{{c.CantidadComentarios}} Comentarios</label>
                                         <label class="control-label pl-3">{{c.CantidadEvaluaciones}} Evaluaciones</label>
 
-                                        <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url(Recursos/like-off.png); background-repeat:no-repeat; background-position:center"></button>
-                                        <button class="btn btn-reponsive" type="button" style="background:none; background-image:url(Recursos/dislike-off.png); background-repeat:no-repeat; background-position:center"></button>
+
+                                        <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url({{rutaLikeArray[myPosEval(c.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darLike(c.Id)"></button>
+                                        <button class="btn btn-reponsive" type="button" style="background:none; background-image:url({{rutaDislikeArray[myNegEval(c.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darDislike(c.Id)"></button>
                                     </div>
                                     <div class="form-group col-lg-12" style="border-top:1px solid;">
-                                        <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(tut.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
+                                        <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(c.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
                                         <div id="comTuto" ng-show="comment==tut.Id"  style="overflow-y:scroll;">
                                             <ul class="list-group" style="height:10em" >
                                                 <li class="list-group-item" ng-repeat="com in listaComentarios">
-                                                    <a href="#">{{com.Nombre_Autor}}</a>
+                                                    <a href="#">{{com.Nombre_autor}}</a>
                                                     <p1>escribió hace:</p1>
                                                     <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario}}</a>
                                                     <label class="col-lg-12">{{com.Contenido}}</label> 
@@ -534,8 +535,8 @@
                 <!-- Botones para pasar de publicaciones -->
                 <div class="mb-4">
                     <form class="form-inline">
-                        <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;"><</button>
-                        <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;">></button>
+                        <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;"  ng-click="subsPublicacionesPage()"><</button>
+                        <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;"  ng-click="addPublicacionesPage()">></button>
                     </form>
                 </div>
                 
