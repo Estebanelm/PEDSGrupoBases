@@ -1,4 +1,5 @@
 using DigiTutorService.DataAccessLayer;
+using DigiTutorService.LogicLayer;
 using DigiTutorService.Models;
 using System.Net;
 using System.Net.Http;
@@ -8,7 +9,7 @@ namespace DigiTutorService.Controllers
 {
     public class TecnologiasController : ApiController
     {
-        private FachadaCatalogoDAL catalogo = new FachadaCatalogoDAL();
+        private CatalogoLogic catalogo = new CatalogoLogic();
         //devuelve lista de tecnologias
         [HttpGet]
         public IHttpActionResult GetTecnologias()

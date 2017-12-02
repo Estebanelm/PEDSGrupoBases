@@ -3,12 +3,13 @@ using System.Web.Http;
 using DigiTutorService.DataAccessLayer;
 using System.Net.Http;
 using System.Net;
+using DigiTutorService.LogicLayer;
 
 namespace DigiTutorService.Controllers
 {
     public class UniversidadesController : ApiController
     {
-        private  FachadaCatalogoDAL catalogo = new FachadaCatalogoDAL();
+        private  CatalogoLogic catalogo = new CatalogoLogic();
         //devuelve lista de Universidades
         [HttpGet]
         public IHttpActionResult GetUniversidades()

@@ -4,15 +4,16 @@ using System.Linq;
 using DigiTutorService.Models;
 using DigiTutorService.DataAccessLayer.Repository;
 using System.ComponentModel;
+using DigiTutorService.DataAccessLayer;
 
-namespace DigiTutorService.DataAccessLayer
+namespace DigiTutorService.LogicLayer
 {
-    public class FachadaCatalogoDAL
+    public class CatalogoLogic
     {
 
         public RepositoryDAL RepositoryDAL1;
 
-        public FachadaCatalogoDAL()
+        public CatalogoLogic()
         {
             RepositoryDAL1 = new RepositoryDAL();
         }

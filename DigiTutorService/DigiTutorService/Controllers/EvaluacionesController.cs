@@ -1,4 +1,5 @@
 using DigiTutorService.DataAccessLayer;
+using DigiTutorService.LogicLayer;
 using DigiTutorService.Models;
 using System.Net;
 using System.Net.Http;
@@ -8,7 +9,7 @@ namespace DigiTutorService.Controllers
 {
     public class EvaluacionesController : ApiController
     {
-        FachadaPublicacionDAL publicaciones = new FachadaPublicacionDAL();
+        PublicacionLogic publicaciones = new PublicacionLogic();
 
         [HttpPut]
         public IHttpActionResult DarEvaluacion(int id, [FromBody] Evaluacion eval)

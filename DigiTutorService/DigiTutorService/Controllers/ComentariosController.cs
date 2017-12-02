@@ -3,12 +3,13 @@ using System.Web.Http;
 using DigiTutorService.DataAccessLayer;
 using System.Net.Http;
 using System.Net;
+using DigiTutorService.LogicLayer;
 
 namespace DigiTutorService.Controllers
 {
     public class ComentariosController : ApiController
     {
-        FachadaPublicacionDAL publicaciones = new FachadaPublicacionDAL();
+        PublicacionLogic publicaciones = new PublicacionLogic();
         //devuelve lista de Comentarios
         [HttpGet]
         public IHttpActionResult GetComentarios(int id, int pag)

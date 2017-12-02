@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using DigiTutorService.Models;
 using DigiTutorService.DataAccessLayer.Repository;
+using DigiTutorService.DataAccessLayer;
 
-namespace DigiTutorService.DataAccessLayer
+namespace DigiTutorService.LogicLayer
 {
-    public class FachadaPublicacionDAL
+    public class PublicacionLogic
     {
         public RepositoryDAL RepositoryDAL1;
 
-        public FachadaPublicacionDAL()
+        public PublicacionLogic()
         {
             RepositoryDAL1 = new RepositoryDAL();
         }

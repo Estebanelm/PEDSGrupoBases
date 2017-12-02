@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using DigiTutorService.Models;
 using DigiTutorService.DataAccessLayer.Repository;
+using DigiTutorService.DataAccessLayer;
 
-namespace DigiTutorService.DataAccessLayer
+namespace DigiTutorService.LogicLayer
 {
 
-    public class FachadaUsuariosDAL
+    public class UsuariosLogic
     {
         static int WEEK = 7;
         static int APOYOS_SEMANA = 5;
@@ -15,7 +16,7 @@ namespace DigiTutorService.DataAccessLayer
 
         public RepositoryDAL RepositoryDAL1;
 
-        public FachadaUsuariosDAL()
+        public UsuariosLogic()
         {
             RepositoryDAL1 = new RepositoryDAL();
         }

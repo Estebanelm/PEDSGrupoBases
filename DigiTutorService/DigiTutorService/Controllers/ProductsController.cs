@@ -1,4 +1,5 @@
 ﻿using DigiTutorService.DataAccessLayer;
+using DigiTutorService.LogicLayer;
 using DigiTutorService.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace DigiTutorService.Controllers
         [HttpGet]
         public IHttpActionResult GetAllProducts()
         {
-            FachadaCatalogoDAL asd = new FachadaCatalogoDAL();
+            CatalogoLogic asd = new CatalogoLogic();
             return Ok(asd.GetUniversidades());
             //return products;
         }

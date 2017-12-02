@@ -3,12 +3,13 @@ using System.Web.Http;
 using DigiTutorService.DataAccessLayer;
 using System.Net.Http;
 using System.Net;
+using DigiTutorService.LogicLayer;
 
 namespace DigiTutorService.Controllers
 {
     public class SeguimientoController : ApiController
     {
-        private FachadaUsuariosDAL usuarios = new FachadaUsuariosDAL();
+        private UsuariosLogic usuarios = new UsuariosLogic();
         
         [Route("api/{userid}/seguimiento/{id}")]
         [HttpPost]

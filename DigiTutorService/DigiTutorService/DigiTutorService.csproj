@@ -221,9 +221,6 @@
     <Compile Include="DataAccessLayer\EvaluacionDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\FachadaCatalogoDAL.cs" />
-    <Compile Include="DataAccessLayer\FachadaPublicacionesDAL.cs" />
-    <Compile Include="DataAccessLayer\FachadaUsuariosDAL.cs" />
     <Compile Include="DataAccessLayer\PaisDAO.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
@@ -255,6 +252,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LogicLayer\FachadaCatalogoDAL.cs" />
+    <Compile Include="LogicLayer\FachadaPublicacionesDAL.cs" />
+    <Compile Include="LogicLayer\FachadaUsuariosDAL.cs" />
     <Compile Include="Models\Administrador.cs" />
     <Compile Include="Models\Apoyo.cs" />
     <Compile Include="Models\Comentario.cs" />

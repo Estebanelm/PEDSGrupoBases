@@ -3,11 +3,12 @@ using DigiTutorService.Models;
 using DigiTutorService.DataAccessLayer;
 using System.Net.Http;
 using System.Net;
+using DigiTutorService.LogicLayer;
 
 namespace DigiTutorService.Controllers {
     public class AdminsController : ApiController {
 
-        private FachadaUsuariosDAL usuarios = new FachadaUsuariosDAL();
+        private UsuariosLogic usuarios = new UsuariosLogic();
 
         [HttpGet]
         public IHttpActionResult GetAdministrador (string id) {

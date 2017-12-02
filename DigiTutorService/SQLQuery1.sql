@@ -12,7 +12,7 @@ SELECT * FROM dbo.Tutoria
 
 UPDATE dbo.Publicacion SET isTutoria = 1
 
-SELECT * FROM dbo.Universidad
+SELECT * FROM dbo.Estudiante WHERE id_usuario LIKE '201270170'
 
 SELECT * FROM dbo.Comentario
 
@@ -43,3 +43,15 @@ SELECT * FROM dbo.Usuario
 DELETE FROM dbo.Usuario WHERE id in ('20150809', '20150908')
 
 DELETE FROM dbo.Estudiante WHERE id_usuario in ('20150809', '20150908')
+
+SELECT * FROM dbo.Publicacion WHERE isTutoria=1
+
+SELECT * FROM dbo.Usuario
+
+SELECT * FROM dbo.RegistroTutoria
+
+SELECT * FROM dbo.Estudiante
+
+SELECT * FROM dbo.Apoyo
+
+SELECT * FROM dbo.Tecnologia

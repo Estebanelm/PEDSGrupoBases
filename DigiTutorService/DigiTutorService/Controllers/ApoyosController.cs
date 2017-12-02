@@ -1,4 +1,5 @@
 using DigiTutorService.DataAccessLayer;
+using DigiTutorService.LogicLayer;
 using DigiTutorService.Models;
 using System.Net;
 using System.Net.Http;
@@ -9,7 +10,7 @@ namespace DigiTutorService.Controllers
     public class ApoyosController : ApiController
     {
 
-        private FachadaUsuariosDAL usuarios = new FachadaUsuariosDAL();
+        private UsuariosLogic usuarios = new UsuariosLogic();
 
         [HttpPost]
         public IHttpActionResult DarApoyo([FromBody] Apoyo apoyo)

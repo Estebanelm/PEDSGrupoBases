@@ -3,11 +3,12 @@ using DigiTutorService.Models;
 using DigiTutorService.DataAccessLayer;
 using System.Net.Http;
 using System.Net;
+using DigiTutorService.LogicLayer;
 
 namespace DigiTutorService.Controllers {
     public class PublicacionesController : ApiController {
 
-        FachadaPublicacionDAL publicaciones = new FachadaPublicacionDAL();
+        PublicacionLogic publicaciones = new PublicacionLogic();
 
         //retorna lista de publicaciones que puede ver un estudiante
         [Route("api/{userid}/publicaciones")]

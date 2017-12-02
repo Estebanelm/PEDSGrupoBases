@@ -1,4 +1,5 @@
 using DigiTutorService.DataAccessLayer;
+using DigiTutorService.LogicLayer;
 using DigiTutorService.Models;
 using System.Collections.Generic;
 using System.Net;
@@ -10,7 +11,7 @@ namespace DigiTutorService.Controllers
     public class LoginController : ApiController
     {
         List<Login> loginTable = new List<Login>();
-        private FachadaUsuariosDAL usuarios = new FachadaUsuariosDAL();
+        private UsuariosLogic usuarios = new UsuariosLogic();
 
         [HttpPost]
         public IHttpActionResult PostLogin([FromBody] Login login)
