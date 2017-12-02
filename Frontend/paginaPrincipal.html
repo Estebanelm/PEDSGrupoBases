@@ -1,120 +1,558 @@
-<!DOCTYPE html>
-<html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+﻿<!DOCTYPE html>
+<html ng-app="paginaPrincipalApp"> 
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-    margin: 0;
-    height: 100%;
-}
-
-.navBar {
-  background-color:#0c486c;
-  padding:1px;
-  text-align:center;
-  height:50px;
-  position: relative;
-  
-  display: table-cell;
-  vertical-align: middle;
-  width:1%;
-}
-
-.menu {
-  float:left;
-  width:20%;
-  height: 100%;
-  text-align:center;
-}
-
-.menuitem {
-  background-color:#e5e5e5;
-  padding:9px;
-  margin-top:7px;
-  height:100%;
-}
-
-.main {
-  float:left;
-  width:50%;
-  padding:0 20px;
-}
-
-.right {
-  background-color:#e5e5e5;
-  float:left;
-  width:30%;
-  padding:13px;
-  margin-top:7px;
-  text-align:center;
-  height:100%;
-}
-.logo {
-    position:absolute;
-    top:0;
-    bottom:0;
-	left: 8px;
-    margin:auto;
-}
-
-.cfg {
-    position:absolute;
-    top:0;
-    bottom:0;
-	right: 8px;
-    margin:auto;
-}
-
-div {
+    <title>DigiTutor - Home</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-}
 
-.center {
-	height: 50px;
-    margin:auto;
-    text-align: center;
-}
-
-@media only screen and (max-width:620px) {
-  /* For mobile phones: */
-  .menu, .main, .right {
-    width:100%;
-  }
-}
-</style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="estilosHome.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="paginaPrincipalApp.js"></script>
 </head>
-<body style="font-family:Verdana;color:#aaaaaa;">
+<body ng-controller="paginaPrincipalCtrl">
+    
+    <!-- Navigation Bar -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar fixed-top" style="background:#0c486c;">
 
-<div class="navBar">
-    <img class="logo" src="logo.png" alt="logo" width="41" height="30">
-	<img class="cfg" src="cfg.png" alt="configuration" width="30" height="30">
-	<input style="margin-left:auto;margin-right" type="text" ng-model="name" placeholder="Nombre apellido...">
-</div>
+                <!-- Logo (boton de inicio) -->
+                <a class="navbar-default" href="#">
+                    <img src="Recursos/logo.png" class="img-responsive" style="position:relative;">
+                    <img src="Recursos/logotexto.png" class="img-responsive" style="position:relative;">
+                </a>
+                
+                <!-- Buscador -->
+                <form class="form-inline nav-justified" role="search">
+                    <div class="form-group form-inline"> 
+                        <p class="navbar-text mt-2" style="color:white; font-size:large"> Buscar por:</p> 
+                        <select class="btn selectpicker" >
+                            <option>Nombre</option>
+                            <option>Carné</option>
+                            <option>Tecnología</option>
+                        </select>
+                        <input class="form-control mr-sm-2 ml-1" type="text" style="font-size:medium;" placeholder="Nombre y Apellido"/>
+                    </div>
+                </form>
 
-<div style="overflow:auto">
-  <div class="menu">
-    <div class="menuitem">Link 1</div>
-    <div class="menuitem">Link 2</div>
-    <div class="menuitem">Link 3</div>
-    <div class="menuitem">Link 4</div>
-  </div>
+                <!-- Engranaje -->
+                <div class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size:28px; color:#ffffff">
+                        &#x2699; <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" style="right: 0; left: auto;">
+                        <li><a class="dropdown-item" href="#">Ayuda</a></li>
+                        <li><a class="dropdown-item" href="#">Cambiar Idioma</a></li>
+                        <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+   
+    <!-- Barra de Accion (Foto, subir contenido) -->
+    <div class="container-fluid" style="background:#388787">
+        <div class="row">
+            <nav class="col-sm-12 ml-sm-auto col-md-12 mt-3 pt-3">
+                <ul class="nav nav-justified">
+                    <li class="col-lg-6">
 
-  <div class="main">
-    <h2>Lorum Ipsum</h2>
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-  </div>
+                        <!-- Foto y nombre -->
+                        <a>
+                            <img src="Recursos/perfil.png" class="img-responsive" style="position:relative; background:black; padding:2px" width="100" height="100">
+                            <label style="font-size:x-large; color:white">{{usuario.Nombre }} {{usuario.Apellido}}</label>
+                        </a>
+                    </li>
+                    <li class="col-lg-6">
+                        <form class="form-inline pt-4">
+                            <div class="btn-toolbar">
+                                <div class="btn-group pr-1">
+                                    <button class="btn navbar-btn btn-reponsive" data-toggle="modal" data-target="#mdlPublicacion" type="button" style="font-size:large; background: #79be9a; color:white;">Hacer Publicación</button>
 
-  <div class="right">
-    <h2>About</h2>
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-  </div>
-</div>
-<div style="background-color:#e5e5e5;text-align:center;padding:10px;margin-top:7px;">© copyright w3schools.com</div>
+                                </div>
+
+                                <div class="btn-group pl-1">
+                                    <button class="btn navbar-btn btn-reponsive" data-toggle="modal" data-target="#mdlTutoria" type="button" style="font-size:large; background: #79be9a; color:white;">Ofrecer Tutoría</button>
+                                </div>  
+                            </div>
+
+                        </form>
+
+                        <!-- Modal Publicación-->
+                        <div class="modal fade" id="mdlPublicacion" role="dialog">
+                            <div class="modal-dialog modal-lg">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background:#0c486c">
+                                        <h4 class="modal-title" style="color:white">Nueva Publicación</h4>
+                                        <button type="button" style="color:white" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    
+                                    <div class="modal-body" style="background:#ffffff;">
+                                        <form class="form-horizontal">
+                                            <!-- Título -->
+                                            <div class="form-group row">
+                                                <label for="titulo" class="col-lg-2 form-control-label">Título de la publicación</label>
+                                                <div class="col-lg-10">
+                                                    <input id="titulo" class="form-control" name="titulo" type="text" placeholder="Título" required="">
+                                                </div>
+                                            </div>
+                                            <!-- Video -->
+                                            <div class="form-group row">
+                                                <label for="video" class="col-lg-2 form-control-label">Video de YouTube</label>
+                                                <div class="col-lg-8">
+                                                    <input id="video" class="form-control" name="video" type="text" placeholder="URL del video" />
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <p1>* opcional</p1>
+                                                </div>
+                                            </div>
+                                            <!-- Documento -->
+                                            <div class="form-group row">
+
+                                                <label for="documento" class="col-lg-2 form-control-label">Cargar un documento</label>
+                                                <div class="col-lg-8">
+                                                    <input id="documento" name="documento" class="form-control" type="file" multiple>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <p1>* opcional</p1>
+                                                </div>
+                                            </div>
+                                            <!-- Link -->
+                                            <div class="form-group row">
+                                                <label for="link" class="col-lg-2 control-label">Link externo</label>
+                                                <div class="col-lg-8">
+                                                    <input id="link" class="form-control" name="link" type="text" placeholder="URL externo" />
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <p1>* opcional</p1>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Descripción -->
+                                                <div class="form-group col-lg-4 mr-1">
+                                                    <label for="descripcion" class="control-label">Descripción</label>
+                                                    <textarea id="descripcion" class="form-control" rows="5" required=""></textarea>
+                                                </div>
+                                                <!-- Menu Tecnologías -->
+                                                <div class="form-group row col-lg-4 bg-light" style="height:40vh">
+                                                    <label for="menuTec" class="control-label">Tecnologías relacionadas</label>
+                                                    <div id="menuTec">
+                                                        <input type="search" placeholder="Buscar tecnología" />
+                                                        <div style="overflow-y:scroll; height:40%">
+                                                            <ul class="list-group">
+                                                                <p1>Agronomía</p1>
+                                                                <li class="list-group-item">Suelos</li>
+                                                                <li class="list-group-item">Arboles</li>
+                                                            </ul>
+                                                            <ul class="list-group">
+                                                                <p1>Programación</p1>
+                                                                <li class="list-group-item">Java</li>
+                                                                <li class="list-group-item">Python</li>
+                                                            </ul>
+                                                            <ul class="list-group">
+                                                                <p1>Programación</p1>
+                                                                <li class="list-group-item">Java</li>
+                                                                <li class="list-group-item">Python</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Tecnologías añadidas -->
+                                                <div class="form-group col-lg-4 bg-light">
+                                                    <label for="tecA" class="control-label">Tecnologías añadidas (1/3)</label>
+                                                    <div class="form-group" id="tecA">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item">Arboles <button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button">x</button></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Botones (Footer) -->
+                                            <div class="modal-footer form-group row">
+                                                <button class="btn btn-reponsive mr-auto" style="background:#79be9a; color:#ffffff" type="submit">Publicar</button>
+                                                <button type="reset" class="btn btn-reponsive" style="background:#79be9a; color:#ffffff" data-dismiss="modal">Cancelar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Tutoría -->
+                        <div class="modal fade" id="mdlTutoria" role="dialog">
+                            <div class="modal-dialog modal-lg">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background:#0c486c">
+                                        <h4 class="modal-title" style="color:white">Información de Tutoría</h4>
+                                        <button type="button" style="color:white" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                   
+                                    <div class="modal-body" style="background:#ffffff;">
+                                        <form class="form-horizontal">
+                                            <!-- Título -->
+                                            <div class="form-group row">
+                                                <label for="titulo" class="col-lg-2 form-control-label">Título de la publicación</label>
+                                                <div class="col-lg-10">
+                                                    <input id="titulo" class="form-control" name="titulo" type="text" placeholder="Título" required="">
+                                                </div>
+                                            </div>
+                                            <!-- Lugar -->
+                                            <div class="form-group row">
+                                                <label for="lugar" class="col-lg-2 form-control-label">Lugar</label>
+                                                <div class="col-lg-8">
+                                                    <input id="lugar" class="form-control" name="lugar" type="text" placeholder="Dirección" required=""/>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <p1>&#128205;</p1>
+                                                </div>
+                                            </div>
+                                            <!-- Fecha -->
+                                            <div class="form-group row">
+                                                <label for="fecha" class="col-lg-2 form-control-label">Fecha</label>
+                                                <div class="col-lg-8">
+                                                    <input id="fecha" class="form-control" name="fecha" type="date" required=""/>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <p1>&#128197;</p1>
+                                                </div>
+                                            </div>
+                                            <!-- Costo -->
+                                            <div class="form-group row">
+                                                <label for="costo" class="col-lg-2 control-label">Costo</label>
+                                                <div class="col-lg-8">
+                                                    <input id="costo" class="form-control" name="costo" type="text" placeholder="" />
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <p1>* opcional</p1>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Descripción -->
+                                                <div class="form-group col-lg-4 mr-1">
+                                                    <label for="descripcion" class="control-label">Descripción general</label>
+                                                    <textarea id="descripcion" class="form-control" rows="5" required=""></textarea>
+                                                </div>
+                                                <!-- Menu Tecnologías -->
+                                                <div class="form-group row col-lg-4 bg-light" style="height:40vh">
+                                                    <label for="menuTec" class="control-label">Tecnologías relacionadas</label>
+                                                    <div id="menuTec">
+                                                        <input type="search" placeholder="Buscar tecnología" />
+                                                        <div style="overflow-y:scroll; height:40%">
+                                                            <ul class="list-group">
+                                                                <p1>Agronomía</p1>
+                                                                <li class="list-group-item">Suelos</li>
+                                                                <li class="list-group-item">Arboles</li>
+                                                            </ul>
+                                                            <ul class="list-group">
+                                                                <p1>Programación</p1>
+                                                                <li class="list-group-item">Java</li>
+                                                                <li class="list-group-item">Python</li>
+                                                            </ul>
+                                                            <ul class="list-group">
+                                                                <p1>Programación</p1>
+                                                                <li class="list-group-item">Java</li>
+                                                                <li class="list-group-item">Python</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Tecnologías añadidas -->
+                                                <div class="form-group col-lg-4 bg-light">
+                                                    <label for="tecA" class="control-label">Tecnologías añadidas (1/3)</label>
+                                                    <div class="form-group" id="tecA">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item">Arboles <button class="btn btn-reponsive" style="background:#79be9a; color:#ffffff;" type="button">x</button></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Botones (Footer) -->
+                                            <div class="modal-footer form-group row">
+                                                <button class="btn btn-reponsive mr-auto" style="background:#79be9a; color:#ffffff" type="submit">Publicar</button>
+                                                <button type="reset" class="btn btn-reponsive" style="background:#79be9a; color:#ffffff" data-dismiss="modal">Cancelar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>         
+            </nav>
+        </div>
+    </div>
+
+    <!-- Informacion y Publicaciones -->
+    <div class="container-fluid">
+
+        <div class="row">
+            <!-- Sección de informacion Personal -->
+            <nav class="col-sm-4 col-md-4 d-none d-sm-block bg-light mt-3">
+                <form class="form-horizontal">
+                    <h1 style="font-size:x-large">Mi Información</h1>
+                    <fieldset>
+                        <div class="form-group">
+                            <strong><label>Universidad:</label></strong>
+                            <label >{{usuario.Universidad}}</label>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tecnologías</th>
+                                        <th>Apoyos</th>
+                                    </tr>
+                                </thead>
+                                <tbody>       
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12" ng-repeat="t in usuario.Tecnologias"><label class="col-lg-8">{{t.Nombre}}</label><label class="col-lg-4">{{t.Apoyos}}</label><br /></div>
+                            <strong><label>Estadísticas</label></strong><br />
+                            <label>Seguidores: </label><label>{{usuario.CantSeguidores}}</label> <br />
+                            <label>Participación: </label><label>{{usuario.Participacion}}</label>  <br />
+                            <label>Reputación: </label><label>{{usuario.Reputacion}}</label>% 
+                        </div>
+                        <div class="form-group">
+                            <strong><label>Contacto</label></strong><br />
+                            <label>Teléfono: </label><label>{{usuario.Telefono}}</label> <br />
+                            <label>Email: </label><label>{{usuario.Correo}}</label> 
+                        </div>
+                        <div class="form-group">
+                            <strong><label>Fecha de Inscripción a DigiTutor</label></strong><br />
+                            <label>{{usuario.FechaInscripcion}}</label>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </nav>
+
+            <!-- Sección de publicaciones -->
+            <main role="main" class="col-sm-8 ml-sm-auto col-md-8 pt-3 mb-0">
+
+                <!-- Tabs de publicaciones -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#">Mis publicaciones</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#">Publicaciones de otros</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#">Todas la publicaciones</a></li>
+                </ul>
+
+                <!-- Lista de publicaciones -->
+                <ul class="list-group" style="overflow-y:scroll; height:90vh">
+                    <!-- Ejemplo de publicación -->
+                    <li class="list-group-item" ng-repeat="c in contenidoVisible">
+                        <div>
+                            <form style="background:#cff09f; padding-bottom:2em">
+                                <fieldset class="ml-3">
+                                    <label style="font-size:x-large">{{c.Nombre_autor}}</label>
+                                    <p1>publicado el:</p1>
+                                    <label href="#" data-toggle="tooltip" title="fecha exacta">{{c.FechaCreacion.substring(0,10)}}</label>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="col-lg-12" style="font-size:x-large; text-align:center"><strong>{{c.Titulo}}</strong></label>
+                                </fieldset>
+                                <div class="row" class="col-lg-12">
+                                    <div class="form-group col-lg-2 ml-3">
+                                        <strong><label>Tecnología(s):</label></strong><br />
+                                        <label class="col-lg-12" ng-repeat="tc in c.Tecnologias">-{{tc.Nombre}}</label> <br />
+                                    
+                                    </div>
+                                    
+                                    <div class="form-group col-lg-2">
+                                        <label class="col-lg-12" style="font-size:15vh">&#128462;</label>
+                                        <a class="col-lg-12" href="{{c.Documento}}" target="_blank">Ver documento</a>
+                                    </div>
+                                    <div class="form-group col-lg-4"> <br />
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe width="854"  height="480" src="https://www.youtube.com/embed/pDXhZum7deY" "frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label class="col-lg-12" style="font-size:15vh">&#9741;</label>
+                                        <a class="col-lg-12" href="{{c.Link}}" target="_blank">Ir a enlace</a>
+                                    </div>
+                                    </div>
+                                <fieldset>
+                                    <div class="form-group col-lg-12">
+                                        <label for="descripcionPub" class="control-label">Descripción</label>
+                                        <textarea id="descripcionPub" class="form-control" rows="4" readonly>{{c.Descripcion}}</textarea>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="bg-light ml-3 mr-3">
+                                    <div class="form-group col-lg-12 row ml-3">
+                                        <label class="control-label">{{c.CantidadComentarios}} Comentarios</label>
+                                        <label class="control-label pl-3">{{c.CantidadEvaluaciones}} Evaluaciones</label>
+
+
+                                        <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url({{rutaLikeArray[myPosEval(c.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darLike(c.Id,false)"></button>
+                                        <button class="btn btn-reponsive" type="button" style="background:none; background-image:url({{rutaDislikeArray[myNegEval(c.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darDislike(c.Id,false)"></button>
+                                    </div>
+                                    <div class="form-group col-lg-12" style="border-top:1px solid;">
+                                        <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(c.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
+                                        <div id="comTuto" ng-show="comment==tut.Id"  style="overflow-y:scroll;">
+                                            <ul class="list-group" style="height:10em" >
+                                                <li class="list-group-item" ng-repeat="com in listaComentarios">
+                                                    <a href="#">{{com.Nombre_autor}}</a>
+                                                    <p1>escribió hace:</p1>
+                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario}}</a>
+                                                    <label class="col-lg-12">{{com.Contenido}}</label> 
+                                                </li>
+                                            </ul> <br />
+                                            <!--Botones de paginación de comentarios-->
+                                            <ul class="pagination justify-content-end">
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="subsCommentPage(tut.Id)"><</a></li>
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="addCommentPage(tut.Id)" >></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <div class="input-group col-lg-12 mr-3">
+                                        <span class="input-group-addon">Yo:</span>
+                                        <input type="text" class="form-control">
+                                        <button class="btn btn-reponsive" style="background:#79be9a; color:white">Enviar</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </li>
+
+                    <!-- Ejemplo de tutoría -->
+                    <li class="list-group-item" ng-repeat="tut in tutoriasVisibles ">
+                        <div>
+                            <form style="background:#cff09f; padding-bottom:2em">
+                                <fieldset class="ml-3">
+                                    <label style="font-size:x-large">{{tut.Nombre_autor}}</label>
+                                    <p1>publicado el:</p1>
+                                    <label href="#" data-toggle="tooltip" title="fecha exacta">{{tut.FechaCreacion.substring(0,10)}}</label>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="col-lg-12" style="font-size:x-large; text-align:center"><strong>{{tut.Titulo}}</strong></label>
+                                </fieldset>
+                                <div class="row">
+                                    <div class="form-group col-lg-3 ml-3">
+                                        <strong><label>Tecnología(s):</label></strong><br />
+                                        <label class="col-lg-12" ng-repeat="tc in tut.Tecnologias">-{{tc.Nombre}}</label> <br />
+                                    </div>
+                                    
+                                    <div class="form-group col-lg-2">
+                                        <div class="col-lg-12 text-center">
+                                            <label for="iconTutoria" class="control-label" style="font-size:larger; text-align:center"><strong>Tutoría</strong></label>
+                                        </div>
+                                        <div class="col-lg-12 text-center">
+                                            <img id="iconTutoria" src="Recursos/iconTutoria.png" />
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <!-- -->
+                                        <fieldset>
+                                            <div class="col-lg-12 input-group">
+                                                <label class="form-control-label">Lugar: </label>
+                                                
+                                                <input type="text" class="form-control" readonly placeholder="{{tut.Lugar}}" style="width:auto;">
+                                                <p1>&#128205;</p1>
+                                            </div>
+                                            <div class="col-lg-12 input-group">
+                                                <label class="form-control-label">Fecha:</label>
+                                                <input type="text" class="form-control" readonly placeholder="{{tut.FechaTutoria}}" style="width:auto;">
+                                                <p1>&#128197;</p1>
+                                            </div>
+                                            <div class="col-lg-12 input-group">
+                                                <label class="form-control-label">Costo: </label>
+                                                <input type="text" class="form-control" readonly placeholder="{{tut.Costo}}" style="width:auto">
+                                            </div>
+                                        </fieldset>
+                                        <!---->
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <div class="form-group col-lg-12">
+                                        <label for="descripcionPub" class="control-label">Descripción</label>
+                                        <textarea id="descripcionPub" class="form-control" rows="4" readonly>{{tut.Descripcion}}</textarea>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="bg-light ml-3 mr-3">
+                                    <div class="form-group col-lg-12 row ml-3">
+                                        <label class="control-label">{{tut.CantidadComentarios}} Comentarios</label>
+                                        <label class="control-label pl-3">{{tut.CantidadEvaluaciones}} Evaluaciones</label>
+
+                                        <button class="btn btn-reponsive ml-auto" type="button" style="background:none; background-image:url({{rutaLikeArray[myPosEval(tut.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darLike(tut.Id,true)"></button>
+                                        <button class="btn btn-reponsive" type="button" style="background:none; background-image:url({{rutaDislikeArray[myNegEval(tut.Id)]}}); background-repeat:no-repeat; background-position:center" ng-click="darDislike(tut.Id,true)"></button>
+                                    </div>
+                                    <div class="form-group col-lg-12" style="border-top:1px solid;">
+                                        <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(tut.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
+                                        <div id="comTuto" ng-show="comment==tut.Id"  style="overflow-y:scroll;">
+                                            <ul class="list-group" style="height:10em" >
+                                                <li class="list-group-item" ng-repeat="com in listaComentarios">
+                                                    <a href="#">{{com.Nombre_Autor}}</a>
+                                                    <p1>escribió hace:</p1>
+                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario}}</a>
+                                                    <label class="col-lg-12">{{com.Contenido}}</label> 
+                                                </li>
+                                            </ul> <br />
+                                            <!--Botones de paginación de comentarios-->
+                                            <ul class="pagination justify-content-end">
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="subsCommentPage(tut.Id)"><</a></li>
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="addCommentPage(tut.Id)" >></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <div class="input-group col-lg-12 mr-3">
+                                        <span class="input-group-addon">Yo:</span>
+                                        <input type="text" class="form-control">
+                                        <button class="btn btn-reponsive" style="background:#79be9a; color:white">Enviar</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <!-- Botones para pasar de publicaciones -->
+                <div class="mb-4">
+                    <form class="form-inline">
+                        <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;"  ng-click="subsPublicacionesPage()"><</button>
+                        <button type="button" class="btn btn-reponsive col-lg-6" style="display:inline-table; background: #79be9a; color:white;"  ng-click="addPublicacionesPage()">></button>
+                    </form>
+                </div>
+                
+            </main>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
 
 </body>
 </html>

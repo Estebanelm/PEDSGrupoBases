@@ -1,4 +1,20 @@
-﻿var app = angular.module('loginApp', []);
+﻿var app = angular.module('loginApp', ["ngRoute"]);
+
+app.config(function($routeProvider) {
+  $routeProvider
+  .when("/", {
+    templateUrl : $location.url()
+  })
+  .when("/hola", {
+    templateUrl : "file:///C:/Users/PC/Documents/PEDSGrupoBases/Frontend/Homepage/paginaPrincipal.html"
+  })
+  .when("/green", {
+    templateUrl : "green.htm"
+  })
+  .when("/blue", {
+    templateUrl : "blue.htm"
+  });
+});
 
 app.controller('loginCtrl', function ($scope, $http, $filter, $location, $window) {
 
@@ -19,7 +35,7 @@ app.controller('loginCtrl', function ($scope, $http, $filter, $location, $window
     };
 
     $scope.SubmitForm = function () {
-        $scope.login = $scope.BuildLogin($scope.formulario);
+       /* $scope.login = $scope.BuildLogin($scope.formulario);
         url = $scope.serverURL + "login";
         jsonLogin = JSON.stringify($scope.login);
 
@@ -36,7 +52,8 @@ app.controller('loginCtrl', function ($scope, $http, $filter, $location, $window
         },
             function (response) {
 
-            });
+            });*/
+    
     }
 
 
