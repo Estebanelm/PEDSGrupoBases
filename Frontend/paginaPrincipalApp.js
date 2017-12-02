@@ -17,7 +17,7 @@ $scope.rutaLikeArray=["Recursos/like-off.png","Recursos/like.png"];
 $scope.rutaDislikeArray=["Recursos/dislike-off.png","Recursos/dislike.png"];
 $scope.rutaLikeIndex=0;
 $scope.fechaServidor=new Date();
-$scope.cokie=
+
 
 
 
@@ -37,6 +37,33 @@ $http.get($scope.serverURL+$scope.estudianteId+"/publicaciones?pag="+$scope.pagi
         //Second function handles error
         $scope.publicacionesVisibles = "Error";
     });
+
+$scope.HacerComentario=function(p_Id,p_contenido){
+	newObj={};
+	newObj.Id_Comentario=0;
+	newObj.Id_autor=$scope.estudianteId;
+	newObj.Nombre_autor=$scope.usuario.Nombre;
+	newObj.Contenido=p_contenido;
+	newObj.Fecha_comentario=new Date();
+	newObj.Id_publicacion=p_Id;
+	jsonComment=JSON.stringify(newObj);
+
+	$http.post($scope.serverURL+"comentarios/"+p_Id.toString(),jsonComment).then(function (response) {
+		$scope.ObtenerComentarios(p_Id);
+		for (var i = 0; i<$scope.publicacionesVisibles.length; i++) {
+			if($scope.publicacionesVisibles[i].Id==p_Id){
+				 $scope.publicacionesVisibles[i].CantidadComentarios+=1;
+			}
+
+		}
+		$scope.tutoriasVisibles=$filter('filter')($scope.publicacionesVisibles, {"Costo" :""});
+		$scope.contenidoVisible=$filter('filter')($scope.publicacionesVisibles, {"Costo" :"!"});
+	}, 
+				function(response) { });
+
+
+
+};
 
 $scope.ObtenerComentarios=function(p_Id){
 	$http.get($scope.serverURL+"comentarios/"+p_Id.toString()+"?pag="+$scope.paginaComentarios).then(function (response) {$scope.listaComentarios = response.data;}

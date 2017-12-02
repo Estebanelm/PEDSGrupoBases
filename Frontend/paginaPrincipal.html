@@ -340,7 +340,7 @@
                         </div>
                         <div class="form-group">
                             <strong><label>Fecha de Inscripción a DigiTutor</label></strong><br />
-                            <label>{{usuario.FechaInscripcion}}</label>
+                            <label>{{usuario.FechaInscripcion.substring(0,10)}}</label>
                         </div>
                     </fieldset>
                 </form>
@@ -352,9 +352,9 @@
 
                 <!-- Tabs de publicaciones -->
                 <ul class="nav nav-tabs nav-justified">
-                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#">Mis publicaciones</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#">Todas las publicaciones</a></li>
                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#">Publicaciones de otros</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#">Todas la publicaciones</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#">Mis publicaciones</a></li>
                 </ul>
 
                 <!-- Lista de publicaciones -->
@@ -364,7 +364,7 @@
                         <div>
                             <form style="background:#cff09f; padding-bottom:2em">
                                 <fieldset class="ml-3">
-                                    <label style="font-size:x-large">{{c.Nombre_autor}}</label>
+                                    <label style="font-size:x-large">{{c.Nombre_autor.substring(0,15)}}</label>
                                     <p1>publicado el:</p1>
                                     <label href="#" data-toggle="tooltip" title="fecha exacta">{{c.FechaCreacion.substring(0,10)}}</label>
                                 </fieldset>
@@ -374,7 +374,7 @@
                                 <div class="row" class="col-lg-12">
                                     <div class="form-group col-lg-2 ml-3">
                                         <strong><label>Tecnología(s):</label></strong><br />
-                                        <label class="col-lg-12" ng-repeat="tc in c.Tecnologias">-{{tc.Nombre}}</label> <br />
+                                        <label class="col-lg-12" ng-repeat="tc in c.Tecnologias">{{tc.Nombre.substring(0,14)}}</label> <br />
                                     
                                     </div>
                                     
@@ -395,7 +395,7 @@
                                 <fieldset>
                                     <div class="form-group col-lg-12">
                                         <label for="descripcionPub" class="control-label">Descripción</label>
-                                        <textarea id="descripcionPub" class="form-control" rows="4" readonly>{{c.Descripcion}}</textarea>
+                                        <textarea id="descripcionPub" class="form-control" rows="4" readonly>{{c.Descripcion.substring(0,300)}}</textarea>
                                     </div>
                                 </fieldset>
                                 <fieldset class="bg-light ml-3 mr-3">
@@ -409,19 +409,19 @@
                                     </div>
                                     <div class="form-group col-lg-12" style="border-top:1px solid;">
                                         <button class="btn btn-reponsive col-lg-12" data-toggle="collapse" ng-click="CommentButton(c.Id)" style="background:none; color:blue" type="button"> Ver Comentarios</button>
-                                        <div id="comTuto" ng-show="comment==tut.Id"  style="overflow-y:scroll;">
+                                        <div id="comCont" ng-show="comment==c.Id"  style="overflow-y:scroll;">
                                             <ul class="list-group" style="height:10em" >
                                                 <li class="list-group-item" ng-repeat="com in listaComentarios">
-                                                    <a href="#">{{com.Nombre_autor}}</a>
-                                                    <p1>escribió hace:</p1>
-                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario}}</a>
+                                                    <a href="#">{{com.Nombre_Autor}}</a>
+                                                    <p1>escrito el:</p1>
+                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario.substring(0,10)}}</a>
                                                     <label class="col-lg-12">{{com.Contenido}}</label> 
                                                 </li>
                                             </ul> <br />
                                             <!--Botones de paginación de comentarios-->
                                             <ul class="pagination justify-content-end">
-                                                <li class="page-item"><a class="page-link" href="#" ng-click="subsCommentPage(tut.Id)"><</a></li>
-                                                <li class="page-item"><a class="page-link" href="#" ng-click="addCommentPage(tut.Id)" >></a></li>
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="subsCommentPage(c.Id)"><</a></li>
+                                                <li class="page-item"><a class="page-link" href="#" ng-click="addCommentPage(c.Id)" >></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -429,8 +429,8 @@
                                 <fieldset>
                                     <div class="input-group col-lg-12 mr-3">
                                         <span class="input-group-addon">Yo:</span>
-                                        <input type="text" class="form-control">
-                                        <button class="btn btn-reponsive" style="background:#79be9a; color:white">Enviar</button>
+                                        <input type="text" class="form-control" ng-model="contenidoComent">
+                                        <button class="btn btn-reponsive" style="background:#79be9a; color:white" ng-click="HacerComentario(c.Id,contenidoComent)">Enviar</button>
                                     </div>
                                 </fieldset>
                             </form>
@@ -507,7 +507,7 @@
                                                 <li class="list-group-item" ng-repeat="com in listaComentarios">
                                                     <a href="#">{{com.Nombre_Autor}}</a>
                                                     <p1>escribió hace:</p1>
-                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario}}</a>
+                                                    <a href="#" data-toggle="tooltip" title="fecha exacta">{{com.Fecha_comentario.substring(0,10)}}</a>
                                                     <label class="col-lg-12">{{com.Contenido}}</label> 
                                                 </li>
                                             </ul> <br />
@@ -522,8 +522,8 @@
                                 <fieldset>
                                     <div class="input-group col-lg-12 mr-3">
                                         <span class="input-group-addon">Yo:</span>
-                                        <input type="text" class="form-control">
-                                        <button class="btn btn-reponsive" style="background:#79be9a; color:white">Enviar</button>
+                                        <input type="text" class="form-control" ng-model="contenidoComent">
+                                        <button class="btn btn-reponsive" style="background:#79be9a; color:white" ng-click="HacerComentario(tut.Id,contenidoComent)">Enviar</button>
                                     </div>
                                 </fieldset>
                             </form>
